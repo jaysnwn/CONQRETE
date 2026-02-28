@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CONQRETE — Coming Soon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Barlow+Condensed:wght@300;400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --concrete: #1a1a1a;
+    --cement: #2c2c2c;
+    --dust: #444;
+    --chalk: #d4d0c8;
+    --white: #f0ede6;
+    --acid: #c8ff00;
+    --orange: #ff4e00;
+    --red: #ff1a1a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--concrete);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+    min-height: 100vh;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--acid);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.05s;
+    mix-blend-mode: difference;
+  }
+  .cursor-trail {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--acid);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+    opacity: 0.5;
+  }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* Scanlines */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .nav-logo {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--acid); }
+
+  .nav-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--dust);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 40px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Big background text */
+  .bg-word {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: clamp(120px, 22vw, 340px);
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.04);
+    white-space: nowrap;
+    letter-spacing: -0.02em;
+    pointer-events: none;
+    user-select: none;
+    animation: bgPulse 8s ease-in-out infinite;
+  }
+
+  @keyframes bgPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.4em;
+    color: var(--acid);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--acid);
+  }
+
+  .hero-title {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: clamp(72px, 14vw, 200px);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    text-transform: uppercase;
+    animation: revealTitle 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes revealTitle {
+    from { transform: translateY(80px); opacity: 0; clip-path: inset(100% 0 0 0); }
+    to { transform: translateY(0); opacity: 1; clip-path: inset(0% 0 0 0); }
+  }
+
+  .hero-title .accent { color: var(--acid); }
+
+  .hero-subtitle {
+    font-size: clamp(18px, 2.5vw, 28px);
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(240,237,230,0.5);
+    margin-top: 20px;
+    animation: fadeUp 1s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes fadeUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(240,237,230,0.45);
+    max-width: 460px;
+    margin-top: 32px;
+    animation: fadeUp 1s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* Glitch effect */
+  .glitch {
+    position: relative;
+    display: inline-block;
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+  }
+  .glitch::before {
+    color: var(--red);
+    animation: glitch1 4s infinite;
+    clip-path: inset(0 0 60% 0);
+  }
+  .glitch::after {
+    color: var(--acid);
+    animation: glitch2 4s infinite;
+    clip-path: inset(60% 0 0 0);
+  }
+
+  @keyframes glitch1 {
+    0%, 90%, 100% { transform: translate(0); opacity: 0; }
+    92% { transform: translate(-4px, -2px); opacity: 0.7; }
+    94% { transform: translate(4px, 2px); opacity: 0.7; }
+    96% { transform: translate(-4px, 2px); opacity: 0.7; }
+    98% { transform: translate(0); opacity: 0; }
+  }
+  @keyframes glitch2 {
+    0%, 90%, 100% { transform: translate(0); opacity: 0; }
+    93% { transform: translate(4px, 2px); opacity: 0.6; }
+    95% { transform: translate(-4px, -2px); opacity: 0.6; }
+    97% { transform: translate(2px, -4px); opacity: 0.6; }
+    99% { transform: translate(0); opacity: 0; }
+  }
+
+  /* Diagonal cut */
+  .hero-cut {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: var(--concrete);
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    z-index: 3;
+  }
+
+  /* COUNTDOWN */
+  .countdown-section {
+    background: var(--cement);
+    padding: 80px 40px;
+    position: relative;
+    border-top: 1px solid rgba(200,255,0,0.1);
+    border-bottom: 1px solid rgba(200,255,0,0.1);
+  }
+
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--dust);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+
+  .countdown-grid {
+    display: flex;
+    gap: 0;
+    max-width: 800px;
+  }
+
+  .countdown-item {
+    flex: 1;
+    text-align: center;
+    padding: 40px 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .countdown-item:hover { border-color: rgba(200,255,0,0.3); }
+
+  .countdown-num {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: clamp(52px, 8vw, 96px);
+    line-height: 1;
+    color: var(--white);
+    display: block;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.2s;
+  }
+  .countdown-item:hover .countdown-num { color: var(--acid); }
+
+  .countdown-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--dust);
+    text-transform: uppercase;
+    margin-top: 8px;
+    display: block;
+  }
+
+  .countdown-sep {
+    display: flex;
+    align-items: center;
+    padding: 0 0;
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 48px;
+    color: var(--dust);
+    align-self: flex-start;
+    padding-top: 40px;
+  }
+
+  /* PRODUCTS PREVIEW */
+  .products-section {
+    padding: 100px 40px;
+    position: relative;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding-bottom: 24px;
+  }
+
+  .section-title {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  .section-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--dust);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+
+  .product-card {
+    background: var(--cement);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    transition: background 0.3s;
+  }
+  .product-card:hover { background: #333; }
+
+  .product-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--acid);
+    transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .product-card:hover::before { height: 100%; }
+
+  .product-icon {
+    font-size: 40px;
+    margin-bottom: 24px;
+    display: block;
+    filter: grayscale(1);
+    transition: filter 0.3s;
+  }
+  .product-card:hover .product-icon { filter: grayscale(0); }
+
+  .product-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--dust);
+    letter-spacing: 0.3em;
+    margin-bottom: 12px;
+  }
+
+  .product-name {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: clamp(24px, 3vw, 36px);
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .product-tag {
+    display: inline-block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--acid);
+    border: 1px solid rgba(200,255,0,0.3);
+    padding: 4px 12px;
+    text-transform: uppercase;
+  }
+
+  .product-status {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--dust);
+    letter-spacing: 0.3em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .product-status::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    animation: blink 2s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  /* NOTIFY */
+  .notify-section {
+    background: var(--acid);
+    padding: 80px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .notify-section::before {
+    content: 'CONQRETE';
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 200px;
+    color: rgba(0,0,0,0.08);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .notify-title {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: clamp(36px, 6vw, 80px);
+    color: var(--concrete);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    max-width: 700px;
+  }
+
+  .notify-form {
+    display: flex;
+    gap: 0;
+    max-width: 560px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .notify-input {
+    flex: 1;
+    background: rgba(0,0,0,0.12);
+    border: 2px solid rgba(0,0,0,0.2);
+    border-right: none;
+    color: var(--concrete);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    padding: 18px 24px;
+    outline: none;
+    letter-spacing: 0.1em;
+    transition: background 0.3s;
+  }
+  .notify-input::placeholder { color: rgba(0,0,0,0.35); }
+  .notify-input:focus { background: rgba(0,0,0,0.18); }
+
+  .notify-btn {
+    background: var(--concrete);
+    color: var(--acid);
+    border: none;
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.2em;
+    padding: 18px 36px;
+    cursor: none;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .notify-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 0;
+  }
+  .notify-btn:hover::after { transform: scaleX(1); }
+  .notify-btn span { position: relative; z-index: 1; }
+
+  .notify-note {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: rgba(0,0,0,0.4);
+    letter-spacing: 0.2em;
+    margin-top: 16px;
+  }
+
+  /* SUCCESS */
+  .notify-success {
+    display: none;
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 28px;
+    color: var(--concrete);
+    letter-spacing: 0.1em;
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--concrete);
+    border-top: 1px solid rgba(200,255,0,0.15);
+    border-bottom: 1px solid rgba(200,255,0,0.15);
+    overflow: hidden;
+    padding: 16px 0;
+    position: relative;
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 60px;
+    animation: marquee 20s linear infinite;
+    width: max-content;
+  }
+
+  .marquee-item {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--dust);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+  }
+  .marquee-item span { color: var(--acid); font-size: 20px; }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-logo {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.15em;
+    color: var(--white);
+  }
+  .footer-logo span { color: var(--acid); }
+
+  .footer-copy {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--dust);
+    letter-spacing: 0.2em;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 20px;
+  }
+
+  .social-link {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--dust);
+    letter-spacing: 0.3em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .social-link:hover { color: var(--acid); }
+
+  /* Horizontal rule accent */
+  .accent-line {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 48px 0;
+    animation: fadeUp 1s 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .accent-line::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--acid);
+  }
+  .accent-line::after {
+    content: '';
+    display: block;
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+  }
+  .accent-line-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--dust);
+    letter-spacing: 0.4em;
+    white-space: nowrap;
+  }
+
+  /* Floating corner mark */
+  .corner-mark {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--dust);
+    letter-spacing: 0.3em;
+    writing-mode: vertical-rl;
+    animation: fadeUp 1s 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* ========== THUNDERSTORM ========== */
+
+  /* Lightning canvas — sits over everything */
+  #stormCanvas {
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    pointer-events: none;
+  }
+
+  /* Full-screen flash overlay */
+  #lightningFlash {
+    position: fixed;
+    inset: 0;
+    z-index: 997;
+    pointer-events: none;
+    background: rgba(200,255,0,0.12);
+    opacity: 0;
+  }
+
+  /* Rain layer */
+  #rainCanvas {
+    position: fixed;
+    inset: 0;
+    z-index: 996;
+    pointer-events: none;
+    opacity: 0.18;
+  }
+
+  /* Storm vignette — darkens edges during storm */
+  #stormVignette {
+    position: fixed;
+    inset: 0;
+    z-index: 995;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%);
+    opacity: 0;
+    transition: opacity 2s ease;
+  }
+
+  /* Storm clouds top overlay */
+  #stormClouds {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 200px;
+    z-index: 994;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.85) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 3s ease;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .hero { padding: 100px 20px 60px; }
+    .countdown-section, .products-section, .notify-section { padding: 60px 20px; }
+    .products-grid { grid-template-columns: 1fr; }
+    .countdown-grid { gap: 0; }
+    .countdown-sep { display: none; }
+    footer { padding: 24px 20px; flex-direction: column; gap: 20px; text-align: center; }
+    .notify-form { flex-direction: column; }
+    .notify-input { border-right: 2px solid rgba(0,0,0,0.2); border-bottom: none; }
+    .corner-mark { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<!-- Thunderstorm layers -->
+<div id="stormClouds"></div>
+<div id="stormVignette"></div>
+<canvas id="rainCanvas"></canvas>
+<canvas id="stormCanvas"></canvas>
+<div id="lightningFlash"></div>
+
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-logo">CONQ<span>.</span>RETE</a>
+  <span class="nav-tag">EST. 2025 — NEW AGE TECH</span>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="bg-word">CONQRETE</div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">WEARABLE TECH BRAND</div>
+
+    <h1 class="hero-title">
+      <span class="glitch" data-text="CONQ">CONQ</span><br>
+      <span style="color: var(--acid);">RETE</span>
+    </h1>
+
+    <p class="hero-subtitle">New Age Technology</p>
+
+    <div class="accent-line">
+      <span class="accent-line-text">SOMETHING MASSIVE IS BEING BUILT</span>
+    </div>
+
+    <p class="hero-desc">
+      Earphones. Power banks. Cables. Adapters. 
+      Products engineered to keep up with your pace. 
+      Uncompromising in design. Built for the relentless.
+    </p>
+
+    <div class="corner-mark">COMING SOON — 2025</div>
+  </div>
+
+  <div class="hero-cut"></div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack">
+    <div class="marquee-item">EARPHONES<span>·</span>POWER BANKS<span>·</span>TYPE-C CABLES<span>·</span>ADAPTERS<span>·</span>EARPHONES<span>·</span>POWER BANKS<span>·</span>TYPE-C CABLES<span>·</span>ADAPTERS<span>·</span></div>
+    <div class="marquee-item">EARPHONES<span>·</span>POWER BANKS<span>·</span>TYPE-C CABLES<span>·</span>ADAPTERS<span>·</span>EARPHONES<span>·</span>POWER BANKS<span>·</span>TYPE-C CABLES<span>·</span>ADAPTERS<span>·</span></div>
+  </div>
+</div>
+
+<!-- Countdown -->
+<section class="countdown-section">
+  <div class="section-label">// TARGET: LAUNCH</div>
+  <div class="countdown-grid">
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-days">00</span>
+      <span class="countdown-label">Days</span>
+    </div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-hours">00</span>
+      <span class="countdown-label">Hours</span>
+    </div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-mins">00</span>
+      <span class="countdown-label">Minutes</span>
+    </div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-secs">00</span>
+      <span class="countdown-label">Seconds</span>
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="products-section">
+  <div class="section-header">
+    <h2 class="section-title">What's<br>Coming</h2>
+    <span class="section-num">04 PRODUCTS</span>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-status">IN DEV</div>
+      <span class="product-icon">🎧</span>
+      <div class="product-num">// 01</div>
+      <h3 class="product-name">Earphones</h3>
+      <span class="product-tag">WEARABLE AUDIO</span>
+    </div>
+    <div class="product-card">
+      <div class="product-status">IN DEV</div>
+      <span class="product-icon">🔋</span>
+      <div class="product-num">// 02</div>
+      <h3 class="product-name">Power Banks</h3>
+      <span class="product-tag">PORTABLE POWER</span>
+    </div>
+    <div class="product-card">
+      <div class="product-status">IN DEV</div>
+      <span class="product-icon">⚡</span>
+      <div class="product-num">// 03</div>
+      <h3 class="product-name">Type-C Cables</h3>
+      <span class="product-tag">FAST TRANSFER</span>
+    </div>
+    <div class="product-card">
+      <div class="product-status">IN DEV</div>
+      <span class="product-icon">🔌</span>
+      <div class="product-num">// 04</div>
+      <h3 class="product-name">Power Adapters</h3>
+      <span class="product-tag">MULTI-PORT CHARGE</span>
+    </div>
+  </div>
+</section>
+
+<!-- Notify -->
+<section class="notify-section">
+  <h2 class="notify-title">Be First.<br>Get Notified.</h2>
+  <form class="notify-form" id="notifyForm">
+    <input type="email" class="notify-input" placeholder="YOUR@EMAIL.COM" required id="emailInput">
+    <button type="submit" class="notify-btn"><span>NOTIFY ME</span></button>
+  </form>
+  <div class="notify-success" id="notifySuccess">YOU'RE ON THE LIST. ✓</div>
+  <p class="notify-note">// NO SPAM. JUST THE DROP.</p>
+</section>
+
+<!-- Footer Marquee reverse -->
+<div class="marquee-wrap">
+  <div class="marquee-track" style="animation-direction: reverse; animation-duration: 30s;">
+    <div class="marquee-item" style="color: rgba(200,255,0,0.3);">CONQRETE<span>·</span>NEW AGE TECH<span>·</span>BUILT DIFFERENT<span>·</span>ENGINEERED FOR THE RELENTLESS<span>·</span>CONQRETE<span>·</span>NEW AGE TECH<span>·</span>BUILT DIFFERENT<span>·</span>ENGINEERED FOR THE RELENTLESS<span>·</span></div>
+    <div class="marquee-item" style="color: rgba(200,255,0,0.3);">CONQRETE<span>·</span>NEW AGE TECH<span>·</span>BUILT DIFFERENT<span>·</span>ENGINEERED FOR THE RELENTLESS<span>·</span>CONQRETE<span>·</span>NEW AGE TECH<span>·</span>BUILT DIFFERENT<span>·</span>ENGINEERED FOR THE RELENTLESS<span>·</span></div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">CONQ<span>.</span>RETE</div>
+  <div class="footer-copy">© 2025 CONQRETE. ALL RIGHTS RESERVED.</div>
+  <div class="footer-social">
+    <a href="#" class="social-link">Instagram</a>
+    <a href="#" class="social-link">Twitter</a>
+    <a href="#" class="social-link">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const trail = document.getElementById('cursorTrail');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      trail.style.left = e.clientX + 'px';
+      trail.style.top = e.clientY + 'px';
+    }, 80);
+  });
+  document.querySelectorAll('button, a, .product-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(2.5)';
+      trail.style.transform = 'translate(-50%, -50%) scale(1.5)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      trail.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+  });
+
+  // Countdown — target 90 days from now
+  const target = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+  function updateCountdown() {
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) return;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+    document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Notify form
+  document.getElementById('notifyForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('notifySuccess').style.display = 'block';
+  });
+
+  // ============================================================
+  //  THUNDERSTORM ENGINE
+  // ============================================================
+  (function() {
+    const flashEl    = document.getElementById('lightningFlash');
+    const vigEl      = document.getElementById('stormVignette');
+    const cloudsEl   = document.getElementById('stormClouds');
+
+    // --- Lightning canvas ---
+    const lCanvas  = document.getElementById('stormCanvas');
+    const lCtx     = lCanvas.getContext('2d');
+
+    // --- Rain canvas ---
+    const rCanvas  = document.getElementById('rainCanvas');
+    const rCtx     = rCanvas.getContext('2d');
+
+    function resize() {
+      lCanvas.width  = rCanvas.width  = window.innerWidth;
+      lCanvas.height = rCanvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Fade in storm atmosphere
+    setTimeout(() => {
+      vigEl.style.opacity    = '1';
+      cloudsEl.style.opacity = '1';
+    }, 800);
+
+    // ---- Web Audio thunder rumble ----
+    let audioCtx = null;
+    function initAudio() {
+      if (audioCtx) return;
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    function playThunder(delay) {
+      initAudio();
+      if (!audioCtx) return;
+      setTimeout(() => {
+        const bufferSize = audioCtx.sampleRate * 3;
+        const buffer     = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data       = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufferSize, 1.5);
+        }
+        const src    = audioCtx.createBufferSource();
+        src.buffer   = buffer;
+        const gain   = audioCtx.createGain();
+        gain.gain.setValueAtTime(0, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.6, audioCtx.currentTime + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.5);
+        const filter      = audioCtx.createBiquadFilter();
+        filter.type       = 'lowpass';
+        filter.frequency.value = 180;
+        src.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+        src.start();
+      }, delay);
+    }
+
+    // ---- Lightning bolt renderer ----
+    function drawBolt(x1, y1, x2, y2, roughness, color, width, ctx, depth) {
+      if (depth <= 0) return;
+      const mx   = (x1 + x2) / 2 + (Math.random() - 0.5) * roughness;
+      const my   = (y1 + y2) / 2 + (Math.random() - 0.5) * roughness * 0.4;
+      drawBolt(x1, y1, mx, my, roughness / 2, color, width * 0.9, ctx, depth - 1);
+      drawBolt(mx, my, x2, y2, roughness / 2, color, width * 0.9, ctx, depth - 1);
+
+      // Branch chance
+      if (Math.random() < 0.35 && depth > 2) {
+        const bx = mx + (Math.random() - 0.5) * 200;
+        const by = my + Math.random() * (lCanvas.height * 0.3);
+        drawBolt(mx, my, bx, by, roughness / 3, color, width * 0.4, ctx, depth - 2);
+      }
+
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(mx, my);
+      ctx.lineTo(x2, y2);
+      ctx.strokeStyle = color;
+      ctx.lineWidth   = width;
+      ctx.shadowBlur  = 20;
+      ctx.shadowColor = color;
+      ctx.globalAlpha = 0.9;
+      ctx.stroke();
+    }
+
+    function flashScreen(intensity) {
+      flashEl.style.transition = 'none';
+      flashEl.style.opacity    = intensity;
+      setTimeout(() => {
+        flashEl.style.transition = 'opacity 0.4s ease';
+        flashEl.style.opacity    = '0';
+      }, 60 + Math.random() * 80);
+    }
+
+    function triggerLightning() {
+      lCtx.clearRect(0, 0, lCanvas.width, lCanvas.height);
+
+      const startX = lCanvas.width * (0.1 + Math.random() * 0.8);
+      const startY = 0;
+      const endX   = startX + (Math.random() - 0.5) * 400;
+      const endY   = lCanvas.height * (0.4 + Math.random() * 0.5);
+
+      // Multi-pass glow
+      [
+        { w: 12, a: 0.08, blur: 60, color: 'rgba(200,255,0,0.5)' },
+        { w: 6,  a: 0.2,  blur: 30, color: 'rgba(200,255,0,0.8)' },
+        { w: 2,  a: 1,    blur: 8,  color: '#ffffff' },
+      ].forEach(pass => {
+        lCtx.globalAlpha = pass.a;
+        lCtx.shadowBlur  = pass.blur;
+        lCtx.shadowColor = pass.color;
+        drawBolt(startX, startY, endX, endY, 180, pass.color, pass.w, lCtx, 7);
+      });
+
+      // Double-flash effect (realistic)
+      flashScreen(0.18);
+      setTimeout(() => flashScreen(0.35), 60);
+
+      // Thunder with distance delay
+      const dist = 500 + Math.random() * 2500;
+      playThunder(dist);
+
+      // Fade bolt
+      setTimeout(() => {
+        lCtx.clearRect(0, 0, lCanvas.width, lCanvas.height);
+      }, 180 + Math.random() * 120);
+
+      // Sometimes a second quick re-flash
+      if (Math.random() < 0.4) {
+        setTimeout(triggerLightningQuick, 250);
+      }
+    }
+
+    function triggerLightningQuick() {
+      lCtx.clearRect(0, 0, lCanvas.width, lCanvas.height);
+      const x1 = lCanvas.width * (0.1 + Math.random() * 0.8);
+      const x2 = x1 + (Math.random() - 0.5) * 250;
+      const y2 = lCanvas.height * (0.3 + Math.random() * 0.4);
+      lCtx.globalAlpha = 0.6;
+      lCtx.shadowBlur  = 20;
+      lCtx.shadowColor = 'rgba(200,255,0,0.9)';
+      drawBolt(x1, 0, x2, y2, 100, '#c8ff00', 1.5, lCtx, 5);
+      flashScreen(0.12);
+      setTimeout(() => lCtx.clearRect(0, 0, lCanvas.width, lCanvas.height), 100);
+    }
+
+    // Schedule lightning — random intervals 2s–8s
+    function scheduleLightning() {
+      const delay = 2000 + Math.random() * 6000;
+      setTimeout(() => {
+        triggerLightning();
+        scheduleLightning();
+      }, delay);
+    }
+    // First strike after 1.5s
+    setTimeout(() => { triggerLightning(); scheduleLightning(); }, 1500);
+
+    // ---- RAIN ----
+    const drops = [];
+    const DROP_COUNT = 220;
+    for (let i = 0; i < DROP_COUNT; i++) {
+      drops.push({
+        x:      Math.random() * window.innerWidth,
+        y:      Math.random() * window.innerHeight,
+        len:    8  + Math.random() * 20,
+        speed:  14 + Math.random() * 20,
+        opacity: 0.15 + Math.random() * 0.5,
+        width:  0.4 + Math.random() * 0.8,
+      });
+    }
+
+    function animateRain() {
+      rCtx.clearRect(0, 0, rCanvas.width, rCanvas.height);
+      drops.forEach(d => {
+        rCtx.beginPath();
+        rCtx.moveTo(d.x, d.y);
+        rCtx.lineTo(d.x - d.len * 0.2, d.y + d.len);
+        rCtx.strokeStyle = `rgba(200,255,0,${d.opacity})`;
+        rCtx.lineWidth   = d.width;
+        rCtx.stroke();
+        d.y += d.speed;
+        d.x -= d.speed * 0.2;
+        if (d.y > rCanvas.height) {
+          d.y = -d.len;
+          d.x = Math.random() * rCanvas.width;
+        }
+      });
+      requestAnimationFrame(animateRain);
+    }
+    animateRain();
+
+    // ---- Init audio on first user interaction ----
+    document.addEventListener('click', initAudio, { once: true });
+    document.addEventListener('keydown', initAudio, { once: true });
+    document.addEventListener('mousemove', initAudio, { once: true });
+
+  })();
+</script>
+</body>
+</html>
