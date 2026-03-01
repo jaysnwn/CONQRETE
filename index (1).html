@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CONQRETE — Coming Soon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Barlow+Condensed:wght@300;400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --acid: #c8ff00;
+    --orange: #ff4e00;
+    --red: #ff1a1a;
+    --transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  [data-theme="dark"] {
+    --bg:        #1a1a1a;
+    --bg2:       #242424;
+    --bg3:       #2e2e2e;
+    --border:    rgba(255,255,255,0.09);
+    --text:      #f0ede6;
+    --text2:     rgba(240,237,230,0.78);
+    --text3:     rgba(240,237,230,0.52);
+    --muted:     #888;
+    --nav-bg:    #111111;
+    --card-bg:   #252525;
+    --card-hov:  #303030;
+    --tag-col:   var(--acid);
+    --tag-bdr:   rgba(200,255,0,0.4);
+    --indev-bg:  rgba(200,255,0,0.13);
+    --indev-col: #c8ff00;
+    --indev-dot: #c8ff00;
+    --logo-col:  #f0ede6;
+    --notify-bg: var(--acid);
+    --notify-txt:#1a1a1a;
+    --foot-bg:   #141414;
+    --belt-bg:   #2a2a2a;
+  }
+
+  [data-theme="light"] {
+    --bg:        #f4f1ea;
+    --bg2:       #eae7de;
+    --bg3:       #e0ddd3;
+    --border:    rgba(0,0,0,0.1);
+    --text:      #181818;
+    --text2:     rgba(20,20,20,0.85);
+    --text3:     rgba(20,20,20,0.65);
+    --muted:     #555;
+    --nav-bg:    rgba(244,241,234,0.94);
+    --card-bg:   #e8e5dc;
+    --card-hov:  #dedad0;
+    --tag-col:   #cc0000;
+    --tag-bdr:   rgba(180,0,0,0.35);
+    --indev-bg:  rgba(180,0,0,0.1);
+    --indev-col: #cc0000;
+    --indev-dot: #ff2200;
+    --logo-col:  #181818;
+    --notify-bg: #1a1a1a;
+    --notify-txt:var(--acid);
+    --foot-bg:   #e5e2d9;
+    --belt-bg:   #dedad0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+    min-height: 100vh;
+    transition: background-color 0.55s ease, color 0.55s ease;
+  }
+
+  /* Cursor */
+  .cursor {
+    position:fixed;width:12px;height:12px;background:var(--acid);
+    border-radius:50%;pointer-events:none;z-index:9999;
+    transform:translate(-50%,-50%);transition:transform 0.05s;mix-blend-mode:difference;
+  }
+  .cursor-trail {
+    position:fixed;width:36px;height:36px;border:1.5px solid var(--acid);
+    border-radius:50%;pointer-events:none;z-index:9998;
+    transform:translate(-50%,-50%);transition:all 0.15s ease;opacity:0.5;
+  }
+
+  /* Noise */
+  body::before {
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:300;opacity:0.15;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  /* ====== NAV ====== */
+  nav {
+    position:fixed;top:0;left:0;right:0;z-index:9000;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 40px;
+    background:#111111;
+    border-bottom:2px solid var(--acid);
+    transition:background 0.5s, border-color 0.5s;
+  }
+
+  .nav-logo {
+    font-family:'Black Han Sans',sans-serif;
+    font-size:28px;letter-spacing:0.14em;
+    color:#ffffff;text-decoration:none;
+    transition:color 0.5s;
+    font-weight:900;
+  }
+  .nav-logo .dot { color:var(--acid);font-size:34px;line-height:0;vertical-align:middle; }
+
+  .nav-right { display:flex;align-items:center;gap:24px; }
+
+  .nav-tag {
+    font-family:'Share Tech Mono',monospace;font-size:12px;
+    color:#ffffff;letter-spacing:0.3em;text-transform:uppercase;
+    font-weight:600;
+    transition:color 0.5s;
+  }
+
+  /* Theme toggle */
+  .theme-toggle {
+    display:flex;align-items:center;gap:8px;
+    background:var(--bg3);border:1.5px solid var(--border);
+    border-radius:40px;padding:6px 12px;
+    cursor:pointer;transition:var(--transition);user-select:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .theme-toggle:hover { border-color:var(--acid); }
+  .toggle-icon { font-size:14px; }
+  .toggle-track {
+    width:38px;height:20px;background:var(--bg);
+    border:1px solid var(--border);border-radius:20px;
+    position:relative;transition:var(--transition);
+  }
+  .toggle-thumb {
+    position:absolute;top:3px;left:3px;width:12px;height:12px;
+    background:var(--acid);border-radius:50%;
+    transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    box-shadow:0 0 8px rgba(200,255,0,0.6);
+  }
+  [data-theme="light"] .toggle-thumb { transform:translateX(18px); }
+
+  /* ====== HERO ====== */
+  .hero {
+    min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+    padding:120px 40px 60px;position:relative;overflow:hidden;
+  }
+
+  .bg-word {
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-family:'Black Han Sans',sans-serif;
+    font-size:clamp(100px,22vw,320px);
+    color:transparent;-webkit-text-stroke:1px var(--border);
+    white-space:nowrap;letter-spacing:-0.02em;
+    pointer-events:none;user-select:none;
+    animation:bgPulse 8s ease-in-out infinite;
+    transition:-webkit-text-stroke-color 0.5s;
+  }
+  @keyframes bgPulse{0%,100%{opacity:0.4}50%{opacity:0.9}}
+
+  .hero-content { position:relative;z-index:2;max-width:1100px; }
+
+  .hero-eyebrow {
+    font-family:'Share Tech Mono',monospace;font-size:13px;
+    letter-spacing:0.4em;color:var(--acid);text-transform:uppercase;
+    margin-bottom:24px;display:flex;align-items:center;gap:12px;
+  }
+  .hero-eyebrow::before { content:'';display:block;width:40px;height:2px;background:var(--acid); }
+
+  .hero-title {
+    font-family:'Black Han Sans',sans-serif;
+    font-size:clamp(72px,14vw,200px);line-height:0.9;letter-spacing:-0.02em;
+    color:var(--text);text-transform:uppercase;
+    animation:revealTitle 1s cubic-bezier(0.16,1,0.3,1) both;
+    transition:color 0.5s;
+  }
+  @keyframes revealTitle{
+    from{transform:translateY(80px);opacity:0;clip-path:inset(100% 0 0 0)}
+    to  {transform:translateY(0);  opacity:1;clip-path:inset(0% 0 0 0)}
+  }
+
+  .hero-subtitle {
+    font-size:clamp(18px,2.5vw,28px);font-weight:300;
+    letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--text2);margin-top:20px;
+    animation:fadeUp 1s 0.3s cubic-bezier(0.16,1,0.3,1) both;
+    transition:color 0.5s;
+  }
+  @keyframes fadeUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+  .hero-desc {
+    font-size:17px;font-weight:400;line-height:1.75;
+    color:var(--text2);max-width:480px;margin-top:32px;
+    animation:fadeUp 1s 0.5s cubic-bezier(0.16,1,0.3,1) both;
+    transition:color 0.5s;
+  }
+
+  /* Glitch */
+  .glitch{position:relative;display:inline-block;}
+  .glitch::before,.glitch::after{
+    content:attr(data-text);position:absolute;top:0;left:0;
+    width:100%;height:100%;font-family:inherit;font-size:inherit;
+    line-height:inherit;letter-spacing:inherit;
+  }
+  .glitch::before{color:var(--red);animation:glitch1 4s infinite;clip-path:inset(0 0 60% 0);}
+  .glitch::after {color:var(--acid);animation:glitch2 4s infinite;clip-path:inset(60% 0 0 0);}
+  @keyframes glitch1{0%,90%,100%{transform:translate(0);opacity:0}92%{transform:translate(-4px,-2px);opacity:0.8}94%{transform:translate(4px,2px);opacity:0.8}96%{transform:translate(-4px,2px);opacity:0.8}98%{transform:translate(0);opacity:0}}
+  @keyframes glitch2{0%,90%,100%{transform:translate(0);opacity:0}93%{transform:translate(4px,2px);opacity:0.7}95%{transform:translate(-4px,-2px);opacity:0.7}97%{transform:translate(2px,-4px);opacity:0.7}99%{transform:translate(0);opacity:0}}
+
+  .accent-line{display:flex;align-items:center;gap:16px;margin:48px 0;animation:fadeUp 1s 0.7s cubic-bezier(0.16,1,0.3,1) both;}
+  .accent-line::before{content:'';display:block;width:60px;height:3px;background:var(--acid);}
+  .accent-line::after {content:'';display:block;flex:1;height:1px;background:var(--border);}
+  .accent-line-text{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.4em;white-space:nowrap;transition:color 0.5s;}
+
+  .hero-tagline {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: clamp(18px, 3.5vw, 38px);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-top: 28px;
+    animation: fadeUp 1s 0.8s cubic-bezier(0.16,1,0.3,1) both;
+    transition: color 0.5s;
+    position: relative;
+    display: inline-block;
+  }
+  .tagline-dot { color: var(--acid); font-size: 1.3em; line-height: 0; vertical-align: middle; }
+  [data-theme="light"] .tagline-dot { color: #e8000d; }
+
+  /* Tagline electric underline */
+  .hero-tagline::after {
+    content: '';
+    position: absolute;
+    bottom: -6px; left: 0;
+    width: 0; height: 3px;
+    background: var(--acid);
+    animation: taglineUnderline 1.5s 1.5s cubic-bezier(0.16,1,0.3,1) forwards;
+    transition: background 0.5s;
+  }
+  [data-theme="light"] .hero-tagline::after { background: #e8000d; }
+  @keyframes taglineUnderline { from{width:0} to{width:100%} }
+
+  @media(max-width:768px) {
+    .hero-tagline { font-size: clamp(14px, 5vw, 22px); letter-spacing: 0.1em; margin-top: 20px; }
+  }
+    position:absolute;bottom:30px;right:40px;
+    font-family:'Share Tech Mono',monospace;font-size:11px;
+    color:var(--muted);letter-spacing:0.3em;writing-mode:vertical-rl;
+    animation:fadeUp 1s 0.9s cubic-bezier(0.16,1,0.3,1) both;transition:color 0.5s;
+  }
+
+  .hero-cut{
+    position:absolute;bottom:-2px;left:0;right:0;height:120px;
+    background:var(--bg);clip-path:polygon(0 100%,100% 0,100% 100%);
+    z-index:3;transition:background 0.5s;
+  }
+
+  /* ====== MARQUEE ====== */
+  .marquee-wrap{
+    background:var(--bg2);overflow:hidden;padding:16px 0;
+    border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    transition:background 0.5s,border-color 0.5s;
+  }
+  .marquee-track{display:flex;animation:marquee 22s linear infinite;width:max-content;}
+  .marquee-item{
+    font-family:'Black Han Sans',sans-serif;font-size:13px;
+    letter-spacing:0.4em;text-transform:uppercase;color:var(--text2);
+    white-space:nowrap;display:flex;align-items:center;transition:color 0.5s;
+  }
+  .marquee-item .sep{color:var(--acid);padding:0 36px;font-size:18px;}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ====== COUNTDOWN ====== */
+  .countdown-section{
+    background:var(--bg2);padding:80px 40px;
+    border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    transition:background 0.5s,border-color 0.5s;
+  }
+  .section-label{
+    font-family:'Share Tech Mono',monospace;font-size:11px;
+    letter-spacing:0.4em;color:var(--muted);text-transform:uppercase;
+    margin-bottom:48px;transition:color 0.5s;
+  }
+  .countdown-grid{display:flex;gap:0;max-width:800px;}
+  .countdown-item{
+    flex:1;text-align:center;padding:40px 20px;border:1px solid var(--border);
+    position:relative;transition:border-color 0.3s,background 0.3s;
+  }
+  .countdown-item:hover{border-color:var(--acid);background:var(--bg3);}
+  .countdown-num{
+    font-family:'Black Han Sans',sans-serif;font-size:clamp(52px,8vw,96px);
+    line-height:1;color:var(--text);display:block;font-variant-numeric:tabular-nums;
+    transition:color 0.2s;
+  }
+  .countdown-item:hover .countdown-num{color:var(--acid);}
+  .countdown-label{
+    font-family:'Share Tech Mono',monospace;font-size:10px;
+    letter-spacing:0.35em;color:var(--muted);text-transform:uppercase;
+    margin-top:8px;display:block;transition:color 0.5s;
+  }
+  .countdown-sep{
+    display:flex;align-items:center;
+    font-family:'Black Han Sans',sans-serif;font-size:48px;
+    color:var(--muted);align-self:flex-start;padding-top:40px;
+    transition:color 0.5s;
+  }
+
+  /* ====== ASSEMBLY LINE ====== */
+  .assembly-section{
+    padding:80px 40px;background:var(--bg);
+    border-bottom:1px solid var(--border);overflow:hidden;
+    transition:background 0.5s,border-color 0.5s;
+  }
+  .assembly-header{
+    display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;
+  }
+  .assembly-title{
+    font-family:'Black Han Sans',sans-serif;
+    font-size:clamp(28px,4vw,52px);color:var(--text);
+    letter-spacing:-0.01em;transition:color 0.5s;
+  }
+  .assembly-sub{
+    font-family:'Share Tech Mono',monospace;font-size:11px;
+    color:var(--acid);letter-spacing:0.35em;text-transform:uppercase;
+  }
+
+  .assembly-track{
+    position:relative;height:130px;
+    border-top:2px solid var(--border);border-bottom:2px solid var(--border);
+    overflow:hidden;background:var(--bg2);transition:background 0.5s,border-color 0.5s;
+  }
+
+  .belt{
+    position:absolute;bottom:0;left:0;right:0;height:18px;
+    background:repeating-linear-gradient(90deg,var(--bg3) 0px,var(--bg3) 28px,var(--border) 28px,var(--border) 30px);
+    animation:beltMove 1s linear infinite;
+    transition:background 0.5s;
+  }
+  @keyframes beltMove{from{background-position:0 0}to{background-position:30px 0}}
+
+  .belt-items{
+    position:absolute;top:0;left:0;display:flex;gap:60px;align-items:center;
+    height:calc(100% - 18px);
+    animation:conveyorSlide 14s linear infinite;
+    white-space:nowrap;padding:0 20px;
+  }
+  @keyframes conveyorSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  .belt-item{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;}
+
+  .belt-item-box{
+    width:62px;height:62px;
+    background:var(--belt-bg);border:2px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px;position:relative;overflow:hidden;
+    animation:itemBob 2.2s ease-in-out infinite;
+    transition:background 0.5s,border-color 0.3s;
+  }
+  .belt-item-box:hover{border-color:var(--acid);}
+  .belt-item-box::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.06) 0%,transparent 55%);}
+
+  .belt-item-spark{
+    position:absolute;top:-5px;right:-5px;font-size:13px;
+    animation:sparkPop 3.5s ease-in-out infinite;
+  }
+  @keyframes itemBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  @keyframes sparkPop{0%,78%,100%{opacity:0;transform:scale(0.4)}83%{opacity:1;transform:scale(1.3) rotate(20deg)}88%{opacity:1;transform:scale(1) rotate(-10deg)}93%{opacity:0;transform:scale(0.7)}}
+
+  .belt-item-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(0,0,0,0.2);}
+  .belt-item-fill{height:100%;background:var(--acid);animation:fillPulse 2s ease-in-out infinite;}
+  @keyframes fillPulse{0%,100%{opacity:0.55}50%{opacity:1}}
+
+  .belt-item-label{
+    font-family:'Share Tech Mono',monospace;font-size:9px;
+    letter-spacing:0.28em;color:var(--muted);text-transform:uppercase;
+    transition:color 0.5s;
+  }
+
+  /* Welding sparks */
+  .sparks-container{position:absolute;top:20px;right:80px;pointer-events:none;}
+  .spark{position:absolute;width:3px;height:3px;background:var(--acid);border-radius:50%;animation:sparkFly var(--dur,0.8s) ease-out infinite var(--delay,0s);}
+  @keyframes sparkFly{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx,20px),var(--ty,-30px)) scale(0);opacity:0}}
+
+  .assembly-status{display:flex;gap:28px;margin-top:22px;flex-wrap:wrap;}
+  .status-item{
+    display:flex;align-items:center;gap:8px;
+    font-family:'Share Tech Mono',monospace;font-size:11px;
+    color:var(--muted);letter-spacing:0.25em;text-transform:uppercase;
+    transition:color 0.5s;
+  }
+  .status-dot{width:8px;height:8px;border-radius:50%;background:var(--acid);animation:blink 2s infinite;}
+  .status-dot.orange{background:var(--orange);animation-delay:0.5s;}
+  .status-dot.red   {background:var(--red);   animation-delay:1s;}
+  .status-dot.gray  {background:var(--muted); animation:none;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.15}}
+
+  /* ====== PRODUCTS ====== */
+  .products-section{padding:100px 40px;transition:background 0.5s;}
+  .section-header{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-bottom:60px;border-bottom:1px solid var(--border);padding-bottom:24px;
+    transition:border-color 0.5s;
+  }
+  .section-title{
+    font-family:'Black Han Sans',sans-serif;
+    font-size:clamp(36px,5vw,64px);letter-spacing:-0.01em;line-height:1;
+    color:var(--text);transition:color 0.5s;
+  }
+  .section-num{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:0.3em;color:var(--muted);transition:color 0.5s;}
+
+  .products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;}
+
+  .product-card{
+    background:var(--card-bg);padding:48px 40px 36px;
+    position:relative;overflow:hidden;cursor:none;
+    transition:background 0.3s;
+  }
+  .product-card:hover{background:var(--card-hov);}
+  .product-card::before{
+    content:'';position:absolute;top:0;left:0;
+    width:3px;height:0;background:var(--acid);
+    transition:height 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .product-card:hover::before{height:100%;}
+
+  /* IN DEV badge — bold & visible */
+  .product-status{
+    position:absolute;top:18px;right:18px;
+    font-family:'Share Tech Mono',monospace;font-size:10px;font-weight:700;
+    color:var(--indev-col);letter-spacing:0.22em;
+    background:var(--indev-bg);
+    border:1.5px solid var(--indev-col);
+    padding:5px 12px 5px 10px;
+    display:flex;align-items:center;gap:7px;
+    text-transform:uppercase;
+    transition:var(--transition);
+  }
+  [data-theme="dark"]  .product-status{box-shadow:0 0 14px rgba(200,255,0,0.15),inset 0 0 8px rgba(200,255,0,0.04);}
+  [data-theme="light"] .product-status{box-shadow:0 0 14px rgba(220,90,0,0.15);}
+
+  .status-blink{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--indev-dot);animation:blink 1.4s infinite;flex-shrink:0;
+  }
+
+  .product-icon{font-size:44px;margin-bottom:22px;display:block;}
+  .product-num{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.3em;margin-bottom:10px;transition:color 0.5s;}
+  .product-name{
+    font-family:'Black Han Sans',sans-serif;
+    font-size:clamp(24px,3vw,36px);letter-spacing:0.05em;
+    margin-bottom:12px;text-transform:uppercase;color:var(--text);transition:color 0.5s;
+  }
+  .product-tag{
+    display:inline-block;font-family:'Share Tech Mono',monospace;font-size:10px;
+    letter-spacing:0.3em;color:var(--tag-col);border:1px solid var(--tag-bdr);
+    padding:4px 12px;text-transform:uppercase;transition:var(--transition);
+  }
+
+  .card-progress{margin-top:20px;height:2px;background:var(--border);position:relative;overflow:visible;}
+  .card-progress-fill{height:100%;background:var(--acid);position:relative;}
+  .card-progress-fill::after{
+    content:attr(data-pct);position:absolute;right:0;top:-18px;
+    font-family:'Share Tech Mono',monospace;font-size:9px;
+    color:var(--acid);letter-spacing:0.2em;
+  }
+  .card-progress-label{
+    font-family:'Share Tech Mono',monospace;font-size:9px;
+    color:var(--muted);letter-spacing:0.25em;text-transform:uppercase;
+    margin-top:8px;transition:color 0.5s;
+  }
+
+  /* ====== NOTIFY ====== */
+  .notify-section{
+    background:var(--notify-bg);padding:80px 40px;
+    position:relative;overflow:hidden;transition:background 0.5s;
+  }
+  .notify-section::before{
+    content:'CONQRETE';position:absolute;right:-40px;top:50%;transform:translateY(-50%);
+    font-family:'Black Han Sans',sans-serif;font-size:200px;
+    color:rgba(0,0,0,0.06);white-space:nowrap;pointer-events:none;letter-spacing:-0.02em;
+  }
+  .notify-title{
+    font-family:'Black Han Sans',sans-serif;
+    font-size:clamp(36px,6vw,80px);color:var(--notify-txt);
+    line-height:0.95;letter-spacing:-0.01em;text-transform:uppercase;
+    margin-bottom:32px;max-width:700px;transition:color 0.5s;
+  }
+  .notify-form{display:flex;gap:0;max-width:560px;position:relative;z-index:2;}
+  .notify-input{
+    flex:1;background:rgba(0,0,0,0.1);border:2px solid rgba(0,0,0,0.15);border-right:none;
+    color:var(--notify-txt);font-family:'Share Tech Mono',monospace;font-size:14px;
+    padding:18px 24px;outline:none;letter-spacing:0.1em;transition:background 0.3s;
+  }
+  .notify-input::placeholder{color:rgba(0,0,0,0.3);}
+  .notify-input:focus{background:rgba(0,0,0,0.16);}
+  .notify-btn{
+    background:var(--text);color:var(--acid);border:none;
+    font-family:'Black Han Sans',sans-serif;font-size:16px;letter-spacing:0.2em;
+    padding:18px 36px;cursor:pointer;text-transform:uppercase;
+    position:relative;overflow:hidden;transition:background 0.3s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .notify-btn::after{
+    content:'';position:absolute;inset:0;background:var(--orange);
+    transform:scaleX(0);transform-origin:left;
+    transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);z-index:0;
+  }
+  .notify-btn:hover::after{transform:scaleX(1);}
+  .notify-btn span{position:relative;z-index:1;}
+  .notify-success{display:none;font-family:'Black Han Sans',sans-serif;font-size:28px;color:var(--notify-txt);letter-spacing:0.1em;}
+  .notify-note{font-family:'Share Tech Mono',monospace;font-size:11px;color:rgba(0,0,0,0.3);letter-spacing:0.2em;margin-top:16px;}
+
+  /* ====== STORM / SUN LAYERS ====== */
+  #stormCanvas,#rainCanvas,#lightningFlash,#stormVignette,#stormClouds {
+    position:fixed;pointer-events:none;transition:opacity 0.8s ease;
+  }
+  #stormCanvas   {inset:0;z-index:500;opacity:0;}
+  #lightningFlash{inset:0;z-index:499;background:rgba(200,255,0,0.12);opacity:0;}
+  #stormVignette {inset:0;z-index:497;opacity:0;display:none;}
+  #stormClouds   {top:64px;left:0;right:0;bottom:auto;height:200px;z-index:496;background:linear-gradient(to bottom,rgba(0,0,0,0.8),transparent);opacity:0;}
+
+  /* ====== LIGHT MODE: RED ACCENT ====== */
+  [data-theme="light"] { --acid: #e8000d; }
+  [data-theme="light"] .nav-logo { color:#181818; text-shadow: none; }
+  [data-theme="light"] .nav-tag  { color:#181818; font-weight:600; }
+  [data-theme="light"] nav       { background: #f4f1ea; border-bottom-color: #e8000d; }
+  [data-theme="light"] .cursor            { background: #e8000d; }
+  [data-theme="light"] .cursor-trail      { border-color: #e8000d; }
+  [data-theme="light"] .toggle-thumb      { background: #e8000d; box-shadow: 0 0 8px rgba(232,0,13,0.5); }
+  [data-theme="light"] .nav-logo .dot     { color: #e8000d; }
+  [data-theme="light"] .footer-logo .dot  { color: #e8000d; }
+  [data-theme="light"] .hero-eyebrow      { color: #e8000d; }
+  [data-theme="light"] .hero-eyebrow::before { background: #e8000d; }
+  [data-theme="light"] .accent-line::before  { background: #e8000d; }
+  [data-theme="light"] .assembly-sub      { color: #e8000d; }
+  [data-theme="light"] .belt-item-fill    { background: #e8000d; }
+  [data-theme="light"] .spark             { background: #e8000d; }
+  [data-theme="light"] .product-card::before { background: #e8000d; }
+  [data-theme="light"] .card-progress-fill   { background: #e8000d; }
+  [data-theme="light"] .card-progress-fill::after { color: #e8000d; }
+  [data-theme="light"] .countdown-item:hover .countdown-num { color: #e8000d; }
+  [data-theme="light"] .countdown-item:hover { border-color: #e8000d; }
+  [data-theme="light"] .social-link:hover    { color: #e8000d; }
+  [data-theme="light"] .theme-toggle:hover   { border-color: #e8000d; }
+  [data-theme="light"] .marquee-item .sep    { color: #e8000d; }
+  [data-theme="light"] .notify-btn           { color: #e8000d; }
+  [data-theme="light"] .status-dot           { background: #e8000d; }
+  [data-theme="light"] .status-dot.orange    { background: #ff6600; }
+  [data-theme="light"] .notify-section     { background: #1a1a1a; }
+  [data-theme="light"] .notify-title       { color: #f0ede6; }
+  [data-theme="light"] .notify-section::before { color: rgba(255,255,255,0.04); }
+  [data-theme="light"] .notify-input       { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); color:#f0ede6; }
+  [data-theme="light"] .notify-input::placeholder { color:rgba(240,237,230,0.5); }
+  [data-theme="light"] .notify-input:focus { background:rgba(255,255,255,0.12); }
+  [data-theme="light"] .notify-btn        { background:#e8000d; color:#fff; }
+  [data-theme="light"] .notify-note       { color:rgba(240,237,230,0.45); }
+  [data-theme="light"] .notify-success    { color:#f0ede6; }
+
+  /* ====== LIGHT MODE ENERGY CANVAS ====== */
+  #lightCanvas {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 496;
+    opacity: 0; transition: opacity 0.8s ease;
+  }
+
+  /* Light mode electric CONQRETE title */
+  [data-theme="light"] .hero-title {
+    animation: revealTitle 1s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  /* Dark mode CONQRETE title */
+  [data-theme="dark"] .hero-title {
+    animation: revealTitle 1s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  /* ====== R&D MINI ANIMATIONS (product cards) ====== */
+  .rd-scene {
+    position: relative; width: 100%; height: 62px;
+    margin: 18px 0 8px; overflow: hidden;
+    border: 1px solid var(--border); background: var(--bg);
+    display: flex; align-items: center; padding: 0 12px; gap: 8px;
+    transition: background 0.5s, border-color 0.5s;
+  }
+  .rd-label {
+    font-family:'Share Tech Mono',monospace; font-size:9px;
+    letter-spacing:0.3em; color:var(--muted); text-transform:uppercase;
+    position:absolute; top:5px; left:8px; transition:color 0.5s;
+  }
+  .rd-label span { color:var(--acid); transition:color 0.5s; }
+
+  /* Earphone: sound wave bars */
+  .rd-earphone { display:flex; align-items:center; gap:4px; margin:auto; margin-top:18px; }
+  .rd-wave { width:3px; border-radius:2px; background:var(--acid); animation:waveAnim 0.8s ease-in-out infinite; transition:background 0.5s; }
+  .rd-wave:nth-child(1){height:10px;animation-delay:0s}   .rd-wave:nth-child(2){height:20px;animation-delay:.1s}
+  .rd-wave:nth-child(3){height:30px;animation-delay:.2s}  .rd-wave:nth-child(4){height:38px;animation-delay:.3s}
+  .rd-wave:nth-child(5){height:30px;animation-delay:.4s}  .rd-wave:nth-child(6){height:20px;animation-delay:.5s}
+  .rd-wave:nth-child(7){height:10px;animation-delay:.6s}  .rd-wave:nth-child(8){height:20px;animation-delay:.4s}
+  .rd-wave:nth-child(9){height:30px;animation-delay:.3s}  .rd-wave:nth-child(10){height:20px;animation-delay:.2s}
+  .rd-wave:nth-child(11){height:10px;animation-delay:.1s}
+  @keyframes waveAnim{0%,100%{transform:scaleY(0.3);opacity:0.35}50%{transform:scaleY(1);opacity:1}}
+  .rd-ear-icon { font-size:20px; margin-right:6px; animation:earBob 2s ease-in-out infinite; }
+  @keyframes earBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+  /* Power bank: charging bar */
+  .rd-battery { display:flex; align-items:center; gap:8px; margin:auto; margin-top:18px; width:100%; }
+  .rd-batt-body { flex:1; height:22px; border:2px solid var(--acid); position:relative; border-radius:2px; overflow:hidden; transition:border-color 0.5s; }
+  .rd-batt-fill { position:absolute; left:0; top:0; bottom:0; background:linear-gradient(90deg,var(--acid),rgba(200,255,0,0.3)); animation:battCharge 2.2s ease-in-out infinite; transition:background 0.5s; }
+  .rd-batt-tip  { width:5px; height:10px; background:var(--acid); border-radius:0 2px 2px 0; flex-shrink:0; transition:background 0.5s; }
+  .rd-batt-pct  { font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--acid); letter-spacing:0.05em; flex-shrink:0; transition:color 0.5s; min-width:36px; text-align:right; }
+  @keyframes battCharge{0%{width:8%}65%{width:95%}75%,100%{width:8%}}
+
+  /* Cable: data pulse */
+  .rd-cable { display:flex; align-items:center; gap:4px; margin:auto; margin-top:18px; width:90%; }
+  .rd-cable-end { font-size:16px; }
+  .rd-cable-line { flex:1; height:4px; background:var(--border); position:relative; overflow:hidden; border-radius:2px; transition:background 0.5s; }
+  .rd-cable-pulse { position:absolute; top:0; left:-40%; width:40%; height:100%; background:linear-gradient(90deg,transparent,var(--acid),transparent); animation:cablePulse 1s linear infinite; transition:background 0.5s; }
+  .rd-cable-pulse.p2 { animation-delay:0.5s; }
+  @keyframes cablePulse{from{left:-40%}to{left:100%}}
+  .rd-cable-speed { font-family:'Share Tech Mono',monospace; font-size:9px; color:var(--acid); letter-spacing:0.1em; position:absolute; top:5px; right:8px; transition:color 0.5s; animation:speedFlick 1s ease-in-out infinite; }
+  @keyframes speedFlick{0%,100%{opacity:0.6}50%{opacity:1}}
+
+  /* Adapter: voltage meter */
+  .rd-adapter { display:flex; align-items:center; gap:8px; margin:auto; margin-top:18px; width:100%; }
+  .rd-volt-num { font-family:'Share Tech Mono',monospace; font-size:20px; font-weight:700; color:var(--acid); letter-spacing:0.05em; animation:voltFlicker 3s ease-in-out infinite; transition:color 0.5s; }
+  .rd-volt-unit{ font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--muted); transition:color 0.5s; }
+  .rd-volt-bar { flex:1; height:6px; background:var(--border); border-radius:3px; overflow:hidden; transition:background 0.5s; }
+  .rd-volt-fill{ height:100%; border-radius:3px; background:var(--acid); animation:voltFill 3s ease-in-out infinite; transition:background 0.5s; }
+  .rd-port-dots { display:flex; gap:4px; }
+  .rd-port-dot  { width:6px; height:6px; border-radius:50%; border:1.5px solid var(--acid); animation:portBlink 1.5s ease-in-out infinite; transition:border-color 0.5s; }
+  .rd-port-dot:nth-child(2){animation-delay:.3s} .rd-port-dot:nth-child(3){animation-delay:.6s} .rd-port-dot:nth-child(4){animation-delay:.9s}
+  @keyframes portBlink{0%,100%{background:transparent}50%{background:var(--acid)}}
+  @keyframes voltFill   {0%{width:0}40%{width:75%}60%{width:95%}80%{width:85%}100%{width:0}}
+  @keyframes voltFlicker{0%,100%{opacity:1}45%{opacity:1}50%{opacity:0.5}55%{opacity:1}}
+
+  /* ====== FOOTER ====== */
+  footer{
+    padding:40px;display:flex;justify-content:space-between;align-items:center;
+    border-top:1px solid var(--border);background:var(--foot-bg);
+    transition:var(--transition);
+  }
+  .footer-logo{font-family:'Black Han Sans',sans-serif;font-size:22px;letter-spacing:0.15em;color:var(--text);transition:color 0.5s;}
+  .footer-logo .dot{color:var(--acid);}
+  .footer-copy{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.2em;transition:color 0.5s;}
+  .footer-social{display:flex;gap:20px;}
+  .social-link{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.3em;text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
+  .social-link:hover{color:var(--acid);}
+
+  /* ====== RESPONSIVE — MOBILE FIRST ====== */
+
+  /* Hide custom cursor on touch devices */
+  @media (hover: none) {
+    .cursor, .cursor-trail { display: none !important; }
+    body { cursor: auto; }
+  }
+
+  @media (max-width: 768px) {
+
+    /* NAV */
+    nav { padding: 14px 18px; }
+    .nav-logo { font-size: 22px; }
+    .nav-logo .dot { font-size: 26px; }
+    .nav-tag { display: none; }
+    .theme-toggle { padding: 5px 10px; gap: 6px; }
+    .toggle-track { width: 32px; height: 18px; }
+    .toggle-thumb { width: 10px; height: 10px; }
+    [data-theme="light"] .toggle-thumb { transform: translateX(14px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100svh;
+      padding: 90px 20px 80px;
+      justify-content: center;
+    }
+    .bg-word {
+      font-size: clamp(70px, 28vw, 130px);
+      -webkit-text-stroke: 1px var(--border);
+    }
+    .hero-eyebrow { font-size: 10px; letter-spacing: 0.25em; margin-bottom: 16px; }
+    .hero-eyebrow::before { width: 24px; }
+    .hero-title {
+      font-size: clamp(64px, 22vw, 110px);
+      line-height: 0.88;
+    }
+    .hero-subtitle {
+      font-size: 16px;
+      letter-spacing: 0.15em;
+      margin-top: 14px;
+    }
+    .accent-line { margin: 28px 0; }
+    .accent-line-text { font-size: 9px; letter-spacing: 0.25em; white-space: normal; }
+    .hero-desc { font-size: 15px; margin-top: 20px; max-width: 100%; line-height: 1.6; }
+    .corner-mark { display: none; }
+    .hero-cut { height: 60px; }
+
+    /* MARQUEE */
+    .marquee-item { font-size: 11px; letter-spacing: 0.25em; }
+    .marquee-item .sep { padding: 0 20px; font-size: 14px; }
+
+    /* COUNTDOWN */
+    .countdown-section { padding: 48px 20px; }
+    .section-label { font-size: 10px; letter-spacing: 0.25em; margin-bottom: 28px; }
+    .countdown-grid { gap: 0; }
+    .countdown-sep { display: none; }
+    .countdown-item { padding: 20px 8px; }
+    .countdown-num { font-size: clamp(32px, 9vw, 52px); }
+    .countdown-label { font-size: 9px; letter-spacing: 0.2em; }
+
+    /* ASSEMBLY LINE */
+    .assembly-section { padding: 48px 20px; }
+    .assembly-header { flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 24px; }
+    .assembly-title { font-size: 28px; }
+    .assembly-sub { font-size: 10px; }
+    .assembly-track { height: 110px; }
+    .belt-item-box { width: 50px; height: 50px; font-size: 22px; }
+    .belt-items { gap: 40px; }
+    .sparks-container { display: none; }
+    .assembly-status { gap: 12px; }
+    .status-item { font-size: 10px; letter-spacing: 0.15em; }
+
+    /* PRODUCTS */
+    .products-section { padding: 48px 20px; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 32px; }
+    .section-title { font-size: 36px; }
+    .products-grid { grid-template-columns: 1fr; gap: 2px; }
+    .product-card { padding: 36px 24px 28px; }
+    .product-icon { font-size: 36px; margin-bottom: 16px; }
+    .product-name { font-size: 28px; }
+    .product-status { top: 14px; right: 14px; font-size: 9px; padding: 4px 10px; }
+
+    /* R&D scene on mobile */
+    .rd-scene { height: 56px; padding: 0 10px; margin: 14px 0 6px; }
+    .rd-earphone { gap: 3px; }
+    .rd-wave:nth-child(n) { width: 2px; }
+    .rd-battery { gap: 6px; }
+    .rd-adapter { gap: 6px; }
+    .rd-volt-num { font-size: 16px; }
+    .rd-cable { width: 95%; }
+
+    /* NOTIFY */
+    .notify-section { padding: 48px 20px; }
+    .notify-title { font-size: clamp(32px, 10vw, 52px); margin-bottom: 24px; }
+    .notify-form { flex-direction: column; max-width: 100%; }
+    .notify-input {
+      border-right: 2px solid rgba(255,255,255,0.2);
+      border-bottom: none;
+      padding: 16px 18px;
+      font-size: 13px;
+    }
+    [data-theme="light"] .notify-input { border-right: 2px solid rgba(255,255,255,0.2); }
+    .notify-btn { padding: 16px 24px; font-size: 15px; width: 100%; }
+    .notify-note { font-size: 10px; margin-top: 14px; }
+
+    /* FOOTER */
+    footer {
+      padding: 28px 20px;
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+    }
+    .footer-logo { font-size: 20px; }
+    .footer-copy { font-size: 10px; letter-spacing: 0.1em; }
+    .footer-social { gap: 16px; justify-content: center; }
+
+    /* Disable glitch on mobile - causes layout jank */
+    .glitch::before, .glitch::after { display: none; }
+
+    /* Disable heavy electric title animations on mobile */
+    [data-theme="dark"]  .hero-title,
+    [data-theme="light"] .hero-title {
+      animation: revealTitle 1s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    /* Reduce motion for belt on smaller screens */
+    .belt-items { animation-duration: 10s; }
+  }
+
+  @media (max-width: 400px) {
+    .hero-title { font-size: clamp(56px, 20vw, 80px); }
+    .nav-logo { font-size: 20px; }
+    .countdown-num { font-size: 28px; }
+    .product-card { padding: 28px 18px 24px; }
+    .rd-scene { display: none; } /* hide R&D on very small screens */
+  }
+</style>
+</head>
+<body>
+
+<!-- Storm layers -->
+<div id="stormClouds"></div>
+<canvas id="stormCanvas"></canvas>
+<div id="lightningFlash"></div>
+<canvas id="lightCanvas"></canvas>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">CONQ<span class="dot">.</span>RETE</a>
+  <div class="nav-right">
+    <span class="nav-tag">EST. 2025 — NEW AGE TECH</span>
+    <div class="theme-toggle" id="themeToggle" title="Toggle dark / light mode">
+      <span class="toggle-icon">⚡</span>
+      <div class="toggle-track"><div class="toggle-thumb"></div></div>
+      <span class="toggle-icon">☀️</span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="bg-word">CONQRETE</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">WEARABLE TECH BRAND</div>
+    <h1 class="hero-title">
+      <span class="glitch" data-text="CONQ">CONQ</span><br>
+      <span style="color:var(--acid)">RETE</span>
+    </h1>
+    <p class="hero-subtitle">New Age Technology</p>
+    <div class="accent-line"><span class="accent-line-text">SOMETHING MASSIVE IS BEING BUILT</span></div>
+    <p class="hero-desc">Earphones. Power banks. Cables. Adapters. Products engineered to keep up with your pace. Uncompromising in design. Built for the relentless.</p>
+    <div class="hero-tagline">BUILT FOR YOUR DAILY ABUSE<span class="tagline-dot">.</span></div>
+  </div>
+  <div class="corner-mark">COMING SOON — 2025</div>
+  <div class="hero-cut"></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">EARPHONES<span class="sep">·</span>POWER BANKS<span class="sep">·</span>TYPE-C CABLES<span class="sep">·</span>POWER ADAPTERS<span class="sep">·</span>EARPHONES<span class="sep">·</span>POWER BANKS<span class="sep">·</span>TYPE-C CABLES<span class="sep">·</span>POWER ADAPTERS<span class="sep">·</span></div>
+    <div class="marquee-item">EARPHONES<span class="sep">·</span>POWER BANKS<span class="sep">·</span>TYPE-C CABLES<span class="sep">·</span>POWER ADAPTERS<span class="sep">·</span>EARPHONES<span class="sep">·</span>POWER BANKS<span class="sep">·</span>TYPE-C CABLES<span class="sep">·</span>POWER ADAPTERS<span class="sep">·</span></div>
+  </div>
+</div>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section">
+  <div class="section-label">// TARGET: LAUNCH</div>
+  <div class="countdown-grid">
+    <div class="countdown-item"><span class="countdown-num" id="cd-days">00</span><span class="countdown-label">Days</span></div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-item"><span class="countdown-num" id="cd-hours">00</span><span class="countdown-label">Hours</span></div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-item"><span class="countdown-num" id="cd-mins">00</span><span class="countdown-label">Minutes</span></div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-item"><span class="countdown-num" id="cd-secs">00</span><span class="countdown-label">Seconds</span></div>
+  </div>
+</section>
+
+<!-- ASSEMBLY LINE -->
+<section class="assembly-section">
+  <div class="assembly-header">
+    <h2 class="assembly-title">Under Construction</h2>
+    <span class="assembly-sub">// LIVE BUILD STATUS</span>
+  </div>
+  <div class="assembly-track">
+    <div class="belt"></div>
+    <div class="belt-items">
+      <!-- set 1 -->
+      <div class="belt-item"><div class="belt-item-box">🎧<span class="belt-item-spark">⚡</span><div class="belt-item-progress"><div class="belt-item-fill" style="width:35%"></div></div></div><span class="belt-item-label">EARPHONES</span></div>
+      <div class="belt-item"><div class="belt-item-box">🔧<div class="belt-item-progress"><div class="belt-item-fill" style="width:80%;animation-delay:.5s"></div></div></div><span class="belt-item-label">TOOLING</span></div>
+      <div class="belt-item"><div class="belt-item-box">🔋<span class="belt-item-spark" style="animation-delay:1s">✨</span><div class="belt-item-progress"><div class="belt-item-fill" style="width:55%;animation-delay:.3s"></div></div></div><span class="belt-item-label">POWER BANK</span></div>
+      <div class="belt-item"><div class="belt-item-box">📦<div class="belt-item-progress"><div class="belt-item-fill" style="width:20%;animation-delay:.7s"></div></div></div><span class="belt-item-label">PACKAGING</span></div>
+      <div class="belt-item"><div class="belt-item-box">⚡<span class="belt-item-spark" style="animation-delay:.5s">🔥</span><div class="belt-item-progress"><div class="belt-item-fill" style="width:60%;animation-delay:.2s"></div></div></div><span class="belt-item-label">C-CABLE</span></div>
+      <div class="belt-item"><div class="belt-item-box">🔌<div class="belt-item-progress"><div class="belt-item-fill" style="width:40%;animation-delay:.9s"></div></div></div><span class="belt-item-label">ADAPTER</span></div>
+      <div class="belt-item"><div class="belt-item-box">🛠️<span class="belt-item-spark" style="animation-delay:1.5s">⚡</span><div class="belt-item-progress"><div class="belt-item-fill" style="width:90%;animation-delay:.4s"></div></div></div><span class="belt-item-label">ASSEMBLY</span></div>
+      <div class="belt-item"><div class="belt-item-box">🏭<div class="belt-item-progress"><div class="belt-item-fill" style="width:70%;animation-delay:.6s"></div></div></div><span class="belt-item-label">FACTORY</span></div>
+      <!-- set 2 (duplicate for seamless loop) -->
+      <div class="belt-item"><div class="belt-item-box">🎧<span class="belt-item-spark">⚡</span><div class="belt-item-progress"><div class="belt-item-fill" style="width:35%"></div></div></div><span class="belt-item-label">EARPHONES</span></div>
+      <div class="belt-item"><div class="belt-item-box">🔧<div class="belt-item-progress"><div class="belt-item-fill" style="width:80%;animation-delay:.5s"></div></div></div><span class="belt-item-label">TOOLING</span></div>
+      <div class="belt-item"><div class="belt-item-box">🔋<span class="belt-item-spark" style="animation-delay:1s">✨</span><div class="belt-item-progress"><div class="belt-item-fill" style="width:55%;animation-delay:.3s"></div></div></div><span class="belt-item-label">POWER BANK</span></div>
+      <div class="belt-item"><div class="belt-item-box">📦<div class="belt-item-progress"><div class="belt-item-fill" style="width:20%;animation-delay:.7s"></div></div></div><span class="belt-item-label">PACKAGING</span></div>
+      <div class="belt-item"><div class="belt-item-box">⚡<span class="belt-item-spark" style="animation-delay:.5s">🔥</span><div class="belt-item-progress"><div class="belt-item-fill" style="width:60%;animation-delay:.2s"></div></div></div><span class="belt-item-label">C-CABLE</span></div>
+      <div class="belt-item"><div class="belt-item-box">🔌<div class="belt-item-progress"><div class="belt-item-fill" style="width:40%;animation-delay:.9s"></div></div></div><span class="belt-item-label">ADAPTER</span></div>
+      <div class="belt-item"><div class="belt-item-box">🛠️<span class="belt-item-spark" style="animation-delay:1.5s">⚡</span><div class="belt-item-progress"><div class="belt-item-fill" style="width:90%;animation-delay:.4s"></div></div></div><span class="belt-item-label">ASSEMBLY</span></div>
+      <div class="belt-item"><div class="belt-item-box">🏭<div class="belt-item-progress"><div class="belt-item-fill" style="width:70%;animation-delay:.6s"></div></div></div><span class="belt-item-label">FACTORY</span></div>
+    </div>
+    <div class="sparks-container">
+      <div class="spark" style="--dur:.7s;--delay:0s;  --tx:14px; --ty:-28px"></div>
+      <div class="spark" style="--dur:.9s;--delay:.2s; --tx:-10px;--ty:-34px"></div>
+      <div class="spark" style="--dur:.6s;--delay:.4s; --tx:22px; --ty:-18px"></div>
+      <div class="spark" style="--dur:.8s;--delay:.6s; --tx:-18px;--ty:-25px"></div>
+      <div class="spark" style="--dur:1s; --delay:.1s; --tx:8px;  --ty:-40px"></div>
+    </div>
+  </div>
+  <div class="assembly-status">
+    <div class="status-item"><div class="status-dot"></div>PRODUCTION ACTIVE</div>
+    <div class="status-item"><div class="status-dot orange"></div>DESIGN PHASE: 60%</div>
+    <div class="status-item"><div class="status-dot red"></div>TOOLING: IN PROGRESS</div>
+    <div class="status-item"><div class="status-dot gray"></div>LAUNCH: Q3 2025</div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section">
+  <div class="section-header">
+    <h2 class="section-title">What's<br>Coming</h2>
+    <span class="section-num">04 PRODUCTS</span>
+  </div>
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-status"><div class="status-blink"></div>IN DEV</div>
+      <span class="product-icon">🎧</span>
+      <div class="product-num">// 01</div>
+      <h3 class="product-name">Earphones</h3>
+      <span class="product-tag">WEARABLE AUDIO</span>
+      <div class="rd-scene">
+        <div class="rd-label">R&D // <span>AUDIO TEST</span></div>
+        <span class="rd-ear-icon">🎧</span>
+        <div class="rd-earphone">
+          <div class="rd-wave"></div><div class="rd-wave"></div><div class="rd-wave"></div>
+          <div class="rd-wave"></div><div class="rd-wave"></div><div class="rd-wave"></div>
+          <div class="rd-wave"></div><div class="rd-wave"></div><div class="rd-wave"></div>
+          <div class="rd-wave"></div><div class="rd-wave"></div>
+        </div>
+      </div>
+      <div class="card-progress"><div class="card-progress-fill" style="width:35%" data-pct="35%"></div></div>
+      <div class="card-progress-label">Development Progress</div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-status"><div class="status-blink"></div>IN DEV</div>
+      <span class="product-icon">🔋</span>
+      <div class="product-num">// 02</div>
+      <h3 class="product-name">Power Banks</h3>
+      <span class="product-tag">PORTABLE POWER</span>
+      <div class="rd-scene">
+        <div class="rd-label">R&D // <span>CHARGE TEST</span></div>
+        <div class="rd-battery">
+          <div class="rd-batt-body"><div class="rd-batt-fill"></div></div>
+          <div class="rd-batt-tip"></div>
+          <div class="rd-batt-pct" id="battPct">8%</div>
+        </div>
+      </div>
+      <div class="card-progress"><div class="card-progress-fill" style="width:55%" data-pct="55%"></div></div>
+      <div class="card-progress-label">Development Progress</div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-status"><div class="status-blink"></div>IN DEV</div>
+      <span class="product-icon">⚡</span>
+      <div class="product-num">// 03</div>
+      <h3 class="product-name">Type-C Cables</h3>
+      <span class="product-tag">FAST TRANSFER</span>
+      <div class="rd-scene">
+        <div class="rd-label">R&D // <span>DATA TRANSFER</span></div>
+        <div class="rd-cable-speed" id="cableSpeed">0 MB/s</div>
+        <div class="rd-cable">
+          <span class="rd-cable-end">💻</span>
+          <div class="rd-cable-line">
+            <div class="rd-cable-pulse"></div>
+            <div class="rd-cable-pulse p2"></div>
+          </div>
+          <span class="rd-cable-end">📱</span>
+        </div>
+      </div>
+      <div class="card-progress"><div class="card-progress-fill" style="width:60%" data-pct="60%"></div></div>
+      <div class="card-progress-label">Development Progress</div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-status"><div class="status-blink"></div>IN DEV</div>
+      <span class="product-icon">🔌</span>
+      <div class="product-num">// 04</div>
+      <h3 class="product-name">Power Adapters</h3>
+      <span class="product-tag">MULTI-PORT CHARGE</span>
+      <div class="rd-scene">
+        <div class="rd-label">R&D // <span>VOLTAGE TEST</span></div>
+        <div class="rd-adapter">
+          <div class="rd-volt-num" id="voltNum">65</div>
+          <div class="rd-volt-unit">W</div>
+          <div class="rd-volt-bar"><div class="rd-volt-fill"></div></div>
+          <div class="rd-port-dots">
+            <div class="rd-port-dot"></div><div class="rd-port-dot"></div>
+            <div class="rd-port-dot"></div><div class="rd-port-dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-progress"><div class="card-progress-fill" style="width:40%" data-pct="40%"></div></div>
+      <div class="card-progress-label">Development Progress</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NOTIFY -->
+<section class="notify-section">
+  <h2 class="notify-title">Be First.<br>Get Notified.</h2>
+  <form class="notify-form" id="notifyForm">
+    <input type="email" class="notify-input" placeholder="YOUR@EMAIL.COM" required>
+    <button type="submit" class="notify-btn"><span>NOTIFY ME</span></button>
+  </form>
+  <div class="notify-success" id="notifySuccess">YOU'RE ON THE LIST. ✓</div>
+  <p class="notify-note">// NO SPAM. JUST THE DROP.</p>
+</section>
+
+<!-- Reverse marquee -->
+<div class="marquee-wrap">
+  <div class="marquee-track" style="animation-direction:reverse;animation-duration:32s">
+    <div class="marquee-item" style="color:var(--acid);opacity:0.45">CONQRETE<span class="sep">·</span>NEW AGE TECH<span class="sep">·</span>BUILT DIFFERENT<span class="sep">·</span>ENGINEERED FOR THE RELENTLESS<span class="sep">·</span>CONQRETE<span class="sep">·</span>NEW AGE TECH<span class="sep">·</span>BUILT DIFFERENT<span class="sep">·</span>ENGINEERED FOR THE RELENTLESS<span class="sep">·</span></div>
+    <div class="marquee-item" style="color:var(--acid);opacity:0.45">CONQRETE<span class="sep">·</span>NEW AGE TECH<span class="sep">·</span>BUILT DIFFERENT<span class="sep">·</span>ENGINEERED FOR THE RELENTLESS<span class="sep">·</span>CONQRETE<span class="sep">·</span>NEW AGE TECH<span class="sep">·</span>BUILT DIFFERENT<span class="sep">·</span>ENGINEERED FOR THE RELENTLESS<span class="sep">·</span></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">CONQ<span class="dot">.</span>RETE</div>
+  <div class="footer-copy">© 2025 CONQRETE. ALL RIGHTS RESERVED.</div>
+  <div class="footer-social">
+    <a href="#" class="social-link">Instagram</a>
+    <a href="#" class="social-link">Twitter</a>
+    <a href="#" class="social-link">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+// ============== CURSOR ==============
+const cursor = document.getElementById('cursor');
+const trail  = document.getElementById('cursorTrail');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX+'px'; cursor.style.top = e.clientY+'px';
+  setTimeout(()=>{ trail.style.left=e.clientX+'px'; trail.style.top=e.clientY+'px'; },80);
+});
+document.querySelectorAll('button,a,.product-card,.theme-toggle,.countdown-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ cursor.style.transform='translate(-50%,-50%) scale(2.5)'; trail.style.transform='translate(-50%,-50%) scale(1.5)'; });
+  el.addEventListener('mouseleave',()=>{ cursor.style.transform='translate(-50%,-50%) scale(1)';   trail.style.transform='translate(-50%,-50%) scale(1)'; });
+});
+
+// ============== COUNTDOWN ==============
+const target = new Date(Date.now()+90*24*60*60*1000);
+function updateCountdown(){
+  const d=target-new Date(); if(d<=0) return;
+  document.getElementById('cd-days').textContent =String(Math.floor(d/864e5)).padStart(2,'0');
+  document.getElementById('cd-hours').textContent=String(Math.floor((d%864e5)/36e5)).padStart(2,'0');
+  document.getElementById('cd-mins').textContent =String(Math.floor((d%36e5)/6e4)).padStart(2,'0');
+  document.getElementById('cd-secs').textContent =String(Math.floor((d%6e4)/1e3)).padStart(2,'0');
+}
+updateCountdown(); setInterval(updateCountdown,1000);
+
+// ============== NOTIFY ==============
+document.getElementById('notifyForm').addEventListener('submit',function(e){
+  e.preventDefault(); this.style.display='none';
+  document.getElementById('notifySuccess').style.display='block';
+});
+
+// ============== THEME TOGGLE ==============
+const html = document.documentElement;
+let isDark = true;
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  isDark=!isDark;
+  html.setAttribute('data-theme', isDark?'dark':'light');
+  if(isDark){ stopLight(); startStorm(); }
+  else      { stopStorm(); startLight(); }
+});
+
+// ============== CANVAS SETUP ==============
+const flashEl  = document.getElementById('lightningFlash');
+const cloudsEl = document.getElementById('stormClouds');
+const lCanvas  = document.getElementById('stormCanvas');
+const lCtx     = lCanvas.getContext('2d');
+const ltCanvas = document.getElementById('lightCanvas');
+const ltCtx    = ltCanvas.getContext('2d');
+
+function resize(){
+  lCanvas.width  = ltCanvas.width  = window.innerWidth;
+  lCanvas.height = ltCanvas.height = window.innerHeight;
+}
+resize(); window.addEventListener('resize', () => { resize(); if(lightRunning) initParticles(); });
+
+// ============== AUDIO ==============
+let audioCtx=null;
+function initAudio(){ if(audioCtx) return; try{ audioCtx=new(window.AudioContext||window.webkitAudioContext)(); }catch(e){} }
+function playThunder(delay){
+  initAudio(); if(!audioCtx) return;
+  setTimeout(()=>{
+    try{
+      const sz=audioCtx.sampleRate*3, buf=audioCtx.createBuffer(1,sz,audioCtx.sampleRate), dat=buf.getChannelData(0);
+      for(let i=0;i<sz;i++) dat[i]=(Math.random()*2-1)*Math.pow(1-i/sz,1.5);
+      const src=audioCtx.createBufferSource(); src.buffer=buf;
+      const gain=audioCtx.createGain();
+      gain.gain.setValueAtTime(0,audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.55,audioCtx.currentTime+0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+2.5);
+      const filt=audioCtx.createBiquadFilter(); filt.type='lowpass'; filt.frequency.value=180;
+      src.connect(filt); filt.connect(gain); gain.connect(audioCtx.destination); src.start();
+    }catch(e){}
+  },delay);
+}
+
+// ============== LIGHTNING ==============
+let stormRunning=false, stormRAF=null, stormTimer=null;
+
+function drawBolt(x1,y1,x2,y2,rough,color,w,ctx,depth){
+  if(depth<=0) return;
+  const mx=(x1+x2)/2+(Math.random()-.5)*rough;
+  const my=(y1+y2)/2+(Math.random()-.5)*rough*.4;
+  drawBolt(x1,y1,mx,my,rough/2,color,w*.9,ctx,depth-1);
+  drawBolt(mx,my,x2,y2,rough/2,color,w*.9,ctx,depth-1);
+  if(Math.random()<.35&&depth>2) drawBolt(mx,my,mx+(Math.random()-.5)*200,my+Math.random()*(lCanvas.height*.3),rough/3,color,w*.4,ctx,depth-2);
+  ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(mx,my); ctx.lineTo(x2,y2);
+  ctx.strokeStyle=color; ctx.lineWidth=w; ctx.shadowBlur=20; ctx.shadowColor=color; ctx.globalAlpha=.9; ctx.stroke();
+}
+
+function flash(v){
+  flashEl.style.transition='none'; flashEl.style.opacity=v;
+  setTimeout(()=>{ flashEl.style.transition='opacity .4s ease'; flashEl.style.opacity='0'; },60+Math.random()*80);
+}
+
+function triggerLightning(){
+  if(!stormRunning) return;
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const mainCol  = dark ? 'rgba(200,255,0,.5)'  : 'rgba(232,0,13,.5)';
+  const mainCol2 = dark ? 'rgba(200,255,0,.8)'  : 'rgba(232,0,13,.8)';
+  const boltCol  = dark ? '#c8ff00'              : '#e8000d';
+  const flashCol = dark ? 'rgba(200,255,0,0.12)' : 'rgba(232,0,13,0.08)';
+
+  lCtx.clearRect(0,0,lCanvas.width,lCanvas.height);
+  const sx=lCanvas.width*(.1+Math.random()*.8), ex=sx+(Math.random()-.5)*400, ey=lCanvas.height*(.4+Math.random()*.5);
+  [{w:12,a:.06,blur:60,c:mainCol},{w:6,a:.18,blur:30,c:mainCol2},{w:2,a:1,blur:8,c:'#fff'}]
+    .forEach(p=>{ lCtx.globalAlpha=p.a; lCtx.shadowBlur=p.blur; lCtx.shadowColor=p.c; drawBolt(sx,0,ex,ey,180,p.c,p.w,lCtx,7); });
+
+  flashEl.style.background = flashCol;
+  flash(.15); setTimeout(()=>flash(.28),60);
+  playThunder(500+Math.random()*2500);
+  setTimeout(()=>lCtx.clearRect(0,0,lCanvas.width,lCanvas.height),180+Math.random()*120);
+  if(Math.random()<.4) setTimeout(()=>{
+    if(!stormRunning) return;
+    lCtx.clearRect(0,0,lCanvas.width,lCanvas.height);
+    const x1=lCanvas.width*(.1+Math.random()*.8),x2=x1+(Math.random()-.5)*250;
+    lCtx.globalAlpha=.6; lCtx.shadowBlur=20; lCtx.shadowColor=mainCol2;
+    drawBolt(x1,0,x2,lCanvas.height*(.3+Math.random()*.4),100,boltCol,1.5,lCtx,5);
+    flash(.1); setTimeout(()=>lCtx.clearRect(0,0,lCanvas.width,lCanvas.height),100);
+  },250);
+}
+
+function scheduleLightning(){
+  if(!stormRunning) return;
+  stormTimer=setTimeout(()=>{ triggerLightning(); scheduleLightning(); },2000+Math.random()*6000);
+}
+
+function startStorm(){
+  stormRunning=true;
+  flashEl.style.background = 'rgba(200,255,0,0.12)';
+  cloudsEl.style.opacity='1';
+  lCanvas.style.opacity='1';
+  setTimeout(()=>{ triggerLightning(); scheduleLightning(); },800);
+}
+
+function stopStorm(){
+  stormRunning=false; clearTimeout(stormTimer);
+  if(stormRAF) cancelAnimationFrame(stormRAF);
+  lCtx.clearRect(0,0,lCanvas.width,lCanvas.height);
+  cloudsEl.style.opacity='0';
+  lCanvas.style.opacity='0'; flashEl.style.opacity='0';
+}
+
+// ============== LIGHT MODE ENGINE ==============
+let lightRunning = false, lightRAF = null;
+let particles = [];
+
+function initParticles() {
+  particles = [];
+  const count = Math.min(Math.floor(window.innerWidth / 6), 180);
+  for (let i = 0; i < count; i++) {
+    particles.push(mkParticle(true));
+  }
+}
+
+function mkParticle(random) {
+  const types = ['dot','line','cross','ring'];
+  const type  = types[Math.floor(Math.random()*types.length)];
+  return {
+    x:     random ? Math.random() * ltCanvas.width  : (Math.random() < 0.5 ? -20 : ltCanvas.width + 20),
+    y:     random ? Math.random() * ltCanvas.height : Math.random() * ltCanvas.height,
+    vx:    (Math.random() - 0.5) * 0.6,
+    vy:    -0.3 - Math.random() * 0.5,
+    size:  1.5 + Math.random() * 5,
+    alpha: 0.1 + Math.random() * 0.55,
+    life:  0.005 + Math.random() * 0.008,
+    decay: 0,
+    type,
+    hue:   Math.random() < 0.7 ? 'red' : 'orange',
+    spin:  (Math.random() - 0.5) * 0.04,
+    angle: Math.random() * Math.PI * 2,
+    pulse: Math.random() * Math.PI * 2,
+  };
+}
+
+function drawParticle(p) {
+  const a = p.alpha * (1 - p.decay);
+  if (a <= 0) return;
+  ltCtx.save();
+  ltCtx.globalAlpha = a;
+  ltCtx.translate(p.x, p.y);
+  ltCtx.rotate(p.angle);
+
+  const pulsed = p.size + Math.sin(p.pulse) * 0.8;
+  const col = p.hue === 'red' ? `rgba(232,0,13,${a})` : `rgba(255,90,0,${a})`;
+
+  if (p.type === 'dot') {
+    ltCtx.beginPath();
+    ltCtx.arc(0, 0, pulsed, 0, Math.PI * 2);
+    ltCtx.fillStyle = col;
+    ltCtx.shadowBlur = 8;
+    ltCtx.shadowColor = col;
+    ltCtx.fill();
+  } else if (p.type === 'ring') {
+    ltCtx.beginPath();
+    ltCtx.arc(0, 0, pulsed + 2, 0, Math.PI * 2);
+    ltCtx.strokeStyle = col;
+    ltCtx.lineWidth = 1;
+    ltCtx.shadowBlur = 6;
+    ltCtx.shadowColor = col;
+    ltCtx.stroke();
+  } else if (p.type === 'line') {
+    ltCtx.beginPath();
+    ltCtx.moveTo(-pulsed * 2, 0);
+    ltCtx.lineTo(pulsed * 2, 0);
+    ltCtx.strokeStyle = col;
+    ltCtx.lineWidth = 1;
+    ltCtx.shadowBlur = 4;
+    ltCtx.shadowColor = col;
+    ltCtx.stroke();
+  } else if (p.type === 'cross') {
+    ltCtx.strokeStyle = col;
+    ltCtx.lineWidth = 1;
+    ltCtx.shadowBlur = 5;
+    ltCtx.shadowColor = col;
+    ltCtx.beginPath(); ltCtx.moveTo(-pulsed,0); ltCtx.lineTo(pulsed,0); ltCtx.stroke();
+    ltCtx.beginPath(); ltCtx.moveTo(0,-pulsed); ltCtx.lineTo(0,pulsed); ltCtx.stroke();
+  }
+
+  ltCtx.restore();
+}
+
+// Occasional red electric arc on light mode
+function drawArc() {
+  if (!lightRunning) return;
+  const x1 = Math.random() * ltCanvas.width;
+  const y1 = Math.random() * ltCanvas.height * 0.5;
+  const x2 = x1 + (Math.random() - 0.5) * 200;
+  const y2 = y1 + 60 + Math.random() * 100;
+
+  [
+    {w:6, a:0.04, col:'rgba(232,0,13,0.3)'},
+    {w:2, a:0.25, col:'rgba(232,0,13,0.8)'},
+    {w:0.8, a:0.9, col:'rgba(255,180,180,1)'},
+  ].forEach(p => {
+    ltCtx.globalAlpha = p.a;
+    ltCtx.shadowBlur  = 15;
+    ltCtx.shadowColor = p.col;
+    drawBolt(x1, y1, x2, y2, 60, p.col, p.w, ltCtx, 5);
+  });
+
+  // brief red flash
+  flashEl.style.background = 'rgba(232,0,13,0.06)';
+  flashEl.style.transition = 'none'; flashEl.style.opacity = '0.5';
+  setTimeout(() => { flashEl.style.transition = 'opacity 0.5s ease'; flashEl.style.opacity = '0'; }, 50);
+
+  setTimeout(() => ltCtx.clearRect(0,0,ltCanvas.width,ltCanvas.height), 120);
+}
+
+function animateLight() {
+  if (!lightRunning) return;
+  ltCtx.clearRect(0, 0, ltCanvas.width, ltCanvas.height);
+
+  particles.forEach((p, i) => {
+    p.x += p.vx; p.y += p.vy;
+    p.angle += p.spin; p.pulse += 0.05;
+    p.decay += p.life;
+
+    if (p.decay >= 1 || p.y < -20 || p.x < -20 || p.x > ltCanvas.width + 20) {
+      particles[i] = mkParticle(false);
+    } else {
+      drawParticle(p);
+    }
+  });
+
+  lightRAF = requestAnimationFrame(animateLight);
+}
+
+let arcTimer = null;
+function scheduleArc() {
+  if (!lightRunning) return;
+  arcTimer = setTimeout(() => { drawArc(); scheduleArc(); }, 2500 + Math.random() * 5000);
+}
+
+function startLight() {
+  lightRunning = true;
+  ltCanvas.style.opacity = '1';
+  initParticles();
+  animateLight();
+  // Also run lightning in red on light mode
+  flashEl.style.background = 'rgba(232,0,13,0.06)';
+  stormRunning = true;
+  lCanvas.style.opacity = '1';
+  setTimeout(()=>{ triggerLightning(); scheduleLightning(); }, 1200);
+}
+
+function stopLight() {
+  lightRunning = false;
+  stormRunning = false;
+  clearTimeout(arcTimer);
+  clearTimeout(stormTimer);
+  if (lightRAF) cancelAnimationFrame(lightRAF);
+  ltCtx.clearRect(0, 0, ltCanvas.width, ltCanvas.height);
+  lCtx.clearRect(0, 0, lCanvas.width, lCanvas.height);
+  ltCanvas.style.opacity = '0';
+  lCanvas.style.opacity = '0';
+  flashEl.style.background = 'rgba(200,255,0,0.12)';
+  flashEl.style.opacity = '0';
+}
+
+// ============== R&D LIVE COUNTERS ==============
+// Battery % counter synced with CSS animation (2.2s cycle)
+(function(){
+  const battEl = document.getElementById('battPct');
+  const voltEl = document.getElementById('voltNum');
+  const cableEl = document.getElementById('cableSpeed');
+  if(!battEl) return;
+
+  // Battery: 0→95→0 over 2200ms
+  let battStart = Date.now();
+  function animBatt(){
+    const t = (Date.now()-battStart) % 2200;
+    let pct;
+    if(t < 1430) pct = Math.round((t/1430)*95);       // 0→95
+    else         pct = Math.round(95*(1-(t-1430)/770)); // 95→0
+    battEl.textContent = pct + '%';
+    requestAnimationFrame(animBatt);
+  }
+  animBatt();
+
+  // Cable speed: flickers between 0 and ~480 MB/s
+  const speeds = ['0 MB/s','120 MB/s','480 MB/s','480 MB/s','240 MB/s','480 MB/s','0 MB/s'];
+  let si=0;
+  setInterval(()=>{ if(cableEl) cableEl.textContent=speeds[si++ % speeds.length]; }, 500);
+
+  // Voltage: flickers realistically
+  const volts = [65,65,63,65,65,67,65,64,65,65,60,65];
+  let vi=0;
+  setInterval(()=>{ if(voltEl) voltEl.textContent=volts[vi++ % volts.length]; }, 300);
+})();
+
+// ============== INIT ==============
+['click','keydown','mousemove','touchstart'].forEach(ev=>document.addEventListener(ev,initAudio,{once:true}));
+setTimeout(startStorm, 700);
+</script>
+</body>
+</html>
