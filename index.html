@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CONQRETE — Coming Soon </title>
+<title>CONQRETE — Coming Soon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Barlow+Condensed:wght@300;400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
@@ -248,11 +248,21 @@
   @media(max-width:768px) {
     .hero-tagline { font-size: clamp(14px, 5vw, 22px); letter-spacing: 0.1em; margin-top: 20px; }
   }
+
+  .corner-mark {
     position:absolute;bottom:30px;right:40px;
     font-family:'Share Tech Mono',monospace;font-size:11px;
     color:var(--muted);letter-spacing:0.3em;writing-mode:vertical-rl;
     animation:fadeUp 1s 0.9s cubic-bezier(0.16,1,0.3,1) both;transition:color 0.5s;
   }
+
+  /* ====== HERO TWO-COLUMN ====== */
+  .hero-inner {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px; width: 100%; min-height: 70vh;
+  }
+  .hero-content { flex: 1; max-width: 600px; }
 
   .hero-cut{
     position:absolute;bottom:-2px;left:0;right:0;height:120px;
@@ -499,11 +509,23 @@
   .notify-input::placeholder{color:rgba(0,0,0,0.3);}
   .notify-input:focus{background:rgba(0,0,0,0.16);}
   .notify-btn{
-    background:var(--text);color:var(--acid);border:none;
+    background: #111111;
+    color: #ffffff;
+    border: 3px solid var(--acid);
     font-family:'Black Han Sans',sans-serif;font-size:16px;letter-spacing:0.2em;
     padding:18px 36px;cursor:pointer;text-transform:uppercase;
-    position:relative;overflow:hidden;transition:background 0.3s;
+    position:relative;overflow:hidden;transition:background 0.3s, color 0.3s, border-color 0.3s;
     -webkit-tap-highlight-color: transparent;
+    font-weight:900;
+  }
+  [data-theme="dark"] .notify-btn {
+    background: #111111;
+    color: #ffffff;
+    border: 3px solid var(--acid);
+  }
+  [data-theme="dark"] .notify-btn:hover {
+    background: var(--acid);
+    color: #111111;
   }
   .notify-btn::after{
     content:'';position:absolute;inset:0;background:var(--orange);
@@ -522,7 +544,7 @@
   #stormCanvas   {inset:0;z-index:500;opacity:0;}
   #lightningFlash{inset:0;z-index:499;background:rgba(200,255,0,0.12);opacity:0;}
   #stormVignette {inset:0;z-index:497;opacity:0;display:none;}
-  #stormClouds   {top:64px;left:0;right:0;bottom:auto;height:200px;z-index:496;background:linear-gradient(to bottom,rgba(0,0,0,0.8),transparent);opacity:0;}
+  #stormClouds   {top:64px;left:0;right:0;bottom:auto;height:200px;z-index:496;opacity:0;display:none;}
 
   /* ====== LIGHT MODE: RED ACCENT ====== */
   [data-theme="light"] { --acid: #e8000d; }
@@ -557,7 +579,7 @@
   [data-theme="light"] .notify-input       { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); color:#f0ede6; }
   [data-theme="light"] .notify-input::placeholder { color:rgba(240,237,230,0.5); }
   [data-theme="light"] .notify-input:focus { background:rgba(255,255,255,0.12); }
-  [data-theme="light"] .notify-btn        { background:#e8000d; color:#fff; }
+  [data-theme="light"] .notify-btn        { background:#e8000d; color:#fff; font-weight:900; }
   [data-theme="light"] .notify-note       { color:rgba(240,237,230,0.45); }
   [data-theme="light"] .notify-success    { color:#f0ede6; }
 
@@ -637,14 +659,289 @@
   @keyframes voltFill   {0%{width:0}40%{width:75%}60%{width:95%}80%{width:85%}100%{width:0}}
   @keyframes voltFlicker{0%,100%{opacity:1}45%{opacity:1}50%{opacity:0.5}55%{opacity:1}}
 
-  /* ====== FOOTER ====== */
+  /* ====== HERO TWO-COLUMN ====== */
+  .hero-inner {
+    position: relative; z-index: 2;
+    display: flex; align-items: center;
+    gap: 40px; width: 100%;
+  }
+  .hero-content { flex: 1; max-width: 620px; }
+
+  /* ====== SPACEX STARSHIP SCENE — desktop only ====== */
+  .rocket-scene {
+    flex: 0 0 340px;
+    height: 520px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: visible;
+  }
+
+  /* ---- STARSHIP SVG ---- */
+  .starship {
+    width: 100px;
+    position: absolute;
+    left: calc(50% - 80px);
+    transform-origin: center bottom;
+    filter: drop-shadow(0 2px 16px rgba(200,255,0,0.2));
+    animation: starshipAnim 9s cubic-bezier(0.25,0.46,0.45,0.94) infinite;
+    z-index: 3;
+  }
+  [data-theme="light"] .starship {
+    filter: drop-shadow(0 2px 16px rgba(232,0,13,0.2));
+  }
+
+  @keyframes starshipAnim {
+    /* Start high, invisible */
+    0%   { bottom: 500px; opacity: 0; }
+    3%   { opacity: 1; }
+    /* Slow descent with slight corrections */
+    15%  { bottom: 340px; transform: translateX(6px); }
+    30%  { bottom: 220px; transform: translateX(-4px); }
+    45%  { bottom: 145px; transform: translateX(2px); }
+    /* Hover above arms */
+    52%  { bottom: 128px; transform: translateX(0); }
+    /* ARMS CATCH — settle */
+    58%  { bottom: 120px; transform: translateX(0) scaleY(0.98); }
+    /* Hold caught */
+    60%  { bottom: 120px; transform: translateX(0) scaleY(1); }
+    72%  { bottom: 120px; opacity: 1; }
+    /* Ignition compress */
+    76%  { bottom: 116px; transform: translateX(0) scaleY(0.97); }
+    /* LAUNCH */
+    82%  { bottom: 260px; transform: translateX(0) scaleY(1.02); opacity: 1; }
+    90%  { bottom: 460px; opacity: 0.5; }
+    94%  { bottom: 560px; opacity: 0; }
+    /* Reset */
+    95%,100% { bottom: 500px; opacity: 0; }
+  }
+
+  /* ---- TOWER + MECHAZILLA ---- */
+  .catch-tower {
+    position: absolute;
+    bottom: 0;
+    right: 40px;
+    width: 36px;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .tower-pole {
+    flex: 1;
+    width: 10px;
+    background: linear-gradient(180deg, #5a6a8a 0%, #3a4458 100%);
+    border-radius: 3px 3px 0 0;
+    position: relative;
+  }
+  /* Horizontal rungs on tower */
+  .tower-pole::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      180deg,
+      transparent 0px, transparent 18px,
+      rgba(200,255,0,0.2) 18px, rgba(200,255,0,0.2) 20px
+    );
+    border-radius: inherit;
+  }
+  [data-theme="light"] .tower-pole::after {
+    background: repeating-linear-gradient(
+      180deg,
+      transparent 0px, transparent 18px,
+      rgba(232,0,13,0.2) 18px, rgba(232,0,13,0.2) 20px
+    );
+  }
+
+  .tower-base {
+    width: 30px; height: 22px;
+    background: #3a4458;
+    border-radius: 0 0 3px 3px;
+  }
+
+  /* ---- MECHAZILLA ARMS (the big catch arms) ---- */
+  .mech-arm-wrap {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    z-index: 4;
+  }
+
+  .catch-arm {
+    position: absolute;
+    height: 12px;
+    border-radius: 4px;
+    top: 0;
+    transition: background 0.5s, box-shadow 0.5s;
+  }
+
+  .catch-arm-left {
+    width: 110px;
+    right: 5px;
+    background: linear-gradient(270deg, var(--acid) 0%, #6a8a00 100%);
+    box-shadow: 0 0 10px rgba(200,255,0,0.5), inset 0 2px 0 rgba(255,255,255,0.15);
+    transform-origin: right center;
+    animation: leftArmAnim 9s cubic-bezier(0.25,0.46,0.45,0.94) infinite;
+    border-radius: 4px 0 0 4px;
+  }
+  .catch-arm-right {
+    width: 110px;
+    left: 5px;
+    background: linear-gradient(90deg, var(--acid) 0%, #6a8a00 100%);
+    box-shadow: 0 0 10px rgba(200,255,0,0.5), inset 0 2px 0 rgba(255,255,255,0.15);
+    transform-origin: left center;
+    animation: rightArmAnim 9s cubic-bezier(0.25,0.46,0.45,0.94) infinite;
+    border-radius: 0 4px 4px 0;
+  }
+  [data-theme="light"] .catch-arm-left,
+  [data-theme="light"] .catch-arm-right {
+    background: linear-gradient(90deg, #e8000d, #8a0000);
+    box-shadow: 0 0 10px rgba(232,0,13,0.5), inset 0 2px 0 rgba(255,255,255,0.15);
+  }
+
+  /* Arm tip teeth (Mechazilla claw detail) */
+  .catch-arm-left::before {
+    content: '';
+    position: absolute; left: 0; top: -4px;
+    width: 14px; height: 20px;
+    background: inherit;
+    clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 80%);
+    border-radius: 2px;
+  }
+  .catch-arm-right::after {
+    content: '';
+    position: absolute; right: 0; top: -4px;
+    width: 14px; height: 20px;
+    background: inherit;
+    clip-path: polygon(100% 20%, 0 0, 0 100%, 100% 80%);
+    border-radius: 2px;
+  }
+
+  @keyframes leftArmAnim {
+    /* Open wide while ship descends */
+    0%,3%    { transform: rotate(-50deg); }
+    50%      { transform: rotate(-50deg); }
+    /* Closing in */
+    55%      { transform: rotate(-30deg); }
+    59%      { transform: rotate(-4deg); }
+    /* CAUGHT — flat */
+    60%,73%  { transform: rotate(0deg); }
+    /* Open for launch */
+    77%      { transform: rotate(-40deg); }
+    100%     { transform: rotate(-50deg); }
+  }
+  @keyframes rightArmAnim {
+    0%,3%    { transform: rotate(50deg); }
+    50%      { transform: rotate(50deg); }
+    55%      { transform: rotate(30deg); }
+    59%      { transform: rotate(4deg); }
+    60%,73%  { transform: rotate(0deg); }
+    77%      { transform: rotate(40deg); }
+    100%     { transform: rotate(50deg); }
+  }
+
+  /* ---- GROUND / LAUNCH PAD ---- */
+  .launch-pad {
+    width: 100px;
+    height: 8px;
+    position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    z-index: 1;
+    transition: background 0.5s, border-color 0.5s;
+  }
+  .launch-pad::before {
+    content: '';
+    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+    width: 2px; height: 30px;
+    background: linear-gradient(to top, var(--acid), transparent);
+    opacity: 0.4;
+  }
+
+  /* ---- EXHAUST PLUME ---- */
+  .exhaust-cloud {
+    position: absolute;
+    bottom: 8px; left: calc(50% - 80px);
+    transform: translateX(-50%);
+    width: 120px; height: 60px;
+    pointer-events: none;
+    z-index: 2;
+    animation: plumeVis 9s ease-in-out infinite;
+  }
+  @keyframes plumeVis {
+    0%,3%    { opacity: 0.7; }   /* descending thrust */
+    58%,59%  { opacity: 0; }
+    75%,77%  { opacity: 0.2; }   /* ignition buildup */
+    80%,92%  { opacity: 1; }     /* launch full thrust */
+    94%,100% { opacity: 0; }
+  }
+  .cloud {
+    position: absolute; border-radius: 50%;
+    filter: blur(10px);
+    animation: plumeExpand 0.6s ease-out infinite;
+  }
+  [data-theme="dark"]  .cloud { background: rgba(200,255,0,0.15); }
+  [data-theme="light"] .cloud { background: rgba(232,0,13,0.12); }
+  .c1 { width:70px;height:35px;bottom:0;left:25px;animation-delay:0s; }
+  .c2 { width:90px;height:28px;bottom:4px;left:15px;animation-delay:0.18s; }
+  .c3 { width:55px;height:22px;bottom:8px;left:33px;animation-delay:0.35s; }
+  @keyframes plumeExpand {
+    from { transform: scale(0.7); opacity: 0.6; }
+    to   { transform: scale(1.5); opacity: 0; }
+  }
+
+  /* ---- STATUS LABEL ---- */
+  .rocket-status {
+    position: absolute; bottom: -28px; left: calc(50% - 40px);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; letter-spacing: 0.3em;
+    color: var(--acid); text-transform: uppercase;
+    white-space: nowrap; z-index: 5;
+    transition: color 0.5s;
+  }
+  [data-theme="light"] .rocket-status { color: #e8000d; }
+
+  /* Flame animations on SVG */
+  .flame-c, .flame-l, .flame-r, .flame-c2 {
+    animation: flameFlicker 0.1s ease-in-out infinite alternate,
+               flameVis 9s ease-in-out infinite;
+  }
+  .flame-l  { animation-delay: 0.05s, 0s; }
+  .flame-r  { animation-delay: 0.08s, 0s; }
+  .flame-c2 { animation-delay: 0.03s, 0s; }
+  @keyframes flameFlicker {
+    from { transform: scaleY(0.85) scaleX(0.9); opacity: 0.85; }
+    to   { transform: scaleY(1.15) scaleX(1.1); opacity: 1; }
+  }
+  @keyframes flameVis {
+    0%,4%    { opacity: 0.9; }
+    56%,61%  { opacity: 0; }     /* caught — engines off */
+    73%,76%  { opacity: 0; }
+    78%      { opacity: 0.5; }   /* ignition */
+    82%,94%  { opacity: 1; }     /* launch burn */
+    95%,100% { opacity: 0; }
+  }
+
   footer{
     padding:40px;display:flex;justify-content:space-between;align-items:center;
     border-top:1px solid var(--border);background:var(--foot-bg);
-    transition:var(--transition);
+    transition:var(--transition);gap:32px;flex-wrap:wrap;
   }
   .footer-logo{font-family:'Black Han Sans',sans-serif;font-size:22px;letter-spacing:0.15em;color:var(--text);transition:color 0.5s;}
   .footer-logo .dot{color:var(--acid);}
+  .footer-contact{display:flex;flex-direction:column;gap:6px;}
+  .footer-contact-label{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.3em;text-transform:uppercase;transition:color 0.5s;}
+  .footer-email{font-family:'Black Han Sans',sans-serif;font-size:16px;letter-spacing:0.12em;color:var(--acid);text-decoration:none;text-transform:uppercase;transition:color 0.3s,opacity 0.3s;}
+  .footer-email:hover{opacity:0.7;}
+  [data-theme="light"] .footer-email{color:#e8000d;}
+  .footer-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
   .footer-copy{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.2em;transition:color 0.5s;}
   .footer-social{display:flex;gap:20px;}
   .social-link{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.3em;text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
@@ -732,14 +1029,32 @@
     .product-name { font-size: 28px; }
     .product-status { top: 14px; right: 14px; font-size: 9px; padding: 4px 10px; }
 
-    /* R&D scene on mobile */
-    .rd-scene { height: 56px; padding: 0 10px; margin: 14px 0 6px; }
-    .rd-earphone { gap: 3px; }
-    .rd-wave:nth-child(n) { width: 2px; }
-    .rd-battery { gap: 6px; }
-    .rd-adapter { gap: 6px; }
-    .rd-volt-num { font-size: 16px; }
-    .rd-cable { width: 95%; }
+    /* R&D scene on mobile - FULLY VISIBLE */
+    .rd-scene {
+      height: 72px;
+      padding: 0 12px;
+      margin: 16px 0 8px;
+      display: flex;
+      overflow: visible;
+    }
+    .rd-earphone { gap: 3px; margin-top: 20px; }
+    .rd-wave { width: 3px; }
+    .rd-wave:nth-child(1){height:8px}  .rd-wave:nth-child(2){height:16px}
+    .rd-wave:nth-child(3){height:24px} .rd-wave:nth-child(4){height:30px}
+    .rd-wave:nth-child(5){height:24px} .rd-wave:nth-child(6){height:16px}
+    .rd-wave:nth-child(7){height:8px}  .rd-wave:nth-child(8){height:16px}
+    .rd-wave:nth-child(9){height:24px} .rd-wave:nth-child(10){height:16px}
+    .rd-wave:nth-child(11){height:8px}
+    .rd-battery { gap: 8px; margin-top: 20px; }
+    .rd-batt-body { height: 18px; }
+    .rd-batt-pct { font-size: 13px; min-width: 38px; }
+    .rd-adapter { gap: 6px; margin-top: 20px; }
+    .rd-volt-num { font-size: 18px; }
+    .rd-volt-bar { height: 5px; }
+    .rd-cable { width: 96%; margin-top: 20px; }
+    .rd-cable-end { font-size: 18px; }
+    .rd-cable-line { height: 5px; }
+    .rd-cable-speed { font-size: 10px; top: 4px; right: 6px; }
 
     /* NOTIFY */
     .notify-section { padding: 48px 20px; }
@@ -756,15 +1071,11 @@
     .notify-note { font-size: 10px; margin-top: 14px; }
 
     /* FOOTER */
-    footer {
-      padding: 28px 20px;
-      flex-direction: column;
-      gap: 16px;
-      text-align: center;
-    }
+    footer { padding:28px 20px; flex-direction:column; align-items:flex-start; gap:20px; }
+    .footer-right { align-items:flex-start; }
     .footer-logo { font-size: 20px; }
     .footer-copy { font-size: 10px; letter-spacing: 0.1em; }
-    .footer-social { gap: 16px; justify-content: center; }
+    .footer-social { gap: 16px; }
 
     /* Disable glitch on mobile - causes layout jank */
     .glitch::before, .glitch::after { display: none; }
@@ -784,7 +1095,9 @@
     .nav-logo { font-size: 20px; }
     .countdown-num { font-size: 28px; }
     .product-card { padding: 28px 18px 24px; }
-    .rd-scene { display: none; } /* hide R&D on very small screens */
+    .rd-scene { height: 68px; }
+    .rd-volt-num { font-size: 15px; }
+    .rd-wave:nth-child(n) { width: 2px; }
   }
 </style>
 </head>
@@ -816,20 +1129,25 @@
 <!-- HERO -->
 <section class="hero">
   <div class="bg-word">CONQRETE</div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">WEARABLE TECH BRAND</div>
-    <h1 class="hero-title">
-      <span class="glitch" data-text="CONQ">CONQ</span><br>
-      <span style="color:var(--acid)">RETE</span>
-    </h1>
-    <p class="hero-subtitle">New Age Technology</p>
-    <div class="accent-line"><span class="accent-line-text">SOMETHING MASSIVE IS BEING BUILT</span></div>
-    <p class="hero-desc">Earphones. Power banks. Cables. Adapters. Products engineered to keep up with your pace. Uncompromising in design. Built for the relentless.</p>
-    <div class="hero-tagline">BUILT FOR YOUR DAILY ABUSE<span class="tagline-dot">.</span></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">WEARABLE TECH BRAND</div>
+      <h1 class="hero-title">
+        <span class="glitch" data-text="CONQ">CONQ</span><br>
+        <span style="color:var(--acid)">RETE</span>
+      </h1>
+      <p class="hero-subtitle">New Age Technology</p>
+      <div class="accent-line"><span class="accent-line-text">SOMETHING MASSIVE IS BEING BUILT</span></div>
+      <p class="hero-desc">Earphones. Power banks. Cables. Adapters. Products engineered to keep up with your pace. Uncompromising in design. Built for the relentless.</p>
+      <div class="hero-tagline">BUILT FOR YOUR DAILY ABUSE<span class="tagline-dot">.</span></div>
+    </div>
+
   </div>
+
   <div class="corner-mark">COMING SOON — 2025</div>
   <div class="hero-cut"></div>
 </section>
+
 
 <!-- MARQUEE -->
 <div class="marquee-wrap">
@@ -993,13 +1311,19 @@
 <!-- NOTIFY -->
 <section class="notify-section">
   <h2 class="notify-title">Be First.<br>Get Notified.</h2>
-  <form class="notify-form" id="notifyForm">
-    <input type="email" class="notify-input" placeholder="YOUR@EMAIL.COM" required>
+  <form class="notify-form" id="notifyForm"
+        method="POST"
+        action="https://066f7a35.sibforms.com/serve/MUIFAKrrcbThFWsj4EjZG4XxiQpNSFTEPLWbYTD_-UKw0fo-Tqo78aC_7qW1wBnhHELUhPAn6TV8i_t0QDYz5oXOC5wdevC8JWpQkFxajY8tezk39X0R_kJvPUcQQ0BxJTIhr-RiOJTBirLzVSg384HWdPGDiHZbomvXt-gSsyXUG_w-KEy1iFuKXh0zoCc2KzcZYRI-pyaGYPFJHw=="
+        data-type="subscription">
+    <input type="email" class="notify-input" name="EMAIL" placeholder="YOUR@EMAIL.COM" required>
     <button type="submit" class="notify-btn"><span>NOTIFY ME</span></button>
+    <input type="hidden" name="locale" value="en">
+    <input type="text" name="email_address_check" value="" style="display:none;">
   </form>
   <div class="notify-success" id="notifySuccess">YOU'RE ON THE LIST. ✓</div>
   <p class="notify-note">// NO SPAM. JUST THE DROP.</p>
 </section>
+<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 
 <!-- Reverse marquee -->
 <div class="marquee-wrap">
@@ -1012,15 +1336,21 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">CONQ<span class="dot">.</span>RETE</div>
-  <div class="footer-copy">© 2025 CONQRETE. ALL RIGHTS RESERVED.</div>
-  <div class="footer-social">
-    <a href="#" class="social-link">Instagram</a>
-    <a href="#" class="social-link">Twitter</a>
-    <a href="#" class="social-link">LinkedIn</a>
+  <div class="footer-contact">
+    <span class="footer-contact-label">// FOR MORE INFO, DROP US AT</span>
+    <a href="/cdn-cgi/l/email-protection#afcedcc4efccc0c1deddcadbca81c6c1" class="footer-email"><span class="__cf_email__" data-cfemail="f3928098b3909c9d8281968796dd9a9d">[email&#160;protected]</span></a>
+  </div>
+  <div class="footer-right">
+    <div class="footer-copy">© 2025 CONQRETE. ALL RIGHTS RESERVED.</div>
+    <div class="footer-social">
+      <a href="#" class="social-link">Instagram</a>
+      <a href="#" class="social-link">Twitter</a>
+      <a href="#" class="social-link">LinkedIn</a>
+    </div>
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ============== CURSOR ==============
 const cursor = document.getElementById('cursor');
 const trail  = document.getElementById('cursorTrail');
@@ -1045,9 +1375,13 @@ function updateCountdown(){
 updateCountdown(); setInterval(updateCountdown,1000);
 
 // ============== NOTIFY ==============
-document.getElementById('notifyForm').addEventListener('submit',function(e){
-  e.preventDefault(); this.style.display='none';
-  document.getElementById('notifySuccess').style.display='block';
+// Let Brevo handle the real POST — show success UI after submit
+document.getElementById('notifyForm').addEventListener('submit', function() {
+  const form = this;
+  setTimeout(() => {
+    form.style.display = 'none';
+    document.getElementById('notifySuccess').style.display = 'block';
+  }, 800);
 });
 
 // ============== THEME TOGGLE ==============
@@ -1074,25 +1408,8 @@ function resize(){
 }
 resize(); window.addEventListener('resize', () => { resize(); if(lightRunning) initParticles(); });
 
-// ============== AUDIO ==============
-let audioCtx=null;
-function initAudio(){ if(audioCtx) return; try{ audioCtx=new(window.AudioContext||window.webkitAudioContext)(); }catch(e){} }
-function playThunder(delay){
-  initAudio(); if(!audioCtx) return;
-  setTimeout(()=>{
-    try{
-      const sz=audioCtx.sampleRate*3, buf=audioCtx.createBuffer(1,sz,audioCtx.sampleRate), dat=buf.getChannelData(0);
-      for(let i=0;i<sz;i++) dat[i]=(Math.random()*2-1)*Math.pow(1-i/sz,1.5);
-      const src=audioCtx.createBufferSource(); src.buffer=buf;
-      const gain=audioCtx.createGain();
-      gain.gain.setValueAtTime(0,audioCtx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.55,audioCtx.currentTime+0.05);
-      gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+2.5);
-      const filt=audioCtx.createBiquadFilter(); filt.type='lowpass'; filt.frequency.value=180;
-      src.connect(filt); filt.connect(gain); gain.connect(audioCtx.destination); src.start();
-    }catch(e){}
-  },delay);
-}
+function initAudio(){} // audio removed
+function playThunder(){}
 
 // ============== LIGHTNING ==============
 let stormRunning=false, stormRAF=null, stormTimer=null;
@@ -1148,7 +1465,6 @@ function scheduleLightning(){
 function startStorm(){
   stormRunning=true;
   flashEl.style.background = 'rgba(200,255,0,0.12)';
-  cloudsEl.style.opacity='1';
   lCanvas.style.opacity='1';
   setTimeout(()=>{ triggerLightning(); scheduleLightning(); },800);
 }
@@ -1157,7 +1473,6 @@ function stopStorm(){
   stormRunning=false; clearTimeout(stormTimer);
   if(stormRAF) cancelAnimationFrame(stormRAF);
   lCtx.clearRect(0,0,lCanvas.width,lCanvas.height);
-  cloudsEl.style.opacity='0';
   lCanvas.style.opacity='0'; flashEl.style.opacity='0';
 }
 
@@ -1293,11 +1608,9 @@ function scheduleArc() {
 }
 
 function startLight() {
-  lightRunning = true;
-  ltCanvas.style.opacity = '1';
-  initParticles();
-  animateLight();
-  // Also run lightning in red on light mode
+  lightRunning = false; // particles OFF — lightning only
+  ltCanvas.style.opacity = '0';
+  // Run lightning in red on light mode
   flashEl.style.background = 'rgba(232,0,13,0.06)';
   stormRunning = true;
   lCanvas.style.opacity = '1';
@@ -1349,8 +1662,10 @@ function stopLight() {
   setInterval(()=>{ if(voltEl) voltEl.textContent=volts[vi++ % volts.length]; }, 300);
 })();
 
-// ============== INIT ==============
-['click','keydown','mousemove','touchstart'].forEach(ev=>document.addEventListener(ev,initAudio,{once:true}));
+
+
+// ============== START ==============
+
 setTimeout(startStorm, 700);
 </script>
 </body>
