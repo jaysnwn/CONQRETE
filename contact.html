@@ -48,7 +48,7 @@
   .nav-logo { font-family:'Black Han Sans',sans-serif;font-size:28px;letter-spacing:0.14em;color:#fff;text-decoration:none; }
   .nav-logo .dot { color:var(--acid);font-size:34px;line-height:0;vertical-align:middle; }
   .nav-links { display:flex;align-items:center;gap:32px; }
-  .nav-link { font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(255,255,255,0.7);letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:color 0.2s; }
+  .nav-link { font-family:'Share Tech Mono',monospace;font-size:15px;color:rgba(255,255,255,0.7);letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;transition:color 0.2s; }
   .nav-link:hover,.nav-link.active { color:var(--acid); }
   [data-theme="light"] nav { background:#f4f1ea;border-bottom-color:#e8000d; }
   [data-theme="light"] .nav-logo { color:#181818; }
@@ -176,12 +176,23 @@
   [data-theme="light"] .sib-form-block__button:hover { background:#e8000d !important; color:#fff !important; }
   .sib-hide-loader-icon { display:none !important; }
 
-  /* Error / success messages */
+  /* Error / success messages — hidden until Brevo triggers them */
   #error-message, #success-message {
-    all:unset !important; display:none; padding:16px 20px !important;
-    margin-bottom:20px !important; font-family:'Share Tech Mono',monospace !important;
+    display:none !important;
+    padding:16px 20px !important;
+    margin-bottom:20px !important;
+    font-family:'Share Tech Mono',monospace !important;
     font-size:12px !important; letter-spacing:0.2em !important;
     text-transform:uppercase !important; border:1.5px solid !important;
+    border-radius:0 !important; max-width:100% !important;
+    box-sizing:border-box !important;
+  }
+  /* Brevo adds this class when showing the message */
+  #error-message[style*="display: flex"],
+  #error-message[style*="display:flex"],
+  #success-message[style*="display: flex"],
+  #success-message[style*="display:flex"] {
+    display:flex !important; align-items:center !important; gap:10px !important;
   }
   #error-message { color:#ff4949 !important; border-color:#ff4949 !important; background:rgba(255,73,73,0.06) !important; }
   #success-message { color:var(--acid) !important; border-color:var(--acid) !important; background:rgba(200,255,0,0.05) !important; }
@@ -235,13 +246,13 @@
     <a href="products.html" class="nav-link">Products</a>
     <a href="about.html" class="nav-link">About</a>
     <a href="contact.html" class="nav-link active">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
     <div class="theme-toggle" id="themeToggle">
       <span style="font-size:14px">⚡</span>
       <div class="toggle-track"><div class="toggle-thumb"></div></div>
       <span style="font-size:14px">☀️</span>
     </div>
-  </div>
-  <div style="display:flex;align-items:center;gap:12px;">
     <div class="theme-toggle" id="themeToggleMobile" style="display:none;">
       <span style="font-size:14px">⚡</span>
       <div class="toggle-track"><div class="toggle-thumb"></div></div>
