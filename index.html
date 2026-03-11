@@ -3,7 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CONQRETE — Coming Soon</title>
+<title>CONQRETE — New Age Wearable Tech | Earphones, Power Banks, Cables & Adapters</title>
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="CONQRETE is a new age wearable tech brand building earphones, power banks, Type-C cables and power adapters. Engineered for the relentless. Coming soon.">
+<meta name="keywords" content="CONQRETE, wearable tech, earphones, power banks, Type-C cables, power adapters, new age tech, India">
+<meta name="author" content="CONQRETE">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.conqrete.shop/">
+
+<!-- Open Graph (for social sharing) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.conqrete.shop/">
+<meta property="og:title" content="CONQRETE — New Age Wearable Tech">
+<meta property="og:description" content="Earphones. Power banks. Cables. Adapters. Products engineered to keep up with your pace. Uncompromising in design. Built for the relentless.">
+<meta property="og:site_name" content="CONQRETE">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CONQRETE — New Age Wearable Tech">
+<meta name="twitter:description" content="Earphones. Power banks. Cables. Adapters. Built for the relentless.">
+
+<!-- Sitemap reference -->
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNSIgZmlsbD0iIzExMTExMSIvPgogIDx0ZXh0IHg9IjMiIHk9IjIzIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssSW1wYWN0LHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZvbnQtc2l6ZT0iMjEiIGZpbGw9IiNmMGVkZTYiPkM8L3RleHQ+CiAgPGNpcmNsZSBjeD0iMjYiIGN5PSIyMiIgcj0iNCIgZmlsbD0iI2M4ZmYwMCIvPgogIDxjaXJjbGUgY3g9IjI2IiBjeT0iMjIiIHI9IjIiIGZpbGw9IiMxMTExMTEiLz4KPC9zdmc+">
 <link rel="alternate icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNSIgZmlsbD0iIzExMTExMSIvPgogIDx0ZXh0IHg9IjMiIHk9IjIzIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssSW1wYWN0LHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZvbnQtc2l6ZT0iMjEiIGZpbGw9IiNmMGVkZTYiPkM8L3RleHQ+CiAgPGNpcmNsZSBjeD0iMjYiIGN5PSIyMiIgcj0iNCIgZmlsbD0iI2M4ZmYwMCIvPgogIDxjaXJjbGUgY3g9IjI2IiBjeT0iMjIiIHI9IjIiIGZpbGw9IiMxMTExMTEiLz4KPC9zdmc+">
@@ -445,7 +468,7 @@
   }
   .product-card:hover::before{height:100%;}
 
-  /* IN DEV badge — bold & visible */
+  /* IN DEV badge */
   .product-status{
     position:absolute;top:18px;right:18px;
     font-family:'Share Tech Mono',monospace;font-size:10px;font-weight:700;
@@ -597,12 +620,10 @@
     opacity: 0; transition: opacity 0.8s ease;
   }
 
-  /* Light mode electric CONQRETE title */
   [data-theme="light"] .hero-title {
     animation: revealTitle 1s cubic-bezier(0.16,1,0.3,1) both;
   }
 
-  /* Dark mode CONQRETE title */
   [data-theme="dark"] .hero-title {
     animation: revealTitle 1s cubic-bezier(0.16,1,0.3,1) both;
   }
@@ -685,7 +706,6 @@
     overflow: visible;
   }
 
-  /* ---- STARSHIP SVG ---- */
   .starship {
     width: 100px;
     position: absolute;
@@ -700,31 +720,22 @@
   }
 
   @keyframes starshipAnim {
-    /* Start high, invisible */
     0%   { bottom: 500px; opacity: 0; }
     3%   { opacity: 1; }
-    /* Slow descent with slight corrections */
     15%  { bottom: 340px; transform: translateX(6px); }
     30%  { bottom: 220px; transform: translateX(-4px); }
     45%  { bottom: 145px; transform: translateX(2px); }
-    /* Hover above arms */
     52%  { bottom: 128px; transform: translateX(0); }
-    /* ARMS CATCH — settle */
     58%  { bottom: 120px; transform: translateX(0) scaleY(0.98); }
-    /* Hold caught */
     60%  { bottom: 120px; transform: translateX(0) scaleY(1); }
     72%  { bottom: 120px; opacity: 1; }
-    /* Ignition compress */
     76%  { bottom: 116px; transform: translateX(0) scaleY(0.97); }
-    /* LAUNCH */
     82%  { bottom: 260px; transform: translateX(0) scaleY(1.02); opacity: 1; }
     90%  { bottom: 460px; opacity: 0.5; }
     94%  { bottom: 560px; opacity: 0; }
-    /* Reset */
     95%,100% { bottom: 500px; opacity: 0; }
   }
 
-  /* ---- TOWER + MECHAZILLA ---- */
   .catch-tower {
     position: absolute;
     bottom: 0;
@@ -744,7 +755,6 @@
     border-radius: 3px 3px 0 0;
     position: relative;
   }
-  /* Horizontal rungs on tower */
   .tower-pole::after {
     content: '';
     position: absolute; inset: 0;
@@ -769,7 +779,6 @@
     border-radius: 0 0 3px 3px;
   }
 
-  /* ---- MECHAZILLA ARMS (the big catch arms) ---- */
   .mech-arm-wrap {
     position: absolute;
     top: 100px;
@@ -811,7 +820,6 @@
     box-shadow: 0 0 10px rgba(232,0,13,0.5), inset 0 2px 0 rgba(255,255,255,0.15);
   }
 
-  /* Arm tip teeth (Mechazilla claw detail) */
   .catch-arm-left::before {
     content: '';
     position: absolute; left: 0; top: -4px;
@@ -830,15 +838,11 @@
   }
 
   @keyframes leftArmAnim {
-    /* Open wide while ship descends */
     0%,3%    { transform: rotate(-50deg); }
     50%      { transform: rotate(-50deg); }
-    /* Closing in */
     55%      { transform: rotate(-30deg); }
     59%      { transform: rotate(-4deg); }
-    /* CAUGHT — flat */
     60%,73%  { transform: rotate(0deg); }
-    /* Open for launch */
     77%      { transform: rotate(-40deg); }
     100%     { transform: rotate(-50deg); }
   }
@@ -852,7 +856,6 @@
     100%     { transform: rotate(50deg); }
   }
 
-  /* ---- GROUND / LAUNCH PAD ---- */
   .launch-pad {
     width: 100px;
     height: 8px;
@@ -872,7 +875,6 @@
     opacity: 0.4;
   }
 
-  /* ---- EXHAUST PLUME ---- */
   .exhaust-cloud {
     position: absolute;
     bottom: 8px; left: calc(50% - 80px);
@@ -883,10 +885,10 @@
     animation: plumeVis 9s ease-in-out infinite;
   }
   @keyframes plumeVis {
-    0%,3%    { opacity: 0.7; }   /* descending thrust */
+    0%,3%    { opacity: 0.7; }
     58%,59%  { opacity: 0; }
-    75%,77%  { opacity: 0.2; }   /* ignition buildup */
-    80%,92%  { opacity: 1; }     /* launch full thrust */
+    75%,77%  { opacity: 0.2; }
+    80%,92%  { opacity: 1; }
     94%,100% { opacity: 0; }
   }
   .cloud {
@@ -904,7 +906,6 @@
     to   { transform: scale(1.5); opacity: 0; }
   }
 
-  /* ---- STATUS LABEL ---- */
   .rocket-status {
     position: absolute; bottom: -28px; left: calc(50% - 40px);
     font-family: 'Share Tech Mono', monospace;
@@ -915,7 +916,6 @@
   }
   [data-theme="light"] .rocket-status { color: #e8000d; }
 
-  /* Flame animations on SVG */
   .flame-c, .flame-l, .flame-r, .flame-c2 {
     animation: flameFlicker 0.1s ease-in-out infinite alternate,
                flameVis 9s ease-in-out infinite;
@@ -929,10 +929,10 @@
   }
   @keyframes flameVis {
     0%,4%    { opacity: 0.9; }
-    56%,61%  { opacity: 0; }     /* caught — engines off */
+    56%,61%  { opacity: 0; }
     73%,76%  { opacity: 0; }
-    78%      { opacity: 0.5; }   /* ignition */
-    82%,94%  { opacity: 1; }     /* launch burn */
+    78%      { opacity: 0.5; }
+    82%,94%  { opacity: 1; }
     95%,100% { opacity: 0; }
   }
 
@@ -954,17 +954,13 @@
   .social-link{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.3em;text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
   .social-link:hover{color:var(--acid);}
 
-  /* ====== RESPONSIVE — MOBILE FIRST ====== */
-
-  /* Hide custom cursor on touch devices */
+  /* ====== RESPONSIVE ====== */
   @media (hover: none) {
     .cursor, .cursor-trail { display: none !important; }
     body { cursor: auto; }
   }
 
   @media (max-width: 768px) {
-
-    /* NAV */
     nav { padding: 14px 18px; }
     .nav-logo { font-size: 22px; }
     .nav-logo .dot { font-size: 26px; }
@@ -973,39 +969,19 @@
     .toggle-track { width: 32px; height: 18px; }
     .toggle-thumb { width: 10px; height: 10px; }
     [data-theme="light"] .toggle-thumb { transform: translateX(14px); }
-
-    /* HERO */
-    .hero {
-      min-height: 100svh;
-      padding: 90px 20px 80px;
-      justify-content: center;
-    }
-    .bg-word {
-      font-size: clamp(70px, 28vw, 130px);
-      -webkit-text-stroke: 1px var(--border);
-    }
+    .hero { min-height: 100svh; padding: 90px 20px 80px; justify-content: center; }
+    .bg-word { font-size: clamp(70px, 28vw, 130px); -webkit-text-stroke: 1px var(--border); }
     .hero-eyebrow { font-size: 10px; letter-spacing: 0.25em; margin-bottom: 16px; }
     .hero-eyebrow::before { width: 24px; }
-    .hero-title {
-      font-size: clamp(64px, 22vw, 110px);
-      line-height: 0.88;
-    }
-    .hero-subtitle {
-      font-size: 16px;
-      letter-spacing: 0.15em;
-      margin-top: 14px;
-    }
+    .hero-title { font-size: clamp(64px, 22vw, 110px); line-height: 0.88; }
+    .hero-subtitle { font-size: 16px; letter-spacing: 0.15em; margin-top: 14px; }
     .accent-line { margin: 28px 0; }
     .accent-line-text { font-size: 9px; letter-spacing: 0.25em; white-space: normal; }
     .hero-desc { font-size: 15px; margin-top: 20px; max-width: 100%; line-height: 1.6; }
     .corner-mark { display: none; }
     .hero-cut { height: 60px; }
-
-    /* MARQUEE */
     .marquee-item { font-size: 11px; letter-spacing: 0.25em; }
     .marquee-item .sep { padding: 0 20px; font-size: 14px; }
-
-    /* COUNTDOWN */
     .countdown-section { padding: 48px 20px; }
     .section-label { font-size: 10px; letter-spacing: 0.25em; margin-bottom: 28px; }
     .countdown-grid { gap: 0; }
@@ -1013,8 +989,6 @@
     .countdown-item { padding: 20px 8px; }
     .countdown-num { font-size: clamp(32px, 9vw, 52px); }
     .countdown-label { font-size: 9px; letter-spacing: 0.2em; }
-
-    /* ASSEMBLY LINE */
     .assembly-section { padding: 48px 20px; }
     .assembly-header { flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 24px; }
     .assembly-title { font-size: 28px; }
@@ -1025,8 +999,6 @@
     .sparks-container { display: none; }
     .assembly-status { gap: 12px; }
     .status-item { font-size: 10px; letter-spacing: 0.15em; }
-
-    /* PRODUCTS */
     .products-section { padding: 48px 20px; }
     .section-header { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 32px; }
     .section-title { font-size: 36px; }
@@ -1035,15 +1007,7 @@
     .product-icon { font-size: 36px; margin-bottom: 16px; }
     .product-name { font-size: 28px; }
     .product-status { top: 14px; right: 14px; font-size: 9px; padding: 4px 10px; }
-
-    /* R&D scene on mobile - FULLY VISIBLE */
-    .rd-scene {
-      height: 72px;
-      padding: 0 12px;
-      margin: 16px 0 8px;
-      display: flex;
-      overflow: visible;
-    }
+    .rd-scene { height: 72px; padding: 0 12px; margin: 16px 0 8px; display: flex; overflow: visible; }
     .rd-earphone { gap: 3px; margin-top: 20px; }
     .rd-wave { width: 3px; }
     .rd-wave:nth-child(1){height:8px}  .rd-wave:nth-child(2){height:16px}
@@ -1062,38 +1026,21 @@
     .rd-cable-end { font-size: 18px; }
     .rd-cable-line { height: 5px; }
     .rd-cable-speed { font-size: 10px; top: 4px; right: 6px; }
-
-    /* NOTIFY */
     .notify-section { padding: 48px 20px; }
     .notify-title { font-size: clamp(32px, 10vw, 52px); margin-bottom: 24px; }
     .notify-form { flex-direction: column; max-width: 100%; }
-    .notify-input {
-      border-right: 2px solid rgba(255,255,255,0.2);
-      border-bottom: none;
-      padding: 16px 18px;
-      font-size: 13px;
-    }
+    .notify-input { border-right: 2px solid rgba(255,255,255,0.2); border-bottom: none; padding: 16px 18px; font-size: 13px; }
     [data-theme="light"] .notify-input { border-right: 2px solid rgba(255,255,255,0.2); }
     .notify-btn { padding: 16px 24px; font-size: 15px; width: 100%; }
     .notify-note { font-size: 10px; margin-top: 14px; }
-
-    /* FOOTER */
     footer { padding:28px 20px; flex-direction:column; align-items:flex-start; gap:20px; }
     .footer-right { align-items:flex-start; }
     .footer-logo { font-size: 20px; }
     .footer-copy { font-size: 10px; letter-spacing: 0.1em; }
     .footer-social { gap: 16px; }
-
-    /* Disable glitch on mobile - causes layout jank */
     .glitch::before, .glitch::after { display: none; }
-
-    /* Disable heavy electric title animations on mobile */
     [data-theme="dark"]  .hero-title,
-    [data-theme="light"] .hero-title {
-      animation: revealTitle 1s cubic-bezier(0.16,1,0.3,1) both;
-    }
-
-    /* Reduce motion for belt on smaller screens */
+    [data-theme="light"] .hero-title { animation: revealTitle 1s cubic-bezier(0.16,1,0.3,1) both; }
     .belt-items { animation-duration: 10s; }
   }
 
@@ -1107,6 +1054,28 @@
     .rd-wave:nth-child(n) { width: 2px; }
   }
 </style>
+
+<!-- JSON-LD Structured Data for Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "CONQRETE",
+  "url": "https://www.conqrete.shop",
+  "description": "CONQRETE is a new age wearable tech brand building earphones, power banks, Type-C cables and power adapters. Engineered for the relentless.",
+  "foundingDate": "2025",
+  "email": "ask@conqrete.shop",
+  "sameAs": [
+    "https://www.instagram.com/conqrete.tech"
+  ],
+  "offers": [
+    {"@type": "Offer", "name": "Earphones"},
+    {"@type": "Offer", "name": "Power Banks"},
+    {"@type": "Offer", "name": "Type-C Cables"},
+    {"@type": "Offer", "name": "Power Adapters"}
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -1148,13 +1117,10 @@
       <p class="hero-desc">Earphones. Power banks. Cables. Adapters. Products engineered to keep up with your pace. Uncompromising in design. Built for the relentless.</p>
       <div class="hero-tagline">BUILT FOR YOUR DAILY ABUSE<span class="tagline-dot">.</span></div>
     </div>
-
   </div>
-
   <div class="corner-mark">COMING SOON — 2025</div>
   <div class="hero-cut"></div>
 </section>
-
 
 <!-- MARQUEE -->
 <div class="marquee-wrap">
@@ -1187,7 +1153,6 @@
   <div class="assembly-track">
     <div class="belt"></div>
     <div class="belt-items">
-      <!-- set 1 -->
       <div class="belt-item"><div class="belt-item-box">🎧<span class="belt-item-spark">⚡</span><div class="belt-item-progress"><div class="belt-item-fill" style="width:35%"></div></div></div><span class="belt-item-label">EARPHONES</span></div>
       <div class="belt-item"><div class="belt-item-box">🔧<div class="belt-item-progress"><div class="belt-item-fill" style="width:80%;animation-delay:.5s"></div></div></div><span class="belt-item-label">TOOLING</span></div>
       <div class="belt-item"><div class="belt-item-box">🔋<span class="belt-item-spark" style="animation-delay:1s">✨</span><div class="belt-item-progress"><div class="belt-item-fill" style="width:55%;animation-delay:.3s"></div></div></div><span class="belt-item-label">POWER BANK</span></div>
@@ -1196,7 +1161,6 @@
       <div class="belt-item"><div class="belt-item-box">🔌<div class="belt-item-progress"><div class="belt-item-fill" style="width:40%;animation-delay:.9s"></div></div></div><span class="belt-item-label">ADAPTER</span></div>
       <div class="belt-item"><div class="belt-item-box">🛠️<span class="belt-item-spark" style="animation-delay:1.5s">⚡</span><div class="belt-item-progress"><div class="belt-item-fill" style="width:90%;animation-delay:.4s"></div></div></div><span class="belt-item-label">ASSEMBLY</span></div>
       <div class="belt-item"><div class="belt-item-box">🏭<div class="belt-item-progress"><div class="belt-item-fill" style="width:70%;animation-delay:.6s"></div></div></div><span class="belt-item-label">FACTORY</span></div>
-      <!-- set 2 (duplicate for seamless loop) -->
       <div class="belt-item"><div class="belt-item-box">🎧<span class="belt-item-spark">⚡</span><div class="belt-item-progress"><div class="belt-item-fill" style="width:35%"></div></div></div><span class="belt-item-label">EARPHONES</span></div>
       <div class="belt-item"><div class="belt-item-box">🔧<div class="belt-item-progress"><div class="belt-item-fill" style="width:80%;animation-delay:.5s"></div></div></div><span class="belt-item-label">TOOLING</span></div>
       <div class="belt-item"><div class="belt-item-box">🔋<span class="belt-item-spark" style="animation-delay:1s">✨</span><div class="belt-item-progress"><div class="belt-item-fill" style="width:55%;animation-delay:.3s"></div></div></div><span class="belt-item-label">POWER BANK</span></div>
@@ -1345,7 +1309,7 @@
   <div class="footer-logo">CONQ<span class="dot">.</span>RETE</div>
   <div class="footer-contact">
     <span class="footer-contact-label">// FOR MORE INFO, DROP US AT</span>
-    <a href="#" class="footer-email" id="footerEmail"><span class="__cf_email__" data-cfemail="4627352d062529283734233223682f28">[email&#160;protected]</span></a>
+    <a href="#" class="footer-email" id="footerEmail"><span class="__cf_email__" data-cfemail="94f5e7ffd4f7fbfae5e6f1e0f1bafdfa">[email&#160;protected]</span></a>
   </div>
   <div class="footer-right">
     <div class="footer-copy">© 2025 CONQRETE. ALL RIGHTS RESERVED.</div>
@@ -1357,7 +1321,7 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ============== CURSOR ==============
 const cursor = document.getElementById('cursor');
 const trail  = document.getElementById('cursorTrail');
@@ -1388,11 +1352,7 @@ document.getElementById('notifyForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const form = this;
   const data = new FormData(form);
-  fetch(form.action, {
-    method: 'POST',
-    body: data,
-    mode: 'no-cors'
-  }).catch(() => {});
+  fetch(form.action, { method: 'POST', body: data, mode: 'no-cors' }).catch(() => {});
   form.style.display = 'none';
   document.getElementById('notifySuccess').style.display = 'block';
 });
@@ -1412,7 +1372,6 @@ if(toggleBtn){
 
 // ============== CANVAS SETUP ==============
 const flashEl  = document.getElementById('lightningFlash');
-const cloudsEl = document.getElementById('stormClouds');
 const lCanvas  = document.getElementById('stormCanvas');
 const lCtx     = lCanvas.getContext('2d');
 const ltCanvas = document.getElementById('lightCanvas');
@@ -1422,9 +1381,8 @@ function resize(){
   lCanvas.width  = ltCanvas.width  = window.innerWidth;
   lCanvas.height = ltCanvas.height = window.innerHeight;
 }
-resize(); window.addEventListener('resize', () => { resize(); if(lightRunning) initParticles(); });
+resize(); window.addEventListener('resize', () => { resize(); });
 
-function initAudio(){} // audio removed
 function playThunder(){}
 
 // ============== LIGHTNING ==============
@@ -1461,7 +1419,6 @@ function triggerLightning(){
 
   flashEl.style.background = flashCol;
   flash(.15); setTimeout(()=>flash(.28),60);
-  playThunder(500+Math.random()*2500);
   setTimeout(()=>lCtx.clearRect(0,0,lCanvas.width,lCanvas.height),180+Math.random()*120);
   if(Math.random()<.4) setTimeout(()=>{
     if(!stormRunning) return;
@@ -1494,139 +1451,10 @@ function stopStorm(){
 
 // ============== LIGHT MODE ENGINE ==============
 let lightRunning = false, lightRAF = null;
-let particles = [];
-
-function initParticles() {
-  particles = [];
-  const count = Math.min(Math.floor(window.innerWidth / 6), 180);
-  for (let i = 0; i < count; i++) {
-    particles.push(mkParticle(true));
-  }
-}
-
-function mkParticle(random) {
-  const types = ['dot','line','cross','ring'];
-  const type  = types[Math.floor(Math.random()*types.length)];
-  return {
-    x:     random ? Math.random() * ltCanvas.width  : (Math.random() < 0.5 ? -20 : ltCanvas.width + 20),
-    y:     random ? Math.random() * ltCanvas.height : Math.random() * ltCanvas.height,
-    vx:    (Math.random() - 0.5) * 0.6,
-    vy:    -0.3 - Math.random() * 0.5,
-    size:  1.5 + Math.random() * 5,
-    alpha: 0.1 + Math.random() * 0.55,
-    life:  0.005 + Math.random() * 0.008,
-    decay: 0,
-    type,
-    hue:   Math.random() < 0.7 ? 'red' : 'orange',
-    spin:  (Math.random() - 0.5) * 0.04,
-    angle: Math.random() * Math.PI * 2,
-    pulse: Math.random() * Math.PI * 2,
-  };
-}
-
-function drawParticle(p) {
-  const a = p.alpha * (1 - p.decay);
-  if (a <= 0) return;
-  ltCtx.save();
-  ltCtx.globalAlpha = a;
-  ltCtx.translate(p.x, p.y);
-  ltCtx.rotate(p.angle);
-
-  const pulsed = p.size + Math.sin(p.pulse) * 0.8;
-  const col = p.hue === 'red' ? `rgba(232,0,13,${a})` : `rgba(255,90,0,${a})`;
-
-  if (p.type === 'dot') {
-    ltCtx.beginPath();
-    ltCtx.arc(0, 0, pulsed, 0, Math.PI * 2);
-    ltCtx.fillStyle = col;
-    ltCtx.shadowBlur = 8;
-    ltCtx.shadowColor = col;
-    ltCtx.fill();
-  } else if (p.type === 'ring') {
-    ltCtx.beginPath();
-    ltCtx.arc(0, 0, pulsed + 2, 0, Math.PI * 2);
-    ltCtx.strokeStyle = col;
-    ltCtx.lineWidth = 1;
-    ltCtx.shadowBlur = 6;
-    ltCtx.shadowColor = col;
-    ltCtx.stroke();
-  } else if (p.type === 'line') {
-    ltCtx.beginPath();
-    ltCtx.moveTo(-pulsed * 2, 0);
-    ltCtx.lineTo(pulsed * 2, 0);
-    ltCtx.strokeStyle = col;
-    ltCtx.lineWidth = 1;
-    ltCtx.shadowBlur = 4;
-    ltCtx.shadowColor = col;
-    ltCtx.stroke();
-  } else if (p.type === 'cross') {
-    ltCtx.strokeStyle = col;
-    ltCtx.lineWidth = 1;
-    ltCtx.shadowBlur = 5;
-    ltCtx.shadowColor = col;
-    ltCtx.beginPath(); ltCtx.moveTo(-pulsed,0); ltCtx.lineTo(pulsed,0); ltCtx.stroke();
-    ltCtx.beginPath(); ltCtx.moveTo(0,-pulsed); ltCtx.lineTo(0,pulsed); ltCtx.stroke();
-  }
-
-  ltCtx.restore();
-}
-
-// Occasional red electric arc on light mode
-function drawArc() {
-  if (!lightRunning) return;
-  const x1 = Math.random() * ltCanvas.width;
-  const y1 = Math.random() * ltCanvas.height * 0.5;
-  const x2 = x1 + (Math.random() - 0.5) * 200;
-  const y2 = y1 + 60 + Math.random() * 100;
-
-  [
-    {w:6, a:0.04, col:'rgba(232,0,13,0.3)'},
-    {w:2, a:0.25, col:'rgba(232,0,13,0.8)'},
-    {w:0.8, a:0.9, col:'rgba(255,180,180,1)'},
-  ].forEach(p => {
-    ltCtx.globalAlpha = p.a;
-    ltCtx.shadowBlur  = 15;
-    ltCtx.shadowColor = p.col;
-    drawBolt(x1, y1, x2, y2, 60, p.col, p.w, ltCtx, 5);
-  });
-
-  // brief red flash
-  flashEl.style.background = 'rgba(232,0,13,0.06)';
-  flashEl.style.transition = 'none'; flashEl.style.opacity = '0.5';
-  setTimeout(() => { flashEl.style.transition = 'opacity 0.5s ease'; flashEl.style.opacity = '0'; }, 50);
-
-  setTimeout(() => ltCtx.clearRect(0,0,ltCanvas.width,ltCanvas.height), 120);
-}
-
-function animateLight() {
-  if (!lightRunning) return;
-  ltCtx.clearRect(0, 0, ltCanvas.width, ltCanvas.height);
-
-  particles.forEach((p, i) => {
-    p.x += p.vx; p.y += p.vy;
-    p.angle += p.spin; p.pulse += 0.05;
-    p.decay += p.life;
-
-    if (p.decay >= 1 || p.y < -20 || p.x < -20 || p.x > ltCanvas.width + 20) {
-      particles[i] = mkParticle(false);
-    } else {
-      drawParticle(p);
-    }
-  });
-
-  lightRAF = requestAnimationFrame(animateLight);
-}
-
-let arcTimer = null;
-function scheduleArc() {
-  if (!lightRunning) return;
-  arcTimer = setTimeout(() => { drawArc(); scheduleArc(); }, 2500 + Math.random() * 5000);
-}
 
 function startLight() {
-  lightRunning = false; // particles OFF — lightning only
+  lightRunning = false;
   ltCanvas.style.opacity = '0';
-  // Run lightning in red on light mode
   flashEl.style.background = 'rgba(232,0,13,0.06)';
   stormRunning = true;
   lCanvas.style.opacity = '1';
@@ -1636,7 +1464,6 @@ function startLight() {
 function stopLight() {
   lightRunning = false;
   stormRunning = false;
-  clearTimeout(arcTimer);
   clearTimeout(stormTimer);
   if (lightRAF) cancelAnimationFrame(lightRAF);
   ltCtx.clearRect(0, 0, ltCanvas.width, ltCanvas.height);
@@ -1648,45 +1475,32 @@ function stopLight() {
 }
 
 // ============== R&D LIVE COUNTERS ==============
-// Battery % counter synced with CSS animation (2.2s cycle)
 (function(){
   const battEl = document.getElementById('battPct');
   const voltEl = document.getElementById('voltNum');
   const cableEl = document.getElementById('cableSpeed');
   if(!battEl) return;
 
-  // Battery: 0→95→0 over 2200ms
   let battStart = Date.now();
   function animBatt(){
     const t = (Date.now()-battStart) % 2200;
     let pct;
-    if(t < 1430) pct = Math.round((t/1430)*95);       // 0→95
-    else         pct = Math.round(95*(1-(t-1430)/770)); // 95→0
+    if(t < 1430) pct = Math.round((t/1430)*95);
+    else         pct = Math.round(95*(1-(t-1430)/770));
     battEl.textContent = pct + '%';
     requestAnimationFrame(animBatt);
   }
   animBatt();
 
-  // Cable speed: flickers between 0 and ~480 MB/s
   const speeds = ['0 MB/s','120 MB/s','480 MB/s','480 MB/s','240 MB/s','480 MB/s','0 MB/s'];
   let si=0;
   setInterval(()=>{ if(cableEl) cableEl.textContent=speeds[si++ % speeds.length]; }, 500);
 
-  // Voltage: flickers realistically
   const volts = [65,65,63,65,65,67,65,64,65,65,60,65];
   let vi=0;
   setInterval(()=>{ if(voltEl) voltEl.textContent=volts[vi++ % volts.length]; }, 300);
 })();
 
-
-
 // ============== START ==============
 (function(){
-  const el = document.getElementById('footerEmail');
-  if(el){ const e='ask'+'@'+'conqrete'+'.in'; el.href='mailto:'+e; el.textContent=e; }
-})();
-
-setTimeout(startStorm, 700);
-</script>
-</body>
-</html>
+  con
