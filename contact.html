@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — CONQRETE</title>
+<meta name="description" content="Get in touch with CONQRETE. Email, social links and contact form. We're building something big — talk to us.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.conqrete.shop/contact.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Barlow+Condensed:wght@300;400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --acid:#c8ff00; --orange:#ff4e00; --transition:all 0.5s cubic-bezier(0.16,1,0.3,1); }
+  [data-theme="dark"] {
+    --bg:#1a1a1a; --bg2:#242424; --bg3:#2e2e2e;
+    --border:rgba(255,255,255,0.09); --text:#f0ede6;
+    --text2:rgba(240,237,230,0.78); --muted:#888;
+    --card-bg:#252525; --foot-bg:#141414;
+    --input-bg:#1e1e1e; --input-border:rgba(255,255,255,0.12);
+  }
+  [data-theme="light"] {
+    --bg:#f4f1ea; --bg2:#eae7de; --bg3:#e0ddd3;
+    --border:rgba(0,0,0,0.1); --text:#181818;
+    --text2:rgba(20,20,20,0.85); --muted:#555;
+    --card-bg:#e8e5dc; --foot-bg:#e5e2d9;
+    --input-bg:#dedad0; --input-border:rgba(0,0,0,0.15);
+  }
+  [data-theme="light"] { --acid:#e8000d; }
+
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg);color:var(--text);font-family:'Barlow Condensed',sans-serif;overflow-x:hidden;cursor:none;min-height:100vh;transition:background 0.55s,color 0.55s; }
+  body::before { content:'';position:fixed;inset:0;pointer-events:none;z-index:300;opacity:0.15;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"); }
+
+#stormCanvas,#lightningFlash { position:fixed;pointer-events:none;transition:opacity 0.8s ease; }
+#stormCanvas { inset:0;z-index:500;opacity:0; }
+#lightningFlash { inset:0;z-index:499;background:rgba(200,255,0,0.1);opacity:0; }
+  .cursor { position:fixed;width:10px;height:10px;background:var(--acid);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:transform 0.08s;box-shadow:0 0 6px var(--acid); }
+  .cursor-trail { position:fixed;width:36px;height:36px;border:1.5px solid var(--acid);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:all 0.15s;opacity:0.5; }
+
+  nav { position:fixed;top:0;left:0;right:0;z-index:9000;display:flex;justify-content:space-between;align-items:center;padding:18px 40px;background:#111111;border-bottom:2px solid var(--acid);transition:background 0.5s,border-color 0.5s; }
+  .nav-logo { font-family:'Black Han Sans',sans-serif;font-size:28px;letter-spacing:0.14em;color:#fff;text-decoration:none; }
+  .nav-logo .dot { color:var(--acid);font-size:34px;line-height:0;vertical-align:middle; }
+  .nav-links { display:flex;align-items:center;gap:32px; }
+  .nav-link { font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(255,255,255,0.6);letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:color 0.2s; }
+  .nav-link:hover,.nav-link.active { color:var(--acid); }
+  .theme-toggle { display:flex;align-items:center;gap:8px;background:var(--bg3);border:1.5px solid var(--border);border-radius:40px;padding:6px 12px;cursor:pointer;transition:var(--transition);user-select:none;-webkit-tap-highlight-color:transparent; }
+  .theme-toggle:hover { border-color:var(--acid); }
+  .toggle-track { width:38px;height:20px;background:var(--bg);border:1px solid var(--border);border-radius:20px;position:relative; }
+  .toggle-thumb { position:absolute;top:3px;left:3px;width:12px;height:12px;background:var(--acid);border-radius:50%;transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);box-shadow:0 0 8px rgba(200,255,0,0.6); }
+  [data-theme="light"] .toggle-thumb { transform:translateX(18px); }
+  [data-theme="light"] nav { background:#f4f1ea;border-bottom-color:#e8000d; }
+  [data-theme="light"] .nav-logo { color:#181818; }
+  [data-theme="light"] .nav-logo .dot { color:#e8000d; }
+  [data-theme="light"] .toggle-thumb { background:#e8000d;box-shadow:0 0 8px rgba(232,0,13,0.5); }
+  [data-theme="light"] .cursor { background:#e8000d; }
+  [data-theme="light"] .cursor-trail { border-color:#e8000d; }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding:140px 40px 80px;position:relative;overflow:hidden;
+    border-bottom:1px solid var(--border);
+  }
+  .page-bg { position:absolute;bottom:-20px;right:-20px;font-family:'Black Han Sans',sans-serif;font-size:clamp(100px,22vw,300px);color:transparent;-webkit-text-stroke:1px var(--border);white-space:nowrap;pointer-events:none;opacity:0.5;letter-spacing:-0.02em;line-height:1; }
+  .page-eyebrow { font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:0.4em;color:var(--acid);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px; }
+  .page-eyebrow::before { content:'';display:block;width:32px;height:2px;background:var(--acid); }
+  .page-title { font-family:'Black Han Sans',sans-serif;font-size:clamp(52px,11vw,140px);line-height:0.9;letter-spacing:-0.02em;color:var(--text);text-transform:uppercase;animation:fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) both; }
+  @keyframes fadeUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .page-sub { font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--muted);letter-spacing:0.3em;text-transform:uppercase;margin-top:20px; }
+
+  /* MAIN CONTACT LAYOUT */
+  .contact-main {
+    display:grid;grid-template-columns:1fr 1fr;
+    border-bottom:1px solid var(--border);
+  }
+
+  /* LEFT: DIRECT CONTACT */
+  .contact-info { padding:80px 40px;border-right:1px solid var(--border);transition:border-color 0.5s; }
+  .info-label { font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:0.4em;color:var(--muted);text-transform:uppercase;margin-bottom:40px; }
+
+  .contact-block { margin-bottom:52px; }
+  .contact-block-label { font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:0.35em;color:var(--acid);text-transform:uppercase;margin-bottom:12px; }
+  .contact-email {
+    font-family:'Black Han Sans',sans-serif;font-size:clamp(20px,2.8vw,34px);
+    letter-spacing:0.08em;color:var(--text);text-decoration:none;text-transform:uppercase;
+    display:block;transition:color 0.2s;line-height:1.2;
+  }
+  .contact-email:hover { color:var(--acid); }
+  [data-theme="light"] .contact-email:hover { color:#e8000d; }
+
+  .socials { display:flex;flex-direction:column;gap:3px; }
+  .social-row {
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 0;border-bottom:1px solid var(--border);
+    text-decoration:none;transition:border-color 0.2s,padding-left 0.3s;
+    cursor:pointer;
+  }
+  .social-row:hover { padding-left:8px;border-bottom-color:var(--acid); }
+  .social-name { font-family:'Black Han Sans',sans-serif;font-size:22px;letter-spacing:0.08em;color:var(--text);text-transform:uppercase;transition:color 0.2s; }
+  .social-row:hover .social-name { color:var(--acid); }
+  [data-theme="light"] .social-row:hover .social-name { color:#e8000d; }
+  [data-theme="light"] .social-row:hover { border-bottom-color:#e8000d; }
+  .social-handle { font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.25em; }
+  .social-arrow { font-size:18px;color:var(--muted);transition:color 0.2s,transform 0.2s; }
+  .social-row:hover .social-arrow { color:var(--acid);transform:translate(4px,-4px); }
+  [data-theme="light"] .social-row:hover .social-arrow { color:#e8000d; }
+
+  .response-note { margin-top:48px;padding:20px 24px;border:1px solid var(--border);background:var(--bg2);transition:background 0.5s,border-color 0.5s; }
+  .response-note-label { font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:0.35em;color:var(--acid);text-transform:uppercase;margin-bottom:8px; }
+  .response-note-text { font-size:14px;font-weight:300;color:var(--text2);line-height:1.6; }
+
+  /* RIGHT: FORM */
+  .contact-form-wrap { padding:80px 40px; }
+  .form-label { font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:0.4em;color:var(--muted);text-transform:uppercase;margin-bottom:40px; }
+
+  .contact-form { display:flex;flex-direction:column;gap:3px; }
+
+  .form-group { position:relative; }
+  .form-field-label { font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:0.35em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:8px;transition:color 0.3s; }
+  .form-group:focus-within .form-field-label { color:var(--acid); }
+
+  .form-input, .form-textarea, .form-select {
+    width:100%;background:var(--input-bg);border:1.5px solid var(--input-border);
+    color:var(--text);font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:400;
+    padding:18px 20px;outline:none;letter-spacing:0.05em;
+    transition:border-color 0.3s,background 0.3s;margin-bottom:16px;
+    appearance:none;
+  }
+  .form-input:focus, .form-textarea:focus, .form-select:focus { border-color:var(--acid);background:var(--bg2); }
+  [data-theme="light"] .form-input:focus,[data-theme="light"] .form-textarea:focus,[data-theme="light"] .form-select:focus { border-color:#e8000d;background:var(--bg3); }
+  .form-input::placeholder,.form-textarea::placeholder { color:var(--muted);font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:0.2em; }
+  .form-textarea { min-height:140px;resize:vertical; }
+  .form-select { cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%23888'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 20px center; }
+
+  .form-row { display:grid;grid-template-columns:1fr 1fr;gap:3px; }
+
+  .submit-btn {
+    background:#111;color:var(--acid);
+    border:2px solid var(--acid);
+    font-family:'Black Han Sans',sans-serif;font-size:16px;letter-spacing:0.25em;
+    padding:20px 40px;cursor:pointer;text-transform:uppercase;
+    position:relative;overflow:hidden;transition:background 0.3s,color 0.3s;
+    font-weight:900;width:100%;margin-top:8px;
+  }
+  .submit-btn::after { content:'';position:absolute;inset:0;background:var(--acid);transform:scaleX(0);transform-origin:left;transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);z-index:0; }
+  .submit-btn:hover::after { transform:scaleX(1); }
+  .submit-btn:hover { color:#111; }
+  .submit-btn span { position:relative;z-index:1; }
+  [data-theme="light"] .submit-btn { background:#f4f1ea;color:#e8000d;border-color:#e8000d; }
+  [data-theme="light"] .submit-btn::after { background:#e8000d; }
+  [data-theme="light"] .submit-btn:hover { color:#fff; }
+
+  .form-success { display:none;text-align:center;padding:48px 32px;border:1px solid var(--acid);background:rgba(200,255,0,0.04); }
+  .form-success-title { font-family:'Black Han Sans',sans-serif;font-size:36px;letter-spacing:0.08em;color:var(--acid);text-transform:uppercase;margin-bottom:12px; }
+  .form-success-sub { font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:0.3em; }
+  [data-theme="light"] .form-success { border-color:#e8000d;background:rgba(232,0,13,0.04); }
+  [data-theme="light"] .form-success-title { color:#e8000d; }
+
+  footer { padding:40px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);background:var(--foot-bg);transition:var(--transition);gap:32px;flex-wrap:wrap; }
+  .footer-logo { font-family:'Black Han Sans',sans-serif;font-size:22px;letter-spacing:0.15em;color:var(--text); }
+  .footer-logo .dot { color:var(--acid); }
+  .footer-copy { font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.2em; }
+  .footer-links { display:flex;gap:24px; }
+  .footer-link { font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.3em;text-decoration:none;text-transform:uppercase;transition:color 0.2s; }
+  .footer-link:hover { color:var(--acid); }
+  [data-theme="light"] .footer-logo .dot { color:#e8000d; }
+  [data-theme="light"] .footer-link:hover { color:#e8000d; }
+
+  @media(hover:none){.cursor,.cursor-trail{display:none!important}body{cursor:auto}}
+  @media(max-width:768px){
+    nav{padding:14px 18px}.nav-logo{font-size:20px}.nav-links{gap:14px}.nav-link{font-size:10px;letter-spacing:0.18em}
+    .page-header{padding:110px 20px 48px}
+    .contact-main{grid-template-columns:1fr}
+    .contact-info{padding:48px 20px;border-right:none;border-bottom:1px solid var(--border)}
+    .contact-form-wrap{padding:48px 20px}
+    .form-row{grid-template-columns:1fr}
+    footer{padding:28px 20px;flex-direction:column;align-items:flex-start;gap:16px}
+  }
+</style>
+</head>
+<body>
+<canvas id="stormCanvas"></canvas>
+<div id="lightningFlash"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">CONQ<span class="dot">.</span>RETE</a>
+  <div class="nav-links">
+    <a href="products.html" class="nav-link">Products</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="contact.html" class="nav-link active">Contact</a>
+    <div class="theme-toggle" id="themeToggle">
+      <span style="font-size:14px">⚡</span>
+      <div class="toggle-track"><div class="toggle-thumb"></div></div>
+      <span style="font-size:14px">☀️</span>
+    </div>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="page-bg">CONTACT</div>
+  <div class="page-eyebrow">GET IN TOUCH</div>
+  <h1 class="page-title">Talk<br>To Us.</h1>
+  <p class="page-sub">// WE READ EVERY MESSAGE. SERIOUSLY.</p>
+</section>
+
+<div class="contact-main">
+
+  <!-- LEFT: DIRECT CONTACT -->
+  <div class="contact-info">
+    <div class="info-label">// DIRECT CHANNELS</div>
+
+    <div class="contact-block">
+      <div class="contact-block-label">// EMAIL</div>
+      <a href="mailto:ask@conqrete.shop" class="contact-email">ask@conqrete.shop</a>
+    </div>
+
+    <div class="contact-block">
+      <div class="contact-block-label">// SOCIAL</div>
+      <div class="socials">
+        <a href="https://www.instagram.com/conqrete.tech" target="_blank" rel="noopener" class="social-row">
+          <div>
+            <div class="social-name">Instagram</div>
+            <div class="social-handle">@conqrete.tech</div>
+          </div>
+          <span class="social-arrow">↗</span>
+        </a>
+        <a href="#" class="social-row">
+          <div>
+            <div class="social-name">Twitter / X</div>
+            <div class="social-handle">@conqrete</div>
+          </div>
+          <span class="social-arrow">↗</span>
+        </a>
+        <a href="#" class="social-row">
+          <div>
+            <div class="social-name">LinkedIn</div>
+            <div class="social-handle">CONQRETE</div>
+          </div>
+          <span class="social-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="response-note">
+      <div class="response-note-label">// RESPONSE TIME</div>
+      <div class="response-note-text">We typically respond within 24–48 hours. For urgent matters, Instagram DMs are fastest. No bots. Real people.</div>
+    </div>
+  </div>
+
+  <!-- RIGHT: FORM -->
+  <div class="contact-form-wrap">
+    <div class="form-label">// SEND A MESSAGE</div>
+
+    <form class="contact-form" id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-field-label">// YOUR NAME</label>
+          <input type="text" class="form-input" placeholder="FULL NAME" required>
+        </div>
+        <div class="form-group">
+          <label class="form-field-label">// EMAIL</label>
+          <input type="email" class="form-input" placeholder="YOUR@EMAIL.COM" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-field-label">// SUBJECT</label>
+        <select class="form-select form-input">
+          <option value="">SELECT A TOPIC</option>
+          <option>PRODUCT ENQUIRY</option>
+          <option>PRESS / MEDIA</option>
+          <option>PARTNERSHIP</option>
+          <option>GENERAL</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-field-label">// MESSAGE</label>
+        <textarea class="form-textarea" placeholder="WHAT'S ON YOUR MIND..." required></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn"><span>SEND MESSAGE ↗</span></button>
+    </form>
+
+    <div class="form-success" id="formSuccess">
+      <div class="form-success-title">Message Sent ✓</div>
+      <div class="form-success-sub">// WE'LL GET BACK TO YOU SOON</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">CONQ<span class="dot">.</span>RETE</div>
+  <div class="footer-copy">© 2025 CONQRETE. ALL RIGHTS RESERVED.</div>
+  <div class="footer-links">
+    <a href="index.html" class="footer-link">Home</a>
+    <a href="products.html" class="footer-link">Products</a>
+    <a href="about.html" class="footer-link">About</a>
+  </div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const trail = document.getElementById('cursorTrail');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px';
+    setTimeout(()=>{trail.style.left=e.clientX+'px';trail.style.top=e.clientY+'px';},80);
+  });
+  document.querySelectorAll('a,button,.social-row').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.5)';trail.style.transform='translate(-50%,-50%) scale(1.5)';});
+    el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';trail.style.transform='translate(-50%,-50%) scale(1)';});
+  });
+
+  const html = document.documentElement;
+  let isDark = true;
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    isDark = !isDark;
+    html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    isDark ? startStorm() : stopStorm();
+  });
+
+  // LIGHTNING
+  const flashEl = document.getElementById('lightningFlash');
+  const lCanvas = document.getElementById('stormCanvas');
+  const lCtx = lCanvas.getContext('2d');
+  let stormRunning = false, stormTimer = null;
+  function resize(){ lCanvas.width=window.innerWidth; lCanvas.height=window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  function drawBolt(x1,y1,x2,y2,rough,color,w,depth){
+    if(depth<=0)return;
+    const mx=(x1+x2)/2+(Math.random()-.5)*rough,my=(y1+y2)/2+(Math.random()-.5)*rough*.4;
+    drawBolt(x1,y1,mx,my,rough/2,color,w*.9,depth-1);
+    drawBolt(mx,my,x2,y2,rough/2,color,w*.9,depth-1);
+    if(Math.random()<.3&&depth>2)drawBolt(mx,my,mx+(Math.random()-.5)*180,my+Math.random()*(lCanvas.height*.35),rough/3,color,w*.4,depth-2);
+    lCtx.beginPath();lCtx.moveTo(x1,y1);lCtx.lineTo(mx,my);lCtx.lineTo(x2,y2);
+    lCtx.strokeStyle=color;lCtx.lineWidth=w;lCtx.shadowBlur=20;lCtx.shadowColor=color;lCtx.globalAlpha=.9;lCtx.stroke();
+  }
+  function flash(v){ flashEl.style.transition='none';flashEl.style.opacity=v;setTimeout(()=>{flashEl.style.transition='opacity .4s ease';flashEl.style.opacity='0';},60+Math.random()*80); }
+  function triggerLightning(){
+    if(!stormRunning)return;
+    const dark=document.documentElement.getAttribute('data-theme')==='dark';
+    const c1=dark?'rgba(200,255,0,.5)':'rgba(232,0,13,.5)';
+    const c2=dark?'rgba(200,255,0,.8)':'rgba(232,0,13,.8)';
+    const fc=dark?'rgba(200,255,0,0.1)':'rgba(232,0,13,0.07)';
+    lCtx.clearRect(0,0,lCanvas.width,lCanvas.height);
+    const sx=lCanvas.width*(.1+Math.random()*.8),ex=sx+(Math.random()-.5)*400,ey=lCanvas.height*(.4+Math.random()*.5);
+    [{w:12,a:.06,c:c1},{w:6,a:.18,c:c2},{w:2,a:1,c:'#fff'}]
+      .forEach(p=>{lCtx.globalAlpha=p.a;lCtx.shadowBlur=40;drawBolt(sx,0,ex,ey,180,p.c,p.w,7);});
+    flashEl.style.background=fc;flash(.14);setTimeout(()=>flash(.26),60);
+    setTimeout(()=>lCtx.clearRect(0,0,lCanvas.width,lCanvas.height),180+Math.random()*120);
+  }
+  function scheduleLightning(){ if(!stormRunning)return;stormTimer=setTimeout(()=>{triggerLightning();scheduleLightning();},2500+Math.random()*7000); }
+  function startStorm(){ stormRunning=true;lCanvas.style.opacity='1';setTimeout(()=>{triggerLightning();scheduleLightning();},800); }
+  function stopStorm(){ stormRunning=false;clearTimeout(stormTimer);lCtx.clearRect(0,0,lCanvas.width,lCanvas.height);lCanvas.style.opacity='0';flashEl.style.opacity='0'; }
+  startStorm();
+
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  });
+</script>
+</body>
+</html>
