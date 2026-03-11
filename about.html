@@ -5,205 +5,194 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111111'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Arial Black,sans-serif' font-size='20' font-weight='900' fill='%23c8ff00'%3EC%3C/text%3E%3C/svg%3E">
 <meta name="theme-color" content="#111111">
-<title>Contact — CONQRETE</title>
-<meta name="description" content="Get in touch with CONQRETE. Email, social links and contact form. We're building something big — talk to us.">
+<title>About — CONQRETE</title>
+<meta name="description" content="CONQRETE is a new age wearable tech brand built for the relentless. Learn about our mission, vision and story.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.conqrete.in/contact.html">
+<link rel="canonical" href="https://www.conqrete.shop/about.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Barlow+Condensed:wght@300;400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 <style>
-  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   :root { --acid:#c8ff00; --orange:#ff4e00; --transition:all 0.5s cubic-bezier(0.16,1,0.3,1); }
   [data-theme="dark"] {
     --bg:#1a1a1a; --bg2:#242424; --bg3:#2e2e2e;
     --border:rgba(255,255,255,0.09); --text:#f0ede6;
     --text2:rgba(240,237,230,0.78); --muted:#888;
     --card-bg:#252525; --foot-bg:#141414;
-    --input-bg:#1e1e1e; --input-border:rgba(255,255,255,0.12);
   }
   [data-theme="light"] {
     --bg:#f4f1ea; --bg2:#eae7de; --bg3:#e0ddd3;
     --border:rgba(0,0,0,0.1); --text:#181818;
     --text2:rgba(20,20,20,0.85); --muted:#555;
     --card-bg:#e8e5dc; --foot-bg:#e5e2d9;
-    --input-bg:#dedad0; --input-border:rgba(0,0,0,0.15);
   }
   [data-theme="light"] { --acid:#e8000d; }
+
   html { scroll-behavior:smooth; }
   body { background:var(--bg);color:var(--text);font-family:'Barlow Condensed',sans-serif;overflow-x:hidden;cursor:none;min-height:100vh;transition:background 0.55s,color 0.55s; }
   body::before { content:'';position:fixed;inset:0;pointer-events:none;z-index:300;opacity:0.15;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"); }
 
-  #stormCanvas,#lightningFlash { position:fixed;pointer-events:none;transition:opacity 0.8s ease; }
-  #stormCanvas { inset:0;z-index:500;opacity:0; }
-  #lightningFlash { inset:0;z-index:499;background:rgba(200,255,0,0.1);opacity:0; }
+#stormCanvas,#lightningFlash { position:fixed;pointer-events:none;transition:opacity 0.8s ease; }
+#stormCanvas { inset:0;z-index:500;opacity:0; }
+#lightningFlash { inset:0;z-index:499;background:rgba(200,255,0,0.1);opacity:0; }
 
   .cursor { position:fixed;width:10px;height:10px;background:var(--acid);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:transform 0.08s;box-shadow:0 0 6px var(--acid); }
   .cursor-trail { position:fixed;width:36px;height:36px;border:1.5px solid var(--acid);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:all 0.15s;opacity:0.5; }
-  [data-theme="light"] .cursor { background:#e8000d; }
-  [data-theme="light"] .cursor-trail { border-color:#e8000d; }
 
-  /* NAV */
   nav { position:fixed;top:0;left:0;right:0;z-index:9000;overflow:visible;display:flex;justify-content:space-between;align-items:center;padding:18px 40px;background:#111111;border-bottom:2px solid var(--acid);transition:background 0.5s,border-color 0.5s; }
   .nav-logo { font-family:'Black Han Sans',sans-serif;font-size:28px;letter-spacing:0.14em;color:#fff;text-decoration:none; }
   .nav-logo .dot { color:var(--acid);font-size:34px;line-height:0;vertical-align:middle; }
   .nav-links { display:flex;align-items:center;gap:32px; }
-  .nav-link { font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(255,255,255,0.7);letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:color 0.2s; }
-  .nav-link:hover,.nav-link.active { color:var(--acid); }
-  [data-theme="light"] nav { background:#f4f1ea;border-bottom-color:#e8000d; }
-  [data-theme="light"] .nav-logo { color:#181818; }
-  [data-theme="light"] .nav-logo .dot { color:#e8000d; }
+  .nav-link { font-family:'Share Tech Mono',monospace;font-size:15px;color:rgba(255,255,255,0.7);letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;transition:color 0.2s; }
   [data-theme="light"] .nav-link { color:rgba(24,24,24,0.75); }
-  [data-theme="light"] .nav-link:hover,[data-theme="light"] .nav-link.active { color:#e8000d; }
+  [data-theme="light"] .nav-link:hover, [data-theme="light"] .nav-link.active { color:#e8000d; }
+  .nav-link:hover,.nav-link.active { color:var(--acid); }
   .theme-toggle { display:flex;align-items:center;gap:8px;background:var(--bg3);border:1.5px solid var(--border);border-radius:40px;padding:6px 12px;cursor:pointer;transition:var(--transition);user-select:none;-webkit-tap-highlight-color:transparent; }
   .theme-toggle:hover { border-color:var(--acid); }
   .toggle-track { width:38px;height:20px;background:var(--bg);border:1px solid var(--border);border-radius:20px;position:relative; }
   .toggle-thumb { position:absolute;top:3px;left:3px;width:12px;height:12px;background:var(--acid);border-radius:50%;transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);box-shadow:0 0 8px rgba(200,255,0,0.6); }
-  [data-theme="light"] .toggle-thumb { transform:translateX(18px);background:#e8000d;box-shadow:0 0 8px rgba(232,0,13,0.5); }
+  [data-theme="light"] .toggle-thumb { transform:translateX(18px); }
+  [data-theme="light"] nav { background:#f4f1ea;border-bottom-color:#e8000d; }
+  [data-theme="light"] .nav-logo { color:#181818; }
+  [data-theme="light"] .nav-logo .dot { color:#e8000d; }
+  [data-theme="light"] .toggle-thumb { background:#e8000d;box-shadow:0 0 8px rgba(232,0,13,0.5); }
+  [data-theme="light"] .cursor { background:#e8000d; }
+  [data-theme="light"] .cursor-trail { border-color:#e8000d; }
 
-  /* HAMBURGER */
-  .hamburger { display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;-webkit-tap-highlight-color:transparent;z-index:9200; }
-  .hamburger span { display:block;width:24px;height:2px;background:var(--acid);transition:transform 0.3s,opacity 0.3s,width 0.3s; }
-  .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
-  .hamburger.open span:nth-child(2) { opacity:0;width:0; }
-  .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
-  [data-theme="light"] .hamburger span { background:#e8000d; }
-  .mobile-menu { display:none;position:absolute;top:calc(100% + 10px);right:0;min-width:220px;background:#111111;z-index:9999;flex-direction:column;border:2px solid var(--acid);box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transition:opacity 0.2s ease;pointer-events:none; }
-  .mobile-menu.open { opacity:1;pointer-events:all; }
-  .mobile-menu-link { font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:0.25em;color:#fff;text-decoration:none;text-transform:uppercase;padding:18px 24px;display:block;border-bottom:1px solid rgba(255,255,255,0.1);transition:color 0.2s,background 0.2s; }
-  .mobile-menu-link:last-child { border-bottom:none; }
-  .mobile-menu-link:hover,.mobile-menu-link.active { color:var(--acid);background:rgba(200,255,0,0.07); }
-  [data-theme="light"] .mobile-menu { background:#1a1a1a;border-color:#e8000d; }
-  [data-theme="light"] .mobile-menu-link:hover,[data-theme="light"] .mobile-menu-link.active { color:#e8000d;background:rgba(232,0,13,0.1); }
+  /* HERO */
+  .about-hero {
+    min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:0 40px 80px;position:relative;overflow:hidden;
+    border-bottom:1px solid var(--border);
+  }
+  .hero-bg-text {
+    position:absolute;bottom:-40px;left:-20px;
+    font-family:'Black Han Sans',sans-serif;font-size:clamp(120px,25vw,380px);
+    color:transparent;-webkit-text-stroke:1px var(--border);
+    white-space:nowrap;pointer-events:none;letter-spacing:-0.03em;line-height:1;
+    animation:bgPulse 8s ease-in-out infinite;
+  }
+  @keyframes bgPulse{0%,100%{opacity:0.4}50%{opacity:0.8}}
 
-  /* PAGE HEADER */
-  .page-header { padding:140px 40px 80px;position:relative;overflow:hidden;border-bottom:1px solid var(--border); }
-  .page-bg { position:absolute;bottom:-20px;right:-20px;font-family:'Black Han Sans',sans-serif;font-size:clamp(100px,22vw,300px);color:transparent;-webkit-text-stroke:1px var(--border);white-space:nowrap;pointer-events:none;opacity:0.5;letter-spacing:-0.02em;line-height:1; }
-  .page-eyebrow { font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:0.4em;color:var(--acid);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px; }
-  .page-eyebrow::before { content:'';display:block;width:32px;height:2px;background:var(--acid); }
-  .page-title { font-family:'Black Han Sans',sans-serif;font-size:clamp(52px,11vw,140px);line-height:0.9;letter-spacing:-0.02em;color:var(--text);text-transform:uppercase;animation:fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) both; }
-  @keyframes fadeUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
-  .page-sub { font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--muted);letter-spacing:0.3em;text-transform:uppercase;margin-top:20px; }
-
-  /* CONTACT LAYOUT */
-  .contact-main { display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border); }
-  .contact-info { padding:80px 40px;border-right:1px solid var(--border);transition:border-color 0.5s; }
-  .info-label { font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:0.4em;color:var(--muted);text-transform:uppercase;margin-bottom:40px; }
-  .contact-block { margin-bottom:52px; }
-  .contact-block-label { font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:0.35em;color:var(--acid);text-transform:uppercase;margin-bottom:12px; }
-  .contact-email { font-family:'Black Han Sans',sans-serif;font-size:clamp(20px,2.8vw,34px);letter-spacing:0.08em;color:var(--text);text-decoration:none;text-transform:uppercase;display:block;transition:color 0.2s;line-height:1.2; }
-  .contact-email:hover { color:var(--acid); }
-  [data-theme="light"] .contact-email:hover { color:#e8000d; }
-  .socials { display:flex;flex-direction:column;gap:3px; }
-  .social-row { display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--border);text-decoration:none;transition:border-color 0.2s,padding-left 0.3s; }
-  .social-row:hover { padding-left:8px;border-bottom-color:var(--acid); }
-  .social-name { font-family:'Black Han Sans',sans-serif;font-size:22px;letter-spacing:0.08em;color:var(--text);text-transform:uppercase;transition:color 0.2s; }
-  .social-row:hover .social-name { color:var(--acid); }
-  [data-theme="light"] .social-row:hover .social-name { color:#e8000d; }
-  [data-theme="light"] .social-row:hover { border-bottom-color:#e8000d; }
-  .social-handle { font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.25em; }
-  .social-arrow { font-size:18px;color:var(--muted);transition:color 0.2s,transform 0.2s; }
-  .social-row:hover .social-arrow { color:var(--acid);transform:translate(4px,-4px); }
-  [data-theme="light"] .social-row:hover .social-arrow { color:#e8000d; }
-  .response-note { margin-top:48px;padding:20px 24px;border:1px solid var(--border);background:var(--bg2);transition:background 0.5s,border-color 0.5s; }
-  .response-note-label { font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:0.35em;color:var(--acid);text-transform:uppercase;margin-bottom:8px; }
-  .response-note-text { font-size:14px;font-weight:300;color:var(--text2);line-height:1.6; }
-
-  /* FORM WRAP */
-  .contact-form-wrap { padding:80px 40px; }
-  .form-label { font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:0.4em;color:var(--muted);text-transform:uppercase;margin-bottom:40px; }
-
-  /* BREVO OVERRIDE — keep our design, use their backend */
-  .sib-form, #sib-form-container, #sib-container {
-    all:unset !important; display:block !important;
-    background:transparent !important; border:none !important;
-    border-radius:0 !important; max-width:100% !important;
-    text-align:left !important; box-shadow:none !important; padding:0 !important;
+  .about-eyebrow { font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:0.4em;color:var(--acid);text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:12px; }
+  .about-eyebrow::before { content:'';display:block;width:40px;height:2px;background:var(--acid); }
+  .about-headline {
+    font-family:'Black Han Sans',sans-serif;font-size:clamp(56px,11vw,160px);
+    line-height:0.88;letter-spacing:-0.02em;color:var(--text);text-transform:uppercase;
+    position:relative;z-index:2;
+    animation:fadeUp 1s cubic-bezier(0.16,1,0.3,1) both;
+  }
+  @keyframes fadeUp{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .about-headline .accent { color:var(--acid); }
+  .about-intro {
+    font-size:18px;font-weight:300;line-height:1.75;color:var(--text2);
+    max-width:560px;margin-top:32px;position:relative;z-index:2;
+    animation:fadeUp 1s 0.25s cubic-bezier(0.16,1,0.3,1) both;
   }
 
-  /* Labels */
-  .entry__label {
-    font-family:'Share Tech Mono',monospace !important;
-    font-size:9px !important; letter-spacing:0.35em !important;
-    color:var(--muted) !important; text-transform:uppercase !important;
-    font-weight:400 !important; display:block !important; margin-bottom:8px !important;
-    transition:color 0.3s !important;
+  /* MANIFESTO */
+  .manifesto-section {
+    padding:100px 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;
+    border-bottom:1px solid var(--border);
   }
-  .form__entry:focus-within .entry__label { color:var(--acid) !important; }
-  [data-theme="light"] .form__entry:focus-within .entry__label { color:#e8000d !important; }
-
-  /* Inputs & select */
-  .input, .sib-form .input {
-    width:100% !important; background:var(--input-bg) !important;
-    border:1.5px solid var(--input-border) !important; border-radius:0 !important;
-    color:var(--text) !important; font-family:'Barlow Condensed',sans-serif !important;
-    font-size:17px !important; font-weight:400 !important; padding:18px 20px !important;
-    outline:none !important; letter-spacing:0.05em !important;
-    transition:border-color 0.3s,background 0.3s !important;
-    margin-bottom:0 !important; box-shadow:none !important;
-    -webkit-appearance:none !important; appearance:none !important;
+  .manifesto-label { font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:0.4em;color:var(--muted);text-transform:uppercase;margin-bottom:28px; }
+  .manifesto-text {
+    font-family:'Black Han Sans',sans-serif;font-size:clamp(28px,4vw,52px);
+    letter-spacing:-0.01em;line-height:1.1;color:var(--text);text-transform:uppercase;
   }
-  .input:focus { border-color:var(--acid) !important; background:var(--bg2) !important; }
-  [data-theme="light"] .input:focus { border-color:#e8000d !important; }
-  .input::placeholder { color:var(--muted) !important; font-family:'Share Tech Mono',monospace !important; font-size:12px !important; letter-spacing:0.2em !important; }
+  .manifesto-text .hi { color:var(--acid); }
+  .manifesto-body { font-size:17px;font-weight:300;line-height:1.8;color:var(--text2);display:flex;flex-direction:column;gap:20px; }
+  .manifesto-body p { transition:color 0.5s; }
 
-  /* Spacing between fields */
-  .sib-form-block, .sib-input, .sib-select { padding:0 0 14px 0 !important; }
-  .form__entry { margin:0 !important; }
-  .form__label-row { display:block !important; }
-  .entry__field { display:block !important; }
+  /* VALUES */
+  .values-section { padding:80px 40px;border-bottom:1px solid var(--border);background:var(--bg2);transition:background 0.5s,border-color 0.5s; }
+  .section-header { display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px;border-bottom:1px solid var(--border);padding-bottom:20px; }
+  .section-title { font-family:'Black Han Sans',sans-serif;font-size:clamp(32px,5vw,60px);letter-spacing:-0.01em;color:var(--text); }
+  .section-num { font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:0.3em;color:var(--muted); }
 
-  /* Two-col row */
-  .form-two-col { display:grid;grid-template-columns:1fr 1fr;gap:3px; }
-
-  /* Select arrow */
-  select.input {
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%23888'/%3E%3C/svg%3E") !important;
-    background-repeat:no-repeat !important; background-position:right 20px center !important; cursor:pointer !important;
+  .values-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:3px; }
+  .value-card {
+    background:var(--card-bg);padding:40px 32px;
+    position:relative;overflow:hidden;
+    transition:background 0.3s;
   }
+  .value-card:hover { background:var(--bg3); }
+  .value-card::before { content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--acid);transition:height 0.4s cubic-bezier(0.16,1,0.3,1); }
+  .value-card:hover::before { height:100%; }
+  .value-num { font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--acid);letter-spacing:0.35em;margin-bottom:16px; }
+  .value-title { font-family:'Black Han Sans',sans-serif;font-size:28px;letter-spacing:0.04em;text-transform:uppercase;color:var(--text);margin-bottom:14px; }
+  .value-desc { font-size:15px;font-weight:300;line-height:1.7;color:var(--text2); }
 
-  /* Submit button */
-  .sib-form-block__button {
-    width:100% !important; background:#111111 !important; color:var(--acid) !important;
-    border:2px solid var(--acid) !important; border-radius:0 !important;
-    font-family:'Black Han Sans',sans-serif !important; font-size:16px !important;
-    letter-spacing:0.25em !important; padding:20px 40px !important;
-    cursor:pointer !important; text-transform:uppercase !important; font-weight:900 !important;
-    margin-top:8px !important; transition:background 0.3s,color 0.3s !important;
+  /* STATS */
+  .stats-section { padding:80px 40px;border-bottom:1px solid var(--border);transition:border-color 0.5s; }
+  .stats-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:0; }
+  .stat-item { padding:48px 32px;border:1px solid var(--border);text-align:center;transition:border-color 0.3s,background 0.3s; }
+  .stat-item:hover { border-color:var(--acid);background:var(--bg2); }
+  .stat-num { font-family:'Black Han Sans',sans-serif;font-size:clamp(40px,6vw,72px);color:var(--acid);line-height:1;display:block;letter-spacing:-0.02em; }
+  .stat-label { font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.3em;text-transform:uppercase;margin-top:10px;display:block; }
+
+  /* FOUNDER STRIP */
+  .founder-section {
+    padding:100px 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+    border-bottom:1px solid var(--border);
   }
-  .sib-form-block__button:hover { background:var(--acid) !important; color:#111 !important; }
-  [data-theme="light"] .sib-form-block__button { background:#f4f1ea !important; color:#e8000d !important; border-color:#e8000d !important; }
-  [data-theme="light"] .sib-form-block__button:hover { background:#e8000d !important; color:#fff !important; }
-  .sib-hide-loader-icon { display:none !important; }
-
-  /* Error / success messages */
-  #error-message, #success-message {
-    all:unset !important; display:none; padding:16px 20px !important;
-    margin-bottom:20px !important; font-family:'Share Tech Mono',monospace !important;
-    font-size:12px !important; letter-spacing:0.2em !important;
-    text-transform:uppercase !important; border:1.5px solid !important;
+  .founder-label { font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:0.4em;color:var(--acid);text-transform:uppercase;margin-bottom:20px; }
+  .founder-quote {
+    font-family:'Black Han Sans',sans-serif;font-size:clamp(22px,3vw,38px);
+    letter-spacing:0.02em;text-transform:uppercase;color:var(--text);line-height:1.2;
+    border-left:3px solid var(--acid);padding-left:28px;
   }
-  #error-message { color:#ff4949 !important; border-color:#ff4949 !important; background:rgba(255,73,73,0.06) !important; }
-  #success-message { color:var(--acid) !important; border-color:var(--acid) !important; background:rgba(200,255,0,0.05) !important; }
-  [data-theme="light"] #success-message { color:#e8000d !important; border-color:#e8000d !important; background:rgba(232,0,13,0.05) !important; }
-  .sib-form-message-panel__text { display:flex !important; align-items:center !important; gap:10px !important; }
-  .sib-notification__icon { width:18px !important; height:18px !important; flex-shrink:0 !important; fill:currentColor !important; }
-  .entry__specification { display:none !important; }
-  .entry__error { font-family:'Share Tech Mono',monospace !important; font-size:10px !important; letter-spacing:0.2em !important; color:#ff4949 !important; background:transparent !important; border:none !important; padding:4px 0 0 0 !important; display:block !important; min-height:0 !important; }
+  .founder-name { font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:0.3em;text-transform:uppercase;margin-top:24px; }
+  .founder-body { font-size:17px;font-weight:300;line-height:1.8;color:var(--text2); }
 
-  /* FOOTER */
+  .cta-strip {
+    background:#111;padding:80px 40px;display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;
+  }
+  .cta-text { font-family:'Black Han Sans',sans-serif;font-size:clamp(28px,5vw,64px);color:#f0ede6;text-transform:uppercase;letter-spacing:-0.01em; }
+  .cta-text span { color:var(--acid); }
+  .cta-btn { font-family:'Black Han Sans',sans-serif;font-size:14px;letter-spacing:0.25em;text-transform:uppercase;padding:18px 40px;background:var(--acid);color:#111;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:var(--transition);font-weight:900; }
+  .cta-btn:hover { background:#fff; }
+
   footer { padding:40px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);background:var(--foot-bg);transition:var(--transition);gap:32px;flex-wrap:wrap; }
   .footer-logo { font-family:'Black Han Sans',sans-serif;font-size:22px;letter-spacing:0.15em;color:var(--text); }
   .footer-logo .dot { color:var(--acid); }
-  [data-theme="light"] .footer-logo .dot { color:#e8000d; }
   .footer-copy { font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.2em; }
   .footer-links { display:flex;gap:24px; }
   .footer-link { font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.3em;text-decoration:none;text-transform:uppercase;transition:color 0.2s; }
   .footer-link:hover { color:var(--acid); }
-  [data-theme="light"] .footer-link:hover { color:#e8000d; }
+  [data-theme="light"] .footer-logo .dot { color:#e8000d; }
+  [data-theme="light"] .cta-text span { color:#e8000d; }
+  [data-theme="light"] .cta-btn { background:#e8000d;color:#fff; }
+  [data-theme="light"] .cta-btn:hover { background:#111; }
 
-  /* RESPONSIVE */
-  @media(hover:none){ .cursor,.cursor-trail { display:none !important; } body { cursor:auto; } }
+
+  /* ====== MOBILE NAV / HAMBURGER ====== */
+  .hamburger { display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;-webkit-tap-highlight-color:transparent;z-index:9200;position:relative; }
+  .hamburger span { display:block;width:24px;height:2px;background:var(--acid);transition:transform 0.3s,opacity 0.3s,width 0.3s; }
+  .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity:0;width:0; }
+  .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  .mobile-menu {
+    display:none;position:absolute;top:100%;right:0;min-width:200px;
+    background:#111111;z-index:9100;flex-direction:column;
+    border:2px solid var(--acid);border-top:none;
+    opacity:0;transition:opacity 0.2s ease;pointer-events:none;
+  }
+  .mobile-menu.open { opacity:1;pointer-events:all; }
+  .mobile-menu-link {
+    font-family:'Share Tech Mono',monospace;font-size:13px;
+    letter-spacing:0.25em;color:rgba(255,255,255,0.6);text-decoration:none;
+    text-transform:uppercase;padding:18px 24px;display:block;
+    border-bottom:1px solid rgba(255,255,255,0.07);transition:color 0.2s,background 0.2s;
+  }
+  .mobile-menu-link:last-child { border-bottom:none; }
+  .mobile-menu-link:hover,.mobile-menu-link.active { color:var(--acid);background:rgba(200,255,0,0.05); }
+  [data-theme="light"] .mobile-menu { background:#f4f1ea;border-color:#e8000d; }
+  [data-theme="light"] .mobile-menu-link { color:rgba(24,24,24,0.6); }
+  [data-theme="light"] .mobile-menu-link:hover,
+  [data-theme="light"] .mobile-menu-link.active { color:#e8000d;background:rgba(232,0,13,0.05); }
+  [data-theme="light"] .hamburger span { background:#e8000d; }
+  @media(hover:none){.cursor,.cursor-trail{display:none!important}body{cursor:auto}}
   @media(max-width:768px){
     .hamburger { display:flex; }
     .mobile-menu { display:flex; }
@@ -211,14 +200,20 @@
     nav { padding:14px 18px; }
     .nav-logo { font-size:20px; }
     .nav-logo .dot { font-size:24px; }
-    .page-header { padding:110px 20px 48px; }
-    .page-title { font-size:clamp(42px,14vw,90px); }
-    .contact-main { grid-template-columns:1fr; }
-    .contact-info { padding:48px 20px;border-right:none;border-bottom:1px solid var(--border); }
-    .contact-form-wrap { padding:48px 20px; }
-    .contact-email { font-size:clamp(16px,5vw,26px); }
-    .form-two-col { grid-template-columns:1fr; }
+    .about-hero { padding:100px 20px 60px; min-height:100svh; }
+    .about-headline { font-size:clamp(48px,16vw,90px); }
+    .about-intro { font-size:15px;margin-top:20px; }
+    .manifesto-section { padding:60px 20px;grid-template-columns:1fr;gap:40px; }
+    .values-section { padding:60px 20px; }
+    .values-grid { grid-template-columns:1fr;gap:2px; }
+    .stats-section { padding:48px 20px; }
+    .stats-grid { grid-template-columns:repeat(2,1fr); }
+    .founder-section { padding:60px 20px;grid-template-columns:1fr;gap:40px; }
+    .cta-strip { padding:48px 20px;flex-direction:column;align-items:flex-start; }
     footer { padding:28px 20px;flex-direction:column;align-items:flex-start;gap:16px; }
+    .section-header { flex-direction:column;align-items:flex-start;gap:8px; }
+    .manifesto-text { font-size:clamp(24px,8vw,40px); }
+    .founder-quote { font-size:clamp(18px,5vw,28px); }
   }
 </style>
 </head>
@@ -233,15 +228,15 @@
   <a href="index.html" class="nav-logo">CONQ<span class="dot">.</span>RETE</a>
   <div class="nav-links">
     <a href="products.html" class="nav-link">Products</a>
-    <a href="about.html" class="nav-link">About</a>
-    <a href="contact.html" class="nav-link active">Contact</a>
+    <a href="about.html" class="nav-link active">About</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
     <div class="theme-toggle" id="themeToggle">
       <span style="font-size:14px">⚡</span>
       <div class="toggle-track"><div class="toggle-thumb"></div></div>
       <span style="font-size:14px">☀️</span>
     </div>
-  </div>
-  <div style="display:flex;align-items:center;gap:12px;">
     <div class="theme-toggle" id="themeToggleMobile" style="display:none;">
       <span style="font-size:14px">⚡</span>
       <div class="toggle-track"><div class="toggle-thumb"></div></div>
@@ -251,150 +246,81 @@
       <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
       <div class="mobile-menu" id="mobileMenu">
         <a href="products.html" class="mobile-menu-link">Products</a>
-        <a href="about.html" class="mobile-menu-link">About</a>
-        <a href="contact.html" class="mobile-menu-link active">Contact</a>
+        <a href="about.html" class="mobile-menu-link active">About</a>
+        <a href="contact.html" class="mobile-menu-link">Contact</a>
       </div>
     </div>
   </div>
 </nav>
 
-<section class="page-header">
-  <div class="page-bg">CONTACT</div>
-  <div class="page-eyebrow">GET IN TOUCH</div>
-  <h1 class="page-title">Talk<br>To Us.</h1>
-  <p class="page-sub">// WE READ EVERY MESSAGE. SERIOUSLY.</p>
+<section class="about-hero">
+  <div class="hero-bg-text">CONQRETE</div>
+  <div class="about-eyebrow">EST. 2025 — INDIA</div>
+  <h1 class="about-headline">Built<br>Different<span class="accent">.</span></h1>
+  <p class="about-intro">CONQRETE was born from frustration. Overpriced gear that breaks. Cheap tech that disappoints. We're building the middle ground that never existed — uncompromising quality at a real price.</p>
 </section>
 
-<div class="contact-main">
+<section class="manifesto-section">
+  <div>
+    <div class="manifesto-label">// OUR MANIFESTO</div>
+    <h2 class="manifesto-text">We build for <span class="hi">the relentless.</span></h2>
+  </div>
+  <div class="manifesto-body">
+    <p>Tech accessories have been commoditised into mediocrity. Everything looks the same, breaks the same, and disappoints the same. We refuse to be part of that.</p>
+    <p>CONQRETE is built around one idea: your gear should be able to keep up with you. Not the other way around. Every product we make goes through brutal real-world testing before it ever reaches your hands.</p>
+    <p>We started in 2025 with four products. Earphones. Power banks. Cables. Adapters. Simple. Focused. Uncompromising. This is just the beginning.</p>
+  </div>
+</section>
 
-  <!-- LEFT -->
-  <div class="contact-info">
-    <div class="info-label">// DIRECT CHANNELS</div>
-    <div class="contact-block">
-      <div class="contact-block-label">// EMAIL</div>
-      <a href="mailto:ask@conqrete.in" class="contact-email">ask@conqrete.in</a>
+<section class="values-section">
+  <div class="section-header">
+    <h2 class="section-title">What We Stand For</h2>
+    <span class="section-num">03 PILLARS</span>
+  </div>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-num">// 01</div>
+      <h3 class="value-title">No Compromise</h3>
+      <p class="value-desc">Every spec is chosen for a reason. Every material tested. We don't cut corners to hit a price point — we engineer until the price point is justified.</p>
     </div>
-    <div class="contact-block">
-      <div class="contact-block-label">// SOCIAL</div>
-      <div class="socials">
-        <a href="https://www.instagram.com/conqrete.tech" target="_blank" rel="noopener" class="social-row">
-          <div><div class="social-name">Instagram</div><div class="social-handle">@conqrete.tech</div></div>
-          <span class="social-arrow">↗</span>
-        </a>
-        <a href="#" class="social-row">
-          <div><div class="social-name">Twitter / X</div><div class="social-handle">@conqrete</div></div>
-          <span class="social-arrow">↗</span>
-        </a>
-        <a href="#" class="social-row">
-          <div><div class="social-name">LinkedIn</div><div class="social-handle">CONQRETE</div></div>
-          <span class="social-arrow">↗</span>
-        </a>
-      </div>
+    <div class="value-card">
+      <div class="value-num">// 02</div>
+      <h3 class="value-title">Built to Last</h3>
+      <p class="value-desc">Fast fashion killed clothing. Cheap tech is killing accessories. We build things that survive daily abuse, because that's what daily life looks like.</p>
     </div>
-    <div class="response-note">
-      <div class="response-note-label">// RESPONSE TIME</div>
-      <div class="response-note-text">We typically respond within 24–48 hours. For urgent matters, Instagram DMs are fastest. No bots. Real people.</div>
+    <div class="value-card">
+      <div class="value-num">// 03</div>
+      <h3 class="value-title">Real Design</h3>
+      <p class="value-desc">Looks matter. We obsess over every curve, every finish, every detail — because great tech should also feel great to own.</p>
     </div>
   </div>
+</section>
 
-  <!-- RIGHT: BREVO FORM WITH CONQRETE SKIN -->
-  <div class="contact-form-wrap">
-    <div class="form-label">// SEND A MESSAGE</div>
-
-    <div class="sib-form">
-      <div id="sib-form-container" class="sib-form-container">
-
-        <div id="error-message" class="sib-form-message-panel">
-          <div class="sib-form-message-panel__text">
-            <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"/></svg>
-            <span class="sib-form-message-panel__inner-text">Could not send. Please try again.</span>
-          </div>
-        </div>
-
-        <div id="success-message" class="sib-form-message-panel">
-          <div class="sib-form-message-panel__text">
-            <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"/></svg>
-            <span class="sib-form-message-panel__inner-text">Message sent ✓ — We'll get back to you soon.</span>
-          </div>
-        </div>
-
-        <div id="sib-container" class="sib-container--large sib-container--vertical">
-          <form id="sib-form" method="POST" action="https://066f7a35.sibforms.com/serve/MUIFABGAadgyopNrtUuzDuLhicigUwlsVv4kDc-ezczsUHEUFzwCHB4UJSjUn75j0JSEcPIS_ZX4Utc95nc26YigjTgZ17pAyg9NgmAc3NoKKHzmilUa386Io9saLF1k-RbchfTojvaf5mRQpukwyFfW8WflAPmlkTV4GjOsT83ZAt3-ky45-1MA01vcAdgsByZuWi-kh3cnpkG6xg==" data-type="subscription">
-
-            <!-- Name + Email -->
-            <div class="form-two-col">
-              <div class="sib-input sib-form-block">
-                <div class="form__entry entry_block">
-                  <div class="form__label-row">
-                    <label class="entry__label" for="FIRSTNAME">// YOUR NAME</label>
-                    <div class="entry__field">
-                      <input class="input" maxlength="200" type="text" id="FIRSTNAME" name="FIRSTNAME" autocomplete="off" placeholder="FULL NAME" data-required="true" required />
-                    </div>
-                  </div>
-                  <label class="entry__error entry__error--primary"></label>
-                </div>
-              </div>
-              <div class="sib-input sib-form-block">
-                <div class="form__entry entry_block">
-                  <div class="form__label-row">
-                    <label class="entry__label" for="EMAIL">// EMAIL</label>
-                    <div class="entry__field">
-                      <input class="input" type="email" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="YOUR@EMAIL.COM" data-required="true" required />
-                    </div>
-                  </div>
-                  <label class="entry__error entry__error--primary"></label>
-                </div>
-              </div>
-            </div>
-
-            <!-- Topic -->
-            <div class="sib-select sib-form-block" data-required="true">
-              <div class="form__entry entry_block">
-                <div class="form__label-row">
-                  <label class="entry__label" for="DROPDOWN">// TOPIC</label>
-                  <div class="entry__field">
-                    <select class="input" id="DROPDOWN" name="DROPDOWN" data-required="true">
-                      <option value="" disabled selected hidden>SELECT A TOPIC</option>
-                      <option value="1">PRODUCT ENQUIRY</option>
-                      <option value="2">PRESS / MEDIA</option>
-                      <option value="3">PARTNERSHIP</option>
-                      <option value="4">GENERAL</option>
-                    </select>
-                  </div>
-                </div>
-                <label class="entry__error entry__error--primary"></label>
-              </div>
-            </div>
-
-            <!-- Message -->
-            <div class="sib-input sib-form-block">
-              <div class="form__entry entry_block">
-                <div class="form__label-row">
-                  <label class="entry__label" for="JOB_TITLE">// MESSAGE</label>
-                  <div class="entry__field">
-                    <input class="input" maxlength="200" type="text" id="JOB_TITLE" name="JOB_TITLE" autocomplete="off" placeholder="WHAT'S ON YOUR MIND..." />
-                  </div>
-                </div>
-                <label class="entry__error entry__error--primary"></label>
-              </div>
-            </div>
-
-            <!-- Submit -->
-            <div class="sib-form-block" style="text-align:left;">
-              <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">
-                <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>
-                SEND MESSAGE ↗
-              </button>
-            </div>
-
-            <input type="text" name="email_address_check" value="" class="input--hidden" style="display:none;">
-            <input type="hidden" name="locale" value="en">
-          </form>
-        </div>
-      </div>
-    </div>
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item"><span class="stat-num">04</span><span class="stat-label">Products in Dev</span></div>
+    <div class="stat-item"><span class="stat-num">2025</span><span class="stat-label">Founded</span></div>
+    <div class="stat-item"><span class="stat-num">Q3</span><span class="stat-label">Launch Target</span></div>
+    <div class="stat-item"><span class="stat-num">∞</span><span class="stat-label">Daily Abuse Tested</span></div>
   </div>
+</section>
 
+<section class="founder-section">
+  <div>
+    <div class="founder-label">// FOUNDER'S NOTE</div>
+    <blockquote class="founder-quote">"I was tired of choosing between expensive and bad. So we built what didn't exist."</blockquote>
+    <div class="founder-name">— CONQRETE FOUNDER, 2025</div>
+  </div>
+  <div class="founder-body">
+    <p>The idea for CONQRETE came from a simple observation: the accessories market in India was flooded with products that were either overpriced imports or cheap knockoffs that lasted three months.</p>
+    <p>We started with four categories because we use all four every single day. Earphones for the commute. Power banks for the long days. Cables that don't fray. Adapters that actually charge fast. Products built around real life.</p>
+    <p>We're not here to be another brand. We're here to set a new standard.</p>
+  </div>
+</section>
+
+<div class="cta-strip">
+  <div class="cta-text">See what we're<br><span>building.</span></div>
+  <a href="products.html" class="cta-btn">VIEW PRODUCTS</a>
 </div>
 
 <footer>
@@ -403,20 +329,9 @@
   <div class="footer-links">
     <a href="index.html" class="footer-link">Home</a>
     <a href="products.html" class="footer-link">Products</a>
-    <a href="about.html" class="footer-link">About</a>
+    <a href="contact.html" class="footer-link">Contact</a>
   </div>
 </footer>
-
-<script>
-  window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
-  window.LOCALE = 'en';
-  window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "Invalid email. Please check and try again.";
-  window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank.";
-  window.GENERIC_INVALID_MESSAGE = "Invalid information. Please review and try again.";
-  window.translation = { common: { selectedList:'{quantity} list selected', selectedLists:'{quantity} lists selected', selectedOption:'{quantity} selected', selectedOptions:'{quantity} selected' } };
-  var AUTOHIDE = Boolean(0);
-</script>
-<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 
 <script>
   const cursor = document.getElementById('cursor');
@@ -425,24 +340,25 @@
     cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px';
     setTimeout(()=>{trail.style.left=e.clientX+'px';trail.style.top=e.clientY+'px';},80);
   });
-  document.querySelectorAll('a,button,.social-row').forEach(el=>{
+  document.querySelectorAll('a,button,.value-card,.stat-item').forEach(el=>{
     el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.5)';trail.style.transform='translate(-50%,-50%) scale(1.5)';});
     el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';trail.style.transform='translate(-50%,-50%) scale(1)';});
   });
-
   const html = document.documentElement;
   let isDark = true;
   document.getElementById('themeToggle').addEventListener('click', () => {
-    isDark=!isDark; html.setAttribute('data-theme',isDark?'dark':'light');
-    isDark?startStorm():stopStorm();
+    isDark = !isDark;
+    html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    isDark ? startStorm() : stopStorm();
   });
 
+  // LIGHTNING
   const flashEl = document.getElementById('lightningFlash');
   const lCanvas = document.getElementById('stormCanvas');
   const lCtx = lCanvas.getContext('2d');
-  let stormRunning=false, stormTimer=null;
+  let stormRunning = false, stormTimer = null;
   function resize(){ lCanvas.width=window.innerWidth; lCanvas.height=window.innerHeight; }
-  resize(); window.addEventListener('resize',resize);
+  resize(); window.addEventListener('resize', resize);
   function drawBolt(x1,y1,x2,y2,rough,color,w,depth){
     if(depth<=0)return;
     const mx=(x1+x2)/2+(Math.random()-.5)*rough,my=(y1+y2)/2+(Math.random()-.5)*rough*.4;
@@ -471,23 +387,31 @@
   function stopStorm(){ stormRunning=false;clearTimeout(stormTimer);lCtx.clearRect(0,0,lCanvas.width,lCanvas.height);lCanvas.style.opacity='0';flashEl.style.opacity='0'; }
   startStorm();
 
+  // Hamburger menu
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
   const themeToggleMobile = document.getElementById('themeToggleMobile');
-  if(hamburger&&mobileMenu){
-    hamburger.addEventListener('click',()=>{hamburger.classList.toggle('open');mobileMenu.classList.toggle('open');});
+  if(hamburger && mobileMenu){
+    hamburger.addEventListener('click',()=>{
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
     mobileMenu.querySelectorAll('.mobile-menu-link').forEach(l=>{
-      l.addEventListener('click',()=>{hamburger.classList.remove('open');mobileMenu.classList.remove('open');});
+      l.addEventListener('click',()=>{ hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); });
     });
   }
-  function checkMobileToggle(){ if(themeToggleMobile) themeToggleMobile.style.display=window.innerWidth<=768?'flex':'none'; }
+  function checkMobileToggle(){
+    if(themeToggleMobile){ themeToggleMobile.style.display = window.innerWidth<=768?'flex':'none'; }
+  }
   checkMobileToggle(); window.addEventListener('resize',checkMobileToggle);
   if(themeToggleMobile){
     themeToggleMobile.addEventListener('click',()=>{
-      isDark=!isDark; html.setAttribute('data-theme',isDark?'dark':'light');
+      isDark=!isDark;
+      html.setAttribute('data-theme',isDark?'dark':'light');
       isDark?startStorm():stopStorm();
     });
   }
+
 </script>
 </body>
 </html>
