@@ -125,7 +125,7 @@
 
   /* ====== NAV ====== */
   nav {
-    position:fixed;top:0;left:0;right:0;z-index:9000;
+    position:fixed;top:0;left:0;right:0;z-index:9000;overflow:visible;
     display:flex;justify-content:space-between;align-items:center;
     padding:18px 40px;
     background:#111111;
@@ -144,6 +144,15 @@
 
   .nav-right { display:flex;align-items:center;gap:24px; }
 
+
+  .nav-page-link {
+    font-family:'Share Tech Mono',monospace;font-size:12px;
+    color:rgba(255,255,255,0.7);letter-spacing:0.3em;text-transform:uppercase;
+    text-decoration:none;transition:color 0.2s;
+  }
+  .nav-page-link:hover { color:var(--acid); }
+  [data-theme="light"] .nav-page-link { color:rgba(24,24,24,0.75); }
+  [data-theme="light"] .nav-page-link:hover { color:#e8000d; }
   .nav-tag {
     font-family:'Share Tech Mono',monospace;font-size:12px;
     color:#ffffff;letter-spacing:0.3em;text-transform:uppercase;
@@ -955,16 +964,58 @@
   .social-link:hover{color:var(--acid);}
 
   /* ====== RESPONSIVE ====== */
+
+  /* ====== MOBILE NAV / HAMBURGER ====== */
+  .hamburger { display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;-webkit-tap-highlight-color:transparent;z-index:9200;position:relative; }
+  .hamburger span { display:block;width:24px;height:2px;background:var(--acid);transition:transform 0.3s,opacity 0.3s,width 0.3s; }
+  .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity:0;width:0; }
+  .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  .mobile-menu {
+    display:none;position:absolute;top:calc(100% + 10px);right:0;min-width:220px;
+    background:#111111;z-index:9999;flex-direction:column;
+    border:2px solid var(--acid);
+    box-shadow:0 8px 32px rgba(0,0,0,0.5);
+    opacity:0;transition:opacity 0.2s ease;pointer-events:none;
+  }
+  .mobile-menu.open { opacity:1;pointer-events:all; }
+  .mobile-menu-link {
+    font-family:'Share Tech Mono',monospace;font-size:13px;
+    letter-spacing:0.25em;color:#ffffff;text-decoration:none;
+    text-transform:uppercase;padding:18px 24px;display:block;
+    border-bottom:1px solid rgba(255,255,255,0.1);transition:color 0.2s,background 0.2s;
+  }
+  .mobile-menu-link:last-child { border-bottom:none; }
+  .mobile-menu-link:hover,.mobile-menu-link.active { color:var(--acid);background:rgba(200,255,0,0.07); }
+  [data-theme="light"] .mobile-menu { background:#1a1a1a;border-color:#e8000d; }
+  [data-theme="light"] .mobile-menu-link { color:#ffffff; }
+  [data-theme="light"] .mobile-menu-link:hover,
+  [data-theme="light"] .mobile-menu-link.active { color:#e8000d;background:rgba(232,0,13,0.1); }
+  [data-theme="light"] .hamburger span { background:#e8000d; }
+
   @media (hover: none) {
     .cursor, .cursor-trail { display: none !important; }
     body { cursor: auto; }
   }
 
   @media (max-width: 768px) {
+    .hamburger { display:flex; }
+    .mobile-menu { display:flex; }
+    .nav { padding: 14px 18px; }
     nav { padding: 14px 18px; }
     .nav-logo { font-size: 22px; }
     .nav-logo .dot { font-size: 26px; }
-    .nav-tag { display: none; }
+  
+  .nav-page-link {
+    font-family:'Share Tech Mono',monospace;font-size:12px;
+    color:rgba(255,255,255,0.7);letter-spacing:0.3em;text-transform:uppercase;
+    text-decoration:none;transition:color 0.2s;
+  }
+  .nav-page-link:hover { color:var(--acid); }
+  [data-theme="light"] .nav-page-link { color:rgba(24,24,24,0.75); }
+  [data-theme="light"] .nav-page-link:hover { color:#e8000d; }
+  .nav-tag { display: none; }
+    .nav-right > a { display:none; }
     .theme-toggle { padding: 5px 10px; gap: 6px; }
     .toggle-track { width: 32px; height: 18px; }
     .toggle-thumb { width: 10px; height: 10px; }
@@ -1094,13 +1145,21 @@
   <a href="#" class="nav-logo">CONQ<span class="dot">.</span>RETE</a>
   <div class="nav-right">
     <span class="nav-tag">EST. 2025 — NEW AGE TECH</span>
-    <a href="products.html" style="font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(255,255,255,0.6);letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--acid)'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Products</a>
-    <a href="about.html" style="font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(255,255,255,0.6);letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--acid)'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">About</a>
-    <a href="contact.html" style="font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(255,255,255,0.6);letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--acid)'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Contact</a>
+    <a href="products.html" class="nav-page-link">Products</a>
+    <a href="about.html" class="nav-page-link">About</a>
+    <a href="contact.html" class="nav-page-link">Contact</a>
     <div class="theme-toggle" id="themeToggle" title="Toggle dark / light mode">
       <span class="toggle-icon">⚡</span>
       <div class="toggle-track"><div class="toggle-thumb"></div></div>
       <span class="toggle-icon">☀️</span>
+    </div>
+  </div>
+  <div style="position:relative;">
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="products.html" class="mobile-menu-link">Products</a>
+      <a href="about.html" class="mobile-menu-link">About</a>
+      <a href="contact.html" class="mobile-menu-link">Contact</a>
     </div>
   </div>
 </nav>
@@ -1338,6 +1397,21 @@ if(cursor && trail){
     el.addEventListener('mouseleave',()=>{ cursor.style.transform='translate(-50%,-50%) scale(1)';   trail.style.transform='translate(-50%,-50%) scale(1)'; });
   });
 }
+
+
+// ============== HAMBURGER MENU ==============
+(function(){
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if(!hamburger||!mobileMenu) return;
+  hamburger.addEventListener('click',()=>{
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('.mobile-menu-link').forEach(l=>{
+    l.addEventListener('click',()=>{ hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); });
+  });
+})();
 
 // ============== COUNTDOWN ==============
 const target = new Date(Date.now()+90*24*60*60*1000);
