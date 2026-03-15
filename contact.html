@@ -197,8 +197,19 @@
   .contact-form-wrap { padding: 80px 40px; }
   .form-label { font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 0.4em; color: var(--muted); text-transform: uppercase; margin-bottom: 40px; }
 
-  /* BREVO RESET */
-  .sib-form, #sib-form-container, #sib-container { all: unset !important; display: block !important; background: transparent !important; border: none !important; border-radius: 0 !important; max-width: 100% !important; text-align: left !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; }
+  /* BREVO RESET - MODIFIED FOR VISIBILITY TOGGLING */
+  .sib-form, #sib-form-container, #sib-container { 
+    all: unset; /* Removed !important so Brevo can hide it naturally */
+    display: block; /* Removed !important */
+    background: transparent !important; 
+    border: none !important; 
+    border-radius: 0 !important; 
+    max-width: 100% !important; 
+    text-align: left !important; 
+    box-shadow: none !important; 
+    padding: 0 !important; 
+    margin: 0 !important; 
+  }
   
   .entry__label { font-family: 'Share Tech Mono', monospace !important; font-size: 9px !important; letter-spacing: 0.35em !important; color: var(--muted) !important; text-transform: uppercase !important; font-weight: 400 !important; display: block !important; margin-bottom: 8px !important; transition: color 0.3s !important; }
   .form__entry:focus-within .entry__label { color: var(--acid) !important; }
@@ -239,7 +250,7 @@
   [data-theme="light"] .sib-form-block__button:hover { background: #e8000d !important; color: #fff !important; }
   .sib-hide-loader-icon { display: none !important; }
 
-  /* ====== SUCCESS/ERROR MESSAGES - SIMPLIFIED ====== */
+  /* ====== SUCCESS/ERROR MESSAGES ====== */
   #error-message, #success-message {
     display: none;
     padding: 16px 20px;
@@ -254,7 +265,6 @@
     gap: 10px;
   }
   
-  /* Force display when Brevo adds inline styles or our JS adds class */
   #error-message[style*="display: flex"],
   #error-message[style*="display:flex"],
   #error-message.active,
@@ -339,7 +349,6 @@
 
 <div class="contact-main">
 
-  <!-- LEFT -->
   <div class="contact-info">
     <div class="info-label">// DIRECT CHANNELS</div>
     <div class="contact-block">
@@ -369,7 +378,6 @@
     </div>
   </div>
 
-  <!-- RIGHT: BREVO FORM -->
   <div class="contact-form-wrap">
     <div class="form-label">// SEND A MESSAGE</div>
 
@@ -552,47 +560,37 @@
   }
 
   // ====== FORM SUCCESS MESSAGE HANDLER ======
-  // Brevo hides the form on success but sometimes doesn't show the message
-  // This ensures the success message is visible when form is hidden
-  
   document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('sib-form');
-    const successMsg = document.getElementById('success-message');
     const formContainer = document.getElementById('sib-container');
+    const successMsg = document.getElementById('success-message');
     
     if (!form || !successMsg) return;
     
-    // Watch for form being hidden (Brevo's success indicator)
     const observer = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
-        if (mutation.type === 'attributes') {
-          // Check if form or container was hidden
-          const formHidden = form.style.display === 'none' || form.classList.contains('sib-hidden');
-          const containerHidden = formContainer && (formContainer.style.display === 'none' || formContainer.classList.contains('sib-hidden'));
+        
+        // Check if Brevo's JS is attempting to hide either the form or the container
+        const isHidden = 
+          (form.style.display === 'none' || form.classList.contains('sib-hidden')) ||
+          (formContainer && (formContainer.style.display === 'none' || formContainer.classList.contains('sib-hidden')));
           
-          if (formHidden || containerHidden) {
-            // Form is hidden = success! Show message
-            successMsg.classList.add('manual-show');
-            successMsg.style.display = 'flex';
-          }
+        if (isHidden) {
+          // 1. Force the form to ACTUALLY hide by overriding any leftover styles
+          if (formContainer) formContainer.style.setProperty('display', 'none', 'important');
+          form.style.setProperty('display', 'none', 'important');
+          
+          // 2. Force the success message to show and maintain your flexbox layout
+          successMsg.style.setProperty('display', 'flex', 'important');
         }
       });
     });
     
+    // Watch both elements for Brevo's native state changes
     observer.observe(form, { attributes: true, attributeFilter: ['style', 'class'] });
-    if (formContainer) observer.observe(formContainer, { attributes: true, attributeFilter: ['style', 'class'] });
-    
-    // Backup: Check periodically
-    setInterval(function() {
-      const formHidden = form.style.display === 'none' || form.classList.contains('sib-hidden');
-      const containerHidden = formContainer && (formContainer.style.display === 'none' || formContainer.classList.contains('sib-hidden'));
-      const msgVisible = window.getComputedStyle(successMsg).display !== 'none';
-      
-      if ((formHidden || containerHidden) && !msgVisible) {
-        successMsg.classList.add('manual-show');
-        successMsg.style.display = 'flex';
-      }
-    }, 500);
+    if (formContainer) {
+      observer.observe(formContainer, { attributes: true, attributeFilter: ['style', 'class'] });
+    }
   });
 </script>
 </body>
