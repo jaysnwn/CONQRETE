@@ -218,7 +218,7 @@
   [data-theme="light"]
 
   /* PAGE HEADER */
-  .page-header { padding:140px 40px 80px;position:relative;overflow:hidden;border-bottom:1px solid var(--border); }
+  .page-header { padding:74px 40px 80px;position:relative;overflow:hidden;border-bottom:1px solid var(--border); }
   .page-bg { position:absolute;bottom:-20px;right:-20px;font-family:'Black Han Sans',sans-serif;font-size:clamp(100px,22vw,300px);color:transparent;-webkit-text-stroke:1px var(--border);white-space:nowrap;pointer-events:none;opacity:0.5;letter-spacing:-0.02em;line-height:1; }
   .page-eyebrow { font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:0.4em;color:var(--acid);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px; }
   .page-eyebrow::before { content:'';display:block;width:32px;height:2px;background:var(--acid); }
@@ -359,14 +359,8 @@
   /* RESPONSIVE */
   @media(hover:none){ .cursor,.cursor-trail { display:none !important; } body { cursor:auto; } }
   @media(max-width:768px){
-    
-    
-    
-    
-    
-    
-    .page-header { padding:110px 20px 48px; }
-    .page-title { font-size:clamp(42px,14vw,90px); }
+    body { padding-top:58px; }
+    .page-header { padding:52px 20px 48px; }
     .contact-main { grid-template-columns:1fr; }
     .contact-info { padding:48px 20px;border-right:none;border-bottom:1px solid var(--border); }
     .contact-form-wrap { padding:48px 20px; }
