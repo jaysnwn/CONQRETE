@@ -199,8 +199,8 @@
 
   /* BREVO RESET - MODIFIED FOR VISIBILITY TOGGLING */
   .sib-form, #sib-form-container, #sib-container { 
-    all: unset; /* Removed !important so Brevo can hide it naturally */
-    display: block; /* Removed !important */
+    all: unset;
+    display: block; 
     background: transparent !important; 
     border: none !important; 
     border-radius: 0 !important; 
@@ -265,13 +265,17 @@
     gap: 10px;
   }
   
+  /* OVERRIDE EVERY POSSIBLE BREVO FALLBACK TO FORCE FLEX LAYOUT */
   #error-message[style*="display: flex"],
-  #error-message[style*="display:flex"],
+  #error-message[style*="display: block"],
+  #error-message[style*="display:block"],
+  #error-message.sib-form-message-panel--active,
   #error-message.active,
   #success-message[style*="display: flex"],
-  #success-message[style*="display:flex"],
+  #success-message[style*="display: block"],
+  #success-message[style*="display:block"],
+  #success-message.sib-form-message-panel--active,
   #success-message.active,
-  #error-message.manual-show,
   #success-message.manual-show {
     display: flex !important;
   }
@@ -559,38 +563,42 @@
     mobileMenu.querySelectorAll('.mobile-menu-link').forEach(l=>{ l.addEventListener('click',()=>{ hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }); });
   }
 
-  // ====== FORM SUCCESS MESSAGE HANDLER ======
+  // ====== FORM SUCCESS MESSAGE HANDLER (THE BULLETPROOF VERSION) ======
   document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('sib-form');
-    const formContainer = document.getElementById('sib-container');
-    const successMsg = document.getElementById('success-message');
-    
-    if (!form || !successMsg) return;
-    
-    const observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        
-        // Check if Brevo's JS is attempting to hide either the form or the container
-        const isHidden = 
-          (form.style.display === 'none' || form.classList.contains('sib-hidden')) ||
-          (formContainer && (formContainer.style.display === 'none' || formContainer.classList.contains('sib-hidden')));
-          
-        if (isHidden) {
-          // 1. Force the form to ACTUALLY hide by overriding any leftover styles
-          if (formContainer) formContainer.style.setProperty('display', 'none', 'important');
-          form.style.setProperty('display', 'none', 'important');
-          
-          // 2. Force the success message to show and maintain your flexbox layout
-          successMsg.style.setProperty('display', 'flex', 'important');
-        }
-      });
+    // Watch the outermost container. If Brevo deletes/re-adds elements inside here, we still catch it.
+    const formWrap = document.getElementById('sib-form-container');
+    if (!formWrap) return;
+
+    const observer = new MutationObserver(function() {
+      // Always re-query elements inside the observer function in case Brevo rebuilt the HTML
+      const form = document.getElementById('sib-form');
+      const innerContainer = document.getElementById('sib-container');
+      const successMsg = document.getElementById('success-message');
+      const errorMsg = document.getElementById('error-message');
+
+      if (!form || !successMsg) return;
+
+      // Condition 1: Brevo hid the form completely
+      const formHidden = form.style.display === 'none' || form.classList.contains('sib-hidden');
+      // Condition 2: Brevo is actively trying to show the success message
+      const msgActive = successMsg.style.display === 'block' || successMsg.classList.contains('sib-form-message-panel--active') || successMsg.classList.contains('active');
+
+      if (formHidden || msgActive) {
+        // Force the success message to show with your custom flex styling
+        successMsg.style.setProperty('display', 'flex', 'important');
+        // Brutally hide the original form and its wrapper
+        if (innerContainer) innerContainer.style.setProperty('display', 'none', 'important');
+        form.style.setProperty('display', 'none', 'important');
+      }
+
+      // Ensure error messages show properly too, just in case
+      if (errorMsg && (errorMsg.style.display === 'block' || errorMsg.classList.contains('sib-form-message-panel--active'))) {
+        errorMsg.style.setProperty('display', 'flex', 'important');
+      }
     });
-    
-    // Watch both elements for Brevo's native state changes
-    observer.observe(form, { attributes: true, attributeFilter: ['style', 'class'] });
-    if (formContainer) {
-      observer.observe(formContainer, { attributes: true, attributeFilter: ['style', 'class'] });
-    }
+
+    // The secret sauce: { subtree: true, childList: true } watches the entire "ecosystem" of the form, no matter what Brevo changes.
+    observer.observe(formWrap, { attributes: true, childList: true, subtree: true, attributeFilter: ['style', 'class'] });
   });
 </script>
 </body>
